@@ -1,18 +1,18 @@
 import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
+import Header from "./Components/HomePage/Header";
 
 function App() {
   return (
-    <div className="App">
-      <div className="flex space-x-4 p-5 h-20">
-        <p>Text One</p>
-        <p>Text Two</p>
-        <p className="p-10" style={{ color: "red" }}>
-          Text Two
-        </p>
+    <Router>
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+        </Switch>
       </div>
-      <h2 className="h-24 p-5">hi</h2>
-      <h2>hi</h2>
-    </div>
+    </Router>
   );
 }
 
