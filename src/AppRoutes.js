@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import Header from "./Components/HomePage/Header";
 import HomePage from "./Components/HomePage/HomePage";
+import CreateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/CreateCustomizedPackage";
+import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage"
 
 function AppRoutes() {
   return (
@@ -23,7 +25,12 @@ function AppRoutes() {
           {/* **OWNER ROUTES END** */}
 
           {/* **ORGANIZER ROUTES BEGIN** */}
-
+          <Route exact path="/eventorganizer/addcustomizedpackage" >
+            <CreateCustomizedPackage />
+          </Route>
+          <Route exact path="/eventorganizer/customizedpackages" >
+            <ViewCustomizedPackage />
+          </Route>
           {/* **ORGANIZER ROUTES END** */}
 
           {/* **USER ROUTE BEGIN** */}
