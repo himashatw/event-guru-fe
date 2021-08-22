@@ -11,7 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 
-const ViewCustomizedPackage = () => {
+const ViewCustomizerPackageApproval = () => {
 
     const [data, setData] = useState([]);
 
@@ -29,7 +29,7 @@ const ViewCustomizedPackage = () => {
     }));
     const classes = useStyles();
     useEffect(() => {
-        axios.get(`/organizer/pending/requests`)
+        axios.get(`/organizer/custom/view/approval`)
             .then(res => {
                 console.log(res.data.data)
                 setData(res.data.data);
@@ -42,7 +42,7 @@ const ViewCustomizedPackage = () => {
         <div className={classes.root}>
 
             <Typography gutterBottom variant="h4" component="h2">
-                Edit Package
+                View Package Approval
             </Typography>
             {data.map((value, index) => (
                 <Grid container wrap="nowrap" spacing={2}>
@@ -59,7 +59,7 @@ const ViewCustomizedPackage = () => {
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
-                                        {value.title}
+                                        {value.title}<Avatar>{value.approve === "true" ? "✅" : "❌"}</Avatar>
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         <h3>No Of Participants :{value.noOfParticipants}</h3>
@@ -75,14 +75,7 @@ const ViewCustomizedPackage = () => {
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Edit
-                                </Button>
-                                <Button size="small" color="primary">
-                                    Delete
-                                </Button>
-                            </CardActions>
+
 
                         </Card>
                     </Grid>
@@ -97,4 +90,4 @@ const ViewCustomizedPackage = () => {
     );
 }
 
-export default ViewCustomizedPackage;
+export default ViewCustomizerPackageApproval;
