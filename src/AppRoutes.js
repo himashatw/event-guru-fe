@@ -7,6 +7,12 @@ import CreateCustomizedPackage from "./Components/EventOrganizer/CustomizePackag
 import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage"
 import ViewCustomizerPackageApproval from "./Components/EventOrganizer/CustomizePackage/ViewCustomizerPackageApproval";
 import UpdateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/UpdateCustomizedPackage";
+import Login from "./Components/Login/Login";
+import UserRegister from "./Components/User/Registration";
+import PropertyOwnerRegister from "./Components/PropertyOwner/Registration";
+import EventOrganizerRegister from "./Components/EventOrganizer/Registration";
+import ContactUs from "./Components/HomePage/ContactUsPage";
+import Enquiry from "./Components/User/Enquiry";
 
 function AppRoutes() {
   return (
@@ -16,6 +22,8 @@ function AppRoutes() {
         <Switch>
           {/* **COMMON ROUTES BEGIN** */}
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/ContactUs" component={ContactUs} />
           {/* **COMMON ROUTES END** */}
 
           {/* **ADMIN ROUTES BEGIN** */}
@@ -23,10 +31,12 @@ function AppRoutes() {
           {/* **ADMIN ROUTES END** */}
 
           {/* **OWNER ROUTES BEGIN** */}
+          <Route exact path="/owner/register" component={PropertyOwnerRegister} />
 
           {/* **OWNER ROUTES END** */}
 
           {/* **ORGANIZER ROUTES BEGIN** */}
+          <Route exact path="/eventorganizer/register" component={EventOrganizerRegister} />
           <Route exact path="/eventorganizer/addcustomizedpackage" >
             <CreateCustomizedPackage />
           </Route>
@@ -39,10 +49,12 @@ function AppRoutes() {
           <Route exact path="/eventorganizer/editpackages/:id" >
             <UpdateCustomizedPackage />
           </Route>
+
           {/* **ORGANIZER ROUTES END** */}
 
           {/* **USER ROUTE BEGIN** */}
-
+          <Route exact path="/user/register" component={UserRegister} />
+          <Route exact path="/user/enquiry" component={Enquiry} />
           {/* **USER ROUTE END** */}
         </Switch>
       </div>
