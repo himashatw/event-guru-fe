@@ -1,23 +1,28 @@
 import React from 'react';
 import axios from '../../Services/axios';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 
+
 const useStyles = makeStyles((theme) => ({
+  image: {
+    backgroundImage: 'url(https://thumbs.dreamstime.com/b/event-management-business-background-chalkboard-wooden-176007384.jpg)',
+    backgroundRepeat: 'no-repeat',
+    // backgroundColor:
+    //   theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    // backgroundSize: 'cover',
+    // backgroundPosition: 'center',
+    // marginLeft: theme.spacing(10),
+  },
   paper: {
-    margin: theme.spacing(5),
+    margin: theme.spacing(6),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -27,50 +32,41 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '90%',
-    marginTop: theme.spacing(3),
+    width: '100%',
+    marginTop: theme.spacing(5),
   },
   submit: {
-    margin: theme.spacing(2, 0, 2),
+    margin: theme.spacing(3, 0, 2),
     height: '40px'
   },
 }));
 
-export default function OrganizerSignUp() {
+export default function ContactUs() {
   const classes = useStyles();
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } = useFormik({
     initialValues: {
       name: '',
       email: '',
-      phone: '',
-      password: '',
-      confirmPassword: ''
+      subject: '',
+      message: ''
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .max(15, 'Must be 15 characters or less')
-        .required('Full Name Name Required'),
+        .required('Name is Required'),
       email: Yup.string()
         .email('Please Enter Valid Email')
         .required('Email is required'),
-      phone: Yup.string()
-        .required('Phone Number is required')
-        .matches(/^[0-9]+$/, "Must be only numbers")
-        .min(10, 'Must be minimum 10 numbers')
-        .max(12, 'Must be maximum 12 numbers'),
-      password: Yup.string()
-        .min(6, 'Password must be at least 6 charaters')
-        .required('Password is required'),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Password must match')
-        .required('Confirm password is required'),
+      subject: Yup.string()
+        .required('Subject is required'),
+      message: Yup.string()
+        .required('Message is required'),
     }),
     onSubmit: () => {
       console.log('button clicked');
-      axios.post("/organizer/register", values)
+      axios.post("/visitor/contactus", values)
         .then(response => {
           console.log(response.data);
-          alert('Registered Successfully');
+          alert('Send Successfully');
           //history.push('/user/attendee/login');
         }).catch(error => {
           console.log(error.response.data.error);
@@ -79,15 +75,12 @@ export default function OrganizerSignUp() {
   })
 
   return (
-    <Grid container justifyContent="center" style={{ marginTop: "15px" }}>
+    <Grid container justifyContent="space-evenly" style={{ marginTop: "15px" }}>
       <CssBaseline />
       <Grid item xs={12} sm={6} md={5} component={Paper} elevation={20} square>
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Contact Us
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
             <Grid container spacing={3} >
@@ -111,6 +104,7 @@ export default function OrganizerSignUp() {
                   fullWidth
                   id="email"
                   label="Email Address*"
+                  name="email"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -122,51 +116,32 @@ export default function OrganizerSignUp() {
                 <TextField
                   variant="outlined"
                   fullWidth
-                  id="phone"
-                  name="phone"
-                  label="Phone Number*"
-                  value={values.phone}
+                  id="subject"
+                  label="Subject*"
+                  name="subject"
+                  value={values.subject}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  autoComplete="phone"
+                  autoComplete="subject"
                 />
-                {touched.phone && errors.phone ? (<div>{errors.phone}</div>) : null}
+                {touched.subject && errors.subject ? (<div>{errors.subject}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
+                  multiline
+                  rows={5}
                   fullWidth
-                  name="password"
-                  label="Password*"
-                  type="password"
-                  id="password"
-                  value={values.password}
+                  id="message"
+                  label="Message*"
+                  name="message"
+                  value={values.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  autoComplete="current-password"
+                  autoComplete="messsage"
                 />
-                {touched.password && errors.password ? (<div>{errors.password}</div>) : null}
+                {touched.message && errors.message ? (<div>{errors.message}</div>) : null}
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  name="confirmPassword"
-                  label="Confirm Password*"
-                  type="password"
-                  id="confirmPassword"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="current-password"
-                />
-                {touched.confirmPassword && errors.confirmPassword ? (<div>{errors.confirmPassword}</div>) : null}
-              </Grid>
-              <FormControlLabel
-                style={{ marginLeft: "9px" }}
-                control={<Checkbox color="primary" required/>}
-                label="I agree with privacy and policy agreement."
-              />
             </Grid>
             <Button
               type="submit"
@@ -175,15 +150,8 @@ export default function OrganizerSignUp() {
               color="primary"
               className={classes.submit}
             >
-              Sign Up
+              Send
             </Button>
-            <Grid container justifyContent="flex-start">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
       </Grid>
