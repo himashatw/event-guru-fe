@@ -36,11 +36,21 @@ const ViewCustomizedPackage = () => {
             }).catch(err => console.log(err.message))
     }, [])
 
-
+    const navigateEdit = (e, id) => {
+        e.preventDefault();
+        window.location = `/eventorganizer/editpackages/${id}`;
+    }
+    const navigateDelete = (e, id) => {
+        e.preventDefault();
+        axios.delete(`organizer/pending/delete/${id}`)
+            .then(res => {
+                console.log(res.data.data);
+                alert("Delete successfully!");
+            }).catch(err => console.log(err.message));
+    }
 
     return (
         <div className={classes.root}>
-
             <Typography gutterBottom variant="h4" component="h2">
                 Edit Package
             </Typography>
@@ -76,14 +86,13 @@ const ViewCustomizedPackage = () => {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button size="small" color="primary">
+                                <Button size="small" color="primary" onClick={event => navigateEdit(event, value._id)} >
                                     Edit
                                 </Button>
-                                <Button size="small" color="primary">
+                                <Button size="small" color="primary" onClick={event => navigateDelete(event, value._id)}>
                                     Delete
                                 </Button>
                             </CardActions>
-
                         </Card>
                     </Grid>
 
@@ -91,8 +100,9 @@ const ViewCustomizedPackage = () => {
                     {/* </Grid> */}
 
                 </Grid>
-            ))}
 
+            ))}
+            <br />
         </div>
     );
 }

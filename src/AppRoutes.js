@@ -6,7 +6,7 @@ import HomePage from "./Components/HomePage/HomePage";
 import CreateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/CreateCustomizedPackage";
 import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage"
 import ViewCustomizerPackageApproval from "./Components/EventOrganizer/CustomizePackage/ViewCustomizerPackageApproval";
-// import Dashboard from "./Components/EventOrganizer/ViewPackages/Dashboard";
+import UpdateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/UpdateCustomizedPackage";
 
 function AppRoutes() {
   return (
@@ -36,9 +36,9 @@ function AppRoutes() {
           <Route exact path="/eventorganizer/packagesapproval" >
             <ViewCustomizerPackageApproval />
           </Route>
-          {/* <Route exact path="/eventorganizer/packages" >
-            <Dashboard />
-          </Route> */}
+          <Route exact path="/eventorganizer/editpackages/:id" >
+            <UpdateCustomizedPackage />
+          </Route>
           {/* **ORGANIZER ROUTES END** */}
 
           {/* **USER ROUTE BEGIN** */}

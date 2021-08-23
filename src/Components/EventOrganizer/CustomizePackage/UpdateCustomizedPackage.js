@@ -9,8 +9,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const CreateCustomizedPackage = () => {
+const CreateCustomizedPackage = (props) => {
 
+    console.log("props=====>", props.params);
     const [title, setTitle] = useState('');
     const [noOfParticipants, setNoOfParticipants] = useState('');
     const [date, setDate] = useState('');
@@ -113,7 +114,7 @@ const CreateCustomizedPackage = () => {
                             variant="contained"
                             color="primary"
                         >
-                            Edit Requested Packages
+                            View Requested Packages
                         </Button>
                     </Paper>
                 </Grid>
