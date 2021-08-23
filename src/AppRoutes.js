@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AddNewAd from "./Components/Admin/AddNewAd";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import Header from "./Components/HomePage/Header";
 import HomePage from "./Components/HomePage/HomePage";
@@ -28,6 +29,7 @@ function AppRoutes() {
 
           {/* **ADMIN ROUTES BEGIN** */}
           <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          <Route exact path="/admin/newad" component={AddNewAd} />
           {/* **ADMIN ROUTES END** */}
 
           {/* **OWNER ROUTES BEGIN** */}
