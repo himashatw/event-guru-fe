@@ -85,7 +85,7 @@ export default function SendEnquiry() {
     const enquiry = {
       reason,
       date,
-      users: [loggedUserId]
+      users:loggedUserId
     }
     axios.post('/user/enquiry', enquiry)
       .then(res => {
@@ -120,8 +120,8 @@ export default function SendEnquiry() {
   }
 
   useEffect(() => {
-    getEnquiries()
-    getLoggedUserEmail()
+    getEnquiries();
+    getLoggedUserEmail();
   }, []);
 
   return (
