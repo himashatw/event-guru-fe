@@ -10,8 +10,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
 
-const ViewCustomizedPackage = () => {
+const ViewCustomizedPackage = (props) => {
 
     const [data, setData] = useState([]);
 
@@ -23,9 +24,15 @@ const ViewCustomizedPackage = () => {
         },
         paper: {
             maxWidth: 400,
-            margin: `${theme.spacing(1)}px auto`,
             padding: theme.spacing(2),
         },
+        mainDIv: {
+            flexGrow: 1,
+            overflow: 'hidden',
+            padding: theme.spacing(0),
+            display: 'flex',
+            marginLeft: 220,
+        }
     }));
     const classes = useStyles();
     useEffect(() => {
@@ -46,63 +53,61 @@ const ViewCustomizedPackage = () => {
             .then(res => {
                 console.log(res.data.data);
                 alert("Delete successfully!");
+                window.location = `/eventorganizer/customizedpackages`;
             }).catch(err => console.log(err.message));
     }
 
     return (
         <div className={classes.root}>
-            <Typography gutterBottom variant="h4" component="h2">
-                Edit Package
-            </Typography>
-            {data.map((value, index) => (
-                <Grid container wrap="nowrap" spacing={2}>
-                    {/* 
-                <Grid item xs={12}> */}
-                    {/* <Paper className={classes.paper}> */}
-                    <Grid item xs={12}>
-                        <Card className={classes.root}>
-                            <CardActionArea>
-                                <CardMedia
-                                    className={classes.media}
-                                    image=""
-                                    title="Contemplative Reptile"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        {value.title}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <h3>No Of Participants :{value.noOfParticipants}</h3>
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <h3>Date               :{value.date}</h3>
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <h3>Email              :{value.email}</h3>
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        <h3>Message            :{value.message ? value.message : 'No message'}</h3>
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary" onClick={event => navigateEdit(event, value._id)} >
-                                    Edit
-                                </Button>
-                                <Button size="small" color="primary" onClick={event => navigateDelete(event, value._id)}>
-                                    Delete
-                                </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-
-                    {/* </Paper> */}
-                    {/* </Grid> */}
-
+            <OfferFormDashBoard page="ViewCustomizedPackage" />
+            <div className={classes.mainDIv}>
+                <Grid container >
+                    <Typography gutterBottom variant="h4" component="h2">
+                        Edit Package
+                    </Typography>
+                    {data.map((value, index) => (
+                        <Grid container wrap="nowrap" spacing={2}>
+                            <Grid item xs={12} spacing={2}>
+                                <Card className={classes.root}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            className={classes.media}
+                                            image=""
+                                            title="Contemplative Reptile"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                {value.title}
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                <h3>No Of Participants :{value.noOfParticipants}</h3>
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                <h3>Date               :{value.date}</h3>
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                <h3>Email              :{value.email}</h3>
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                <h3>Message            :{value.message ? value.message : 'No message'}</h3>
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions>
+                                        <Button size="small" color="primary" onClick={event => navigateEdit(event, value._id)} >
+                                            Edit
+                                        </Button>
+                                        <Button size="small" color="primary" onClick={event => navigateDelete(event, value._id)}>
+                                            Delete
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        </Grid>
+                    ))}
+                    <br />
                 </Grid>
-
-            ))}
-            <br />
+            </div>
         </div>
     );
 }

@@ -8,6 +8,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
+import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
+import Typography from '@material-ui/core/Typography';
 
 const CreateCustomizedPackage = (props) => {
 
@@ -25,11 +27,13 @@ const CreateCustomizedPackage = (props) => {
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
+
         },
         paper: {
-            padding: theme.spacing(2),
-            textAlign: 'center',
+            padding: theme.spacing(10),
             color: theme.palette.text.secondary,
+            marginLeft: 242,
+
         },
         formControl: {
             margin: theme.spacing(1),
@@ -103,135 +107,128 @@ const CreateCustomizedPackage = (props) => {
     }
     return (
         <div>
-            <Grid container spacing={2}>
-                <Grid item xs={3} >
-                    <Paper className={classes.card}>
-                        Customize Pakage
-                        <br />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                        >
-                            View Requested Packages
-                        </Button>
-                    </Paper>
-                </Grid>
-                <Grid item xs={9}>
-                    <Paper className={classes.paper}>
-                        <form onSubmit={onSubmit}>
-                            <br />
-                            <Grid item xs={12} >
-                                <InputLabel id="demo-simple-select-helper-label">Select The Venu*</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    label="Venue"
-                                    name="venue"
-                                    value={selectVenue}
-                                    onChange={onSelectedVenue}
+            <div className={classes.root}>
+                <Grid container spacing={2}>
+                    <Grid item > <OfferFormDashBoard page="UpdateCustomizedPackage" /></Grid>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper}>
+                            <Typography gutterBottom variant="h4" component="h2">
+                                Update Custom Package
+                            </Typography>
+                            <form onSubmit={onSubmit}>
+                                <br />
+                                <Grid item xs={12} >
+                                    <InputLabel id="demo-simple-select-helper-label">Select The Venu*</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Venue"
+                                        name="venue"
+                                        value={selectVenue}
+                                        onChange={onSelectedVenue}
+                                        fullWidth
+                                        variant="outlined"
+                                    >
+                                        {options.map((value, index) => (
+                                            < MenuItem value={value.value} >{value.label}</MenuItem>
+                                        ))}
+                                    </Select>
+
+                                </Grid>
+                                <br />
+                                <Grid item xs={12} >
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="title"
+                                        label="Package Title"
+                                        name="title"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                    />
+                                </Grid>
+                                <br />
+                                <Grid item xs={12} >
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="noOfParticipants"
+                                        label="No Of Participants"
+                                        name="noOfParticipants"
+                                        value={noOfParticipants}
+                                        onChange={(e) => setNoOfParticipants(e.target.value)}
+                                    />
+                                </Grid>
+                                <br />
+                                <Grid item xs={12} >
+
+                                    <TextField
+                                        variant="outlined"
+                                        id="datetime-local"
+                                        fullWidth
+                                        required
+                                        name="date"
+                                        value={date}
+                                        onChange={(e) => setDate(e.target.value)}
+                                        label="Select Evenet Date"
+                                        type="datetime-local"
+                                        defaultValue="2017-05-24T10:30"
+                                        className={classes.textField}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                    />
+
+                                </Grid>
+                                <br />
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        autoComplete="email"
+                                    />
+                                </Grid>
+                                <br />
+
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+
+                                        fullWidth
+                                        id="message"
+                                        label="Message about package"
+                                        name="message"
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        autoComplete="lname"
+                                    />
+                                </Grid>
+                                <br />
+                                <Button
+                                    type="submit"
                                     fullWidth
-                                    variant="outlined"
+                                    variant="contained"
+                                    color="primary"
+
                                 >
-                                    {options.map((value, index) => (
-                                        < MenuItem value={value.value} >{value.label}</MenuItem>
-                                    ))}
-                                </Select>
-
-                            </Grid>
-                            <br />
-                            <Grid item xs={12} >
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="title"
-                                    label="Package Title"
-                                    name="title"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                />
-                            </Grid>
-                            <br />
-                            <Grid item xs={12} >
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="noOfParticipants"
-                                    label="No Of Participants"
-                                    name="noOfParticipants"
-                                    value={noOfParticipants}
-                                    onChange={(e) => setNoOfParticipants(e.target.value)}
-                                />
-                            </Grid>
-                            <br />
-                            <Grid item xs={12} >
-
-                                <TextField
-                                    variant="outlined"
-                                    id="datetime-local"
-                                    fullWidth
-                                    required
-                                    name="date"
-                                    value={date}
-                                    onChange={(e) => setDate(e.target.value)}
-                                    label="Select Evenet Date"
-                                    type="datetime-local"
-                                    defaultValue="2017-05-24T10:30"
-                                    className={classes.textField}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-
-                            </Grid>
-                            <br />
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    autoComplete="email"
-                                />
-                            </Grid>
-                            <br />
-
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-
-                                    fullWidth
-                                    id="message"
-                                    label="Message about package"
-                                    name="message"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    autoComplete="lname"
-                                />
-                            </Grid>
-                            <br />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-
-                            >
-                                Submit
-                            </Button>
-                            <br /><br />
-                        </form>
-                    </Paper>
+                                    Submit
+                                </Button>
+                                <br /><br />
+                            </form>
+                        </Paper>
+                    </Grid>
+                    <br />
                 </Grid>
-            </Grid>
-        </div >
+            </div >
+        </div>
     )
 
 }
