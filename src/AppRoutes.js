@@ -16,6 +16,9 @@ import ContactUs from "./Components/HomePage/ContactUsPage";
 import Enquiry from "./Components/User/Enquiry/Enquiry";
 import ViewAdd from "./Components/User/Advertisment/ViewAdvertisment";
 import UserDashboard from "./Components/User/UserDashboard";
+import NewPackage from "./Components/PropertyOwner/NewPackage";
+import ViewPackages from "./Components/PropertyOwner/ViewPackages";
+import OwnerDashboard from "./Components/PropertyOwner/OwnerDashboard";
 
 function AppRoutes() {
   return (
@@ -36,6 +39,9 @@ function AppRoutes() {
 
           {/* **OWNER ROUTES BEGIN** */}
           <Route exact path="/owner/register" component={PropertyOwnerRegister} />
+          <Route exact path="/owner/newpackage" component={NewPackage} />
+          <Route exact path="/owner/packages" component={ViewPackages} />
+          <Route exact path="/owner/dashboard" component={OwnerDashboard} />
 
           {/* **OWNER ROUTES END** */}
 
