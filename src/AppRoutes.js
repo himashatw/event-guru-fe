@@ -85,7 +85,7 @@ function AppRoutes() {
           <Route exact path="/user/register" component={UserRegister} />
           <Route exact path="/user/enquiry/:id" component={Enquiry} />
           <Route exact path="/view/advertisment" component={ViewAdd} />
-          <Route exact path="/user/dashboard" component={UserDashboard} />
+          <Route exact path="/user/dashboard/:id" component={UserDashboard} />
           {/* **USER ROUTE END** */}
         </Switch>
       </div>
