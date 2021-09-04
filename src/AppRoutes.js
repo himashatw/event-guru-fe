@@ -5,7 +5,7 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import Header from "./Components/HomePage/Header";
 import HomePage from "./Components/HomePage/HomePage";
 import CreateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/CreateCustomizedPackage";
-import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage"
+import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage";
 import ViewCustomizerPackageApproval from "./Components/EventOrganizer/CustomizePackage/ViewCustomizerPackageApproval";
 import UpdateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/UpdateCustomizedPackage";
 import Login from "./Components/Login/Login";
@@ -14,6 +14,9 @@ import PropertyOwnerRegister from "./Components/PropertyOwner/Registration";
 import EventOrganizerRegister from "./Components/EventOrganizer/Registration";
 import ContactUs from "./Components/HomePage/ContactUsPage";
 import Enquiry from "./Components/User/Enquiry";
+import NewPackage from "./Components/PropertyOwner/NewPackage";
+import ViewPackages from "./Components/PropertyOwner/ViewPackages";
+import OwnerDashboard from "./Components/PropertyOwner/OwnerDashboard";
 
 function AppRoutes() {
   return (
@@ -33,22 +36,33 @@ function AppRoutes() {
           {/* **ADMIN ROUTES END** */}
 
           {/* **OWNER ROUTES BEGIN** */}
-          <Route exact path="/owner/register" component={PropertyOwnerRegister} />
+          <Route
+            exact
+            path="/owner/register"
+            component={PropertyOwnerRegister}
+          />
+          <Route exact path="/owner/newpackage" component={NewPackage} />
+          <Route exact path="/owner/packages" component={ViewPackages} />
+          <Route exact path="/owner/dashboard" component={OwnerDashboard} />
 
           {/* **OWNER ROUTES END** */}
 
           {/* **ORGANIZER ROUTES BEGIN** */}
-          <Route exact path="/eventorganizer/register" component={EventOrganizerRegister} />
-          <Route exact path="/eventorganizer/addcustomizedpackage" >
+          <Route
+            exact
+            path="/eventorganizer/register"
+            component={EventOrganizerRegister}
+          />
+          <Route exact path="/eventorganizer/addcustomizedpackage">
             <CreateCustomizedPackage />
           </Route>
-          <Route exact path="/eventorganizer/customizedpackages" >
+          <Route exact path="/eventorganizer/customizedpackages">
             <ViewCustomizedPackage />
           </Route>
-          <Route exact path="/eventorganizer/packagesapproval" >
+          <Route exact path="/eventorganizer/packagesapproval">
             <ViewCustomizerPackageApproval />
           </Route>
-          <Route exact path="/eventorganizer/editpackages/:id" >
+          <Route exact path="/eventorganizer/editpackages/:id">
             <UpdateCustomizedPackage />
           </Route>
 
