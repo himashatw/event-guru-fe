@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import axios from '../../Services/axios';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -24,9 +25,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: '70vh',
     marginTop: theme.spacing(4),
-    // marginBottom: theme.spacing(1),
-    // display: 'flex',
-
   },
   image: {
     backgroundImage: 'url(https://thumbs.dreamstime.com/b/event-management-business-background-chalkboard-wooden-176007384.jpg)',
@@ -57,8 +55,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Login(props) {
   const classes = useStyles();
+  const history = useHistory();
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } = useFormik({
     initialValues: {
       email: '',
@@ -75,16 +74,10 @@ export default function Login() {
       if(e.role === 'user'){
         console.log('user clicked');
         axios.post("/user/login", values)
-        .then(res => {
-          console.log(res.data.message)
-          console.log(res.data.email)
-          console.log(res.status)
+        .then(res => {  
           if (res.status === 200) {
             alert(res.data.message)
-            // history.push('/attendee/dashboard')
-          } else {
-            alert(res.data.message)
-            // history.push('/')
+            history.push(`/user/enquiry/${res.data.user._id}`)
           }
         }).catch(error => {
           alert(error.response.data.message);
@@ -94,15 +87,9 @@ export default function Login() {
         console.log('eventOrganizer clicked');
         axios.post("/organizer/login", values)
         .then(res => {
-          console.log(res.data.message)
-          console.log(res.data.email)
-          console.log(res.status)
           if (res.status === 200) {
             alert(res.data.message)
-            // history.push('/attendee/dashboard')
-          } else {
-            alert(res.data.message)
-            // history.push('/')
+            //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
           }
         }).catch(error => {
           alert(error.response.data.message);
@@ -112,15 +99,9 @@ export default function Login() {
         console.log('propertyOwner clicked');
         axios.post("/propertyOwner/login", values)
         .then(res => {
-          console.log(res.data.message)
-          console.log(res.data.email)
-          console.log(res.status)
           if (res.status === 200) {
             alert(res.data.message)
-            // history.push('/attendee/dashboard')
-          } else {
-            alert(res.data.message)
-            // history.push('/')
+            //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
           }
         }).catch(error => {
           alert(error.response.data.message);

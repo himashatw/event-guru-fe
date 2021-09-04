@@ -71,8 +71,6 @@ export default function OwnerSignUp() {
         .max(12, 'Must be maximum 12 numbers'),
       propertyType: Yup.string()
         .required('Property Type is required'),
-      // accountActive:Yup.boolean()
-      //   .required('Property Type is required'),
       location: Yup.string()
         .required('Location is required'),
       bioDetails: Yup.string()
