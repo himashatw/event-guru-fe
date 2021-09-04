@@ -1,17 +1,23 @@
-import React, { useState } from "react";
-import { Field, useFormik } from "formik";
+import React, { useState, useEffect } from "react";
+import { useFormik } from "formik";
 import {
   TextField,
   Button,
-  Select,
   MenuItem,
+  Input,
   InputLabel,
-  NativeSelect,
-  FormControl,
-  FormHelperText,
 } from "@material-ui/core";
 import * as Yup from "yup";
 import AdComponent from "./AdComponent";
+import Modal from "react-modal";
+import axios from "../../Services/axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./DetailsModel.css";
+import Progress from "react-progressbar";
+import CancelIcon from "@material-ui/icons/Cancel";
+
+Modal.setAppElement("#root");
 
 const validationSchema = Yup.object({
   adTitle: Yup.string().required("Title is required"),
@@ -24,10 +30,44 @@ const validationSchema = Yup.object({
   adPrice: Yup.string().required("Ticket price required"),
   adImageUrl: Yup.string().required("Image required"),
   adType: Yup.string().required("Type is required"),
+  adTime: Yup.string().required("Time is required"),
+  adVenue: Yup.string().required("Venue is required"),
 });
 
 function AddNewAd() {
-  // const []
+  const [progressValue, setProgressValue] = useState(0);
+  const [adList, setAdList] = useState([]);
+  const [check, setCheck] = useState(false);
+
+  // useStates for update fields BEGIN HERE
+  const [updateTitle, setUpdateTitle] = useState("");
+  const [updateDescription, setUpdateDescription] = useState("");
+  const [updateEventType, setUpdateEventType] = useState("");
+  const [updateEmail, setUpdateEmail] = useState("");
+  const [updateScheduleDate, setUpdateScheduleDate] = useState("");
+  const [updateScheduleTime, setUpdateScheduleTime] = useState("");
+  const [updateVenue, setUpdateVenue] = useState("");
+  const [updatePrice, setUpdatePrice] = useState("");
+  const [updateImageUrl, setUpdateImageUrl] = useState("");
+  const [updateId, setUpdateId] = useState("");
+  // useStates for update fields END HERE
+
+  // console.log("g" + updateEventType + updateScheduleDate);
+
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get("/admin/ads")
+        .then((response) => {
+          console.log(response.data.result);
+          setAdList(response.data.result.reverse());
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    getData();
+  }, [check]);
 
   const formic = useFormik({
     initialValues: {
@@ -38,18 +78,133 @@ function AddNewAd() {
       adType: "",
       adPrice: "",
       adImageUrl: "",
+      adTime: "",
+      adVenue: "",
     },
     onSubmit: (values) => {
+      onSubmitHandler(values);
+
       console.log(values);
     },
     validationSchema: validationSchema,
   });
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleModal() {
+    setIsOpen(!isOpen);
+  }
+
+  const onDeleteHandler = async () => {};
+
+  const onSubmitHandler = async (mValues) => {
+    if (isOpen) {
+      // update part
+    } else {
+      await axios
+        .post("/admin/newadd", {
+          title: mValues.adTitle,
+          description: mValues.adDescription,
+          scheduleTime: mValues.adTime,
+          scheduleDate: mValues.adDate,
+          ticketPrice: mValues.adPrice,
+          venue: mValues.adVenue,
+          imageUrl: mValues.adImageUrl,
+          email: mValues.adEmail,
+          adType: mValues.adType,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success("New Advertisement Added Successfully!", {
+              position: "top-right",
+              autoClose: 2700,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            setCheck(!check);
+          } else {
+            toast.error("Insertion Unsuccessful!", {
+              position: "top-right",
+              autoClose: 2700,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            console.log("error");
+          }
+        })
+        .catch((error) => {
+          console.log("Catch : " + error);
+        });
+    }
+  };
+
+  const imageUploadHandler = async (e) => {
+    const files = e.target.files;
+
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "af-editor");
+    data.append("cloud_name", "af-editorcloud");
+    axios
+      .request({
+        method: "post",
+        url: "https://api.cloudinary.com/v1_1/af-editorcloud/image/upload",
+        data: data,
+        onUploadProgress: (p) => {
+          if (isOpen) {
+            // update part
+          } else {
+            setProgressValue((p.loaded / p.total) * 100);
+          }
+        },
+      })
+      .then((response) => {
+        if (isOpen) {
+          //update part
+        } else {
+          formic.setFieldValue("adImageUrl", response.data.url);
+        }
+        setProgressValue(100);
+      });
+  };
+
+  const onClickHandler = async (adData) => {
+    const {
+      adType,
+      description,
+      email,
+      imageUrl,
+      scheduleDate,
+      scheduleTime,
+      ticketPrice,
+      title,
+      venue,
+      _id,
+    } = adData;
+    setUpdateTitle(title);
+    setUpdateDescription(description);
+    setUpdateEmail(email);
+    setUpdateEventType(adType);
+    setUpdateImageUrl(imageUrl);
+    setUpdatePrice(ticketPrice);
+    setUpdateVenue(venue);
+    setUpdateScheduleDate(scheduleDate);
+    setUpdateScheduleTime(scheduleTime);
+    setUpdateId(_id);
+  };
+
   return (
-    <div className="text-center">
+    <div className="text-center max-h-1">
       <p className="sm:text-4xl text-lg mt-5">Ads Management</p>
       <div className="grid grid-cols-2 divide-x divide-gray-400 items-center justify-center mt-20">
         {/* left container BEGIN */}
-        <div>
+        <div className="md:ml-5 sm:ml-5 mr-2">
           <form
             className="flex flex-col ml-auto mr-auto mt-auto items-stretch max-w-xl "
             onSubmit={formic.handleSubmit}
@@ -79,27 +234,9 @@ function AddNewAd() {
               }
               onBlur={formic.handleBlur}
             />
-            {/* <FormControl>
-              <InputLabel id="adType">Event Type</InputLabel>
-              <Select
-                className="text-left"
-                id="adType"
-                name="adType"
-                // value=""
-                values={formic.values.adType}
-                onChange={formic.handleChange}
-              >
-                <MenuItem value={"Concert"}>Concert</MenuItem>
-                <MenuItem value={"Workshop"}>Workshop</MenuItem>
-                <MenuItem value={"Seminar"}>Seminar</MenuItem>
-              </Select>
-            </FormControl> */}
-            {/* <FormControl error> */}
-            {/* <InputLabel id="demo-simple-select-error-label">Name</InputLabel> */}
+
             <TextField
-              // style={{ height: "200px" }}
-              // className="mt-6"
-              variant="outlined"
+              className="text-left"
               name="adType"
               id="adType"
               select
@@ -112,12 +249,12 @@ function AddNewAd() {
               <MenuItem key={""} value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={"Wedding"}>Wedding</MenuItem>
+              <MenuItem value={"Party"}>Party</MenuItem>
+              <MenuItem value={"Show"}>Show</MenuItem>
+              <MenuItem value={"Other"}>Other</MenuItem>
             </TextField>
-            {/* <FormHelperText>Error</FormHelperText> */}
-            {/* </FormControl> */}
+
             <TextField
               id="adEmail"
               name="adEmail"
@@ -131,7 +268,7 @@ function AddNewAd() {
             <TextField
               margin="dense"
               id="adDate"
-              label="Due date"
+              label="Schedule date"
               type="date"
               fullWidth
               InputLabelProps={{ shrink: true }}
@@ -139,6 +276,35 @@ function AddNewAd() {
               onChange={formic.handleChange}
               error={formic.touched.adDate && Boolean(formic.errors.adDate)}
               helperText={formic.touched.adDate && formic.errors.adDate}
+              onBlur={formic.handleBlur}
+            />
+            <TextField
+              id="adTime"
+              name="adTime"
+              label="Schedule Time"
+              fullWidth
+              type="time"
+              defaultValue="07:30"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                step: 60, // 5 min
+              }}
+              values={formic.values.adTime}
+              onChange={formic.handleChange}
+              error={formic.touched.adTime && Boolean(formic.errors.adTime)}
+              helperText={formic.touched.adTime && formic.errors.adTime}
+              onBlur={formic.handleBlur}
+            />
+            <TextField
+              id="adVenue"
+              name="adVenue"
+              label="Event Venue"
+              value={formic.values.adVenue}
+              onChange={formic.handleChange}
+              error={formic.touched.adVenue && Boolean(formic.errors.adVenue)}
+              helperText={formic.touched.adVenue && formic.errors.adVenue}
               onBlur={formic.handleBlur}
             />
             <TextField
@@ -151,12 +317,13 @@ function AddNewAd() {
               helperText={formic.touched.adPrice && formic.errors.adPrice}
               onBlur={formic.handleBlur}
             />
-            <span className="flex flex-row justify-between">
+            <span className="flex flex-row ">
               <TextField
                 className="flex-grow"
                 id="adImageUrl"
                 name="adImageUrl"
-                label="Image URL"
+                label="Paste Image URL"
+                // value={imageUrl}
                 values={formic.values.adImageUrl}
                 onChange={formic.handleChange}
                 error={
@@ -167,31 +334,255 @@ function AddNewAd() {
                 }
                 onBlur={formic.handleBlur}
               />
-              <span className="mt-3">
-                <Button variant="contained" color="primary" className="p-10 ">
-                  Upload Image
-                </Button>
+              <p className="mt-4">OR</p>
+              <span className="mt-3 mb-1">
+                <InputLabel
+                  htmlFor="import-button"
+                  className="ml-2"
+                  style={{
+                    color: "black",
+                    width: "auto",
+                    height: "37px",
+                    borderRadius: "5px",
+                    border: "1px solid #000",
+                    padding: "1%",
+                  }}
+                >
+                  Choose Image
+                  <Input
+                    id="import-button"
+                    inputProps={{
+                      accept: "image/*",
+                    }}
+                    // onChange={onInputChange}
+                    style={{ display: "none" }}
+                    type="file"
+                    onChange={imageUploadHandler}
+                  />
+                </InputLabel>
               </span>
             </span>
+            <Progress completed={progressValue} />
 
-            <span className="mt-5">
-              <Button className="m-20" type="submit" variant="outlined">
+            <span className="mt-5 md:mb-5 sm:mb-3">
+              <Button type="submit" variant="outlined">
                 Submit
               </Button>
+              <ToastContainer
+                position="top-right"
+                autoClose={2700}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
             </span>
           </form>
         </div>
+
         {/* left container END */}
 
         {/* right container END */}
-        <div className="overflow-y-auto h-80">
-          <AdComponent />
-          <AdComponent />
-          <AdComponent />
-          <AdComponent />
-          <AdComponent />
+
+        <div
+          onClick={toggleModal}
+          className="overflow-y-auto max-h-96 min-h-full"
+        >
+          {adList.map((ad, index) => (
+            <span key={index} onClick={() => onClickHandler(ad)}>
+              <AdComponent cardContent={ad} />
+            </span>
+          ))}
         </div>
+
         {/* right container END */}
+
+        {/* Model BEGIN */}
+
+        <div>
+          <div className="App">
+            <Modal
+              isOpen={isOpen}
+              onRequestClose={toggleModal}
+              contentLabel="My dialog"
+              className="mymodal"
+              overlayClassName="myoverlay"
+              closeTimeoutMS={500}
+            >
+              <div>
+                <div className="flex flex-row justify-between">
+                  <div className="text-center">Update Document</div>
+                  <CancelIcon onClick={toggleModal} />
+                </div>
+                <div>
+                  <form
+                    className="flex flex-col ml-auto mr-auto mt-auto items-stretch  "
+                    // onSubmit={formic.handleSubmit}
+                  >
+                    <TextField
+                      id="adTitle"
+                      name="adTitle"
+                      label="Ad Title"
+                      value={updateTitle}
+                      onChange={(event) => setUpdateTitle(event.target.value)}
+                      required
+                    />
+                    <TextField
+                      id="adDescription"
+                      name="adDescription"
+                      label="Ad Description"
+                      value={updateDescription}
+                      onChange={(event) =>
+                        setUpdateDescription(event.target.value)
+                      }
+                      required
+                    />
+
+                    <TextField
+                      className="text-left"
+                      name="adType"
+                      id="adType"
+                      select
+                      label="Event Type"
+                      value={updateEventType}
+                      onChange={(event) =>
+                        setUpdateEventType(event.target.value)
+                      }
+                    >
+                      <MenuItem key={""} value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={"Wedding"}>Wedding</MenuItem>
+                      <MenuItem value={"Party"}>Party</MenuItem>
+                      <MenuItem value={"Show"}>Show</MenuItem>
+                      <MenuItem value={"Other"}>Other</MenuItem>
+                    </TextField>
+
+                    <TextField
+                      id="adEmail"
+                      name="adEmail"
+                      label="Email"
+                      value={updateEmail}
+                      onChange={(event) => setUpdateEmail(event.target.value)}
+                    />
+                    <TextField
+                      margin="dense"
+                      id="adDate"
+                      label="Schedule date"
+                      type="date"
+                      InputLabelProps={{ shrink: true }}
+                      value={updateScheduleDate}
+                      onChange={(event) => {
+                        setUpdateScheduleDate(event.target.value);
+                      }}
+                    />
+                    <TextField
+                      id="adTime"
+                      name="adTime"
+                      label="Schedule Time"
+                      fullWidth
+                      type="time"
+                      defaultValue="07:30"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      inputProps={{
+                        step: 60,
+                      }}
+                      value={updateScheduleTime}
+                      onChange={(event) => {
+                        setUpdateScheduleTime(event.target.value);
+                      }}
+                    />
+                    <TextField
+                      id="adVenue"
+                      name="adVenue"
+                      label="Event Venue"
+                      value={updateVenue}
+                      onChange={(event) => {
+                        setUpdateVenue(event.target.value);
+                      }}
+                    />
+                    <TextField
+                      id="adPrice"
+                      name="adPrice"
+                      label="Ticket Price"
+                      value={updatePrice}
+                      onChange={(event) => {
+                        setUpdatePrice(event.target.value);
+                      }}
+                    />
+                    <img
+                      className="block object-contain h-auto w-full lg:w-48 flex-none bg-cover h-24"
+                      src={updateImageUrl}
+                    />
+                    <span className="flex flex-row">
+                      <TextField
+                        fullWidth
+                        id="adImageUrl"
+                        name="adImageUrl"
+                        label="Paste Image URL"
+                        value={updateImageUrl}
+                        onChange={(event) => {
+                          setUpdateImageUrl(event.target.value);
+                        }}
+                      />
+                      <p className="mt-4 ml-3">OR</p>
+                      <span className="mt-3 mb-1">
+                        <InputLabel
+                          htmlFor="import-button"
+                          className="ml-2"
+                          style={{
+                            color: "black",
+                            width: "auto",
+                            height: "37px",
+                            borderRadius: "5px",
+                            border: "1px solid #000",
+                            padding: "1%",
+                          }}
+                        >
+                          Choose Image
+                          <Input
+                            id="import-button"
+                            inputProps={{
+                              accept: "image/*",
+                            }}
+                            // onChange={onInputChange}
+                            style={{ display: "none" }}
+                            type="file"
+                            onChange={imageUploadHandler}
+                          />
+                        </InputLabel>
+                      </span>
+                    </span>
+                    <Progress completed={progressValue} />
+
+                    <span className="mt-5 md:mb-5 sm:mb-3">
+                      <Button type="submit" variant="outlined">
+                        Submit
+                      </Button>
+                      <ToastContainer
+                        position="top-right"
+                        autoClose={2700}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                      />
+                    </span>
+                  </form>
+                </div>
+              </div>
+            </Modal>
+          </div>
+        </div>
+        {/* Model END */}
       </div>
     </div>
   );
