@@ -16,13 +16,13 @@ function Header() {
     //   </div>
     // </header>
     <AppBar position="relative">
-        <Toolbar>
-          {/* <CameraIcon className={classes.icon} /> */}
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Toolbar>
+        {/* <CameraIcon className={classes.icon} /> */}
+        <Typography variant="h6" color="inherit" noWrap>
+          Header
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
 

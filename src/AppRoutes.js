@@ -5,7 +5,7 @@ import AdminDashboard from "./Components/Admin/AdminDashboard";
 import Header from "./Components/HomePage/Header";
 import HomePage from "./Components/HomePage/HomePage";
 import CreateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/CreateCustomizedPackage";
-import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage"
+import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage";
 import ViewCustomizerPackageApproval from "./Components/EventOrganizer/CustomizePackage/ViewCustomizerPackageApproval";
 import UpdateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/UpdateCustomizedPackage";
 import Login from "./Components/Login/Login";
@@ -19,10 +19,9 @@ import UserDashboard from "./Components/User/UserDashboard";
 import NewPackage from "./Components/PropertyOwner/NewPackage";
 import ViewPackages from "./Components/PropertyOwner/ViewPackages";
 import OwnerDashboard from "./Components/PropertyOwner/OwnerDashboard";
-import OfferDashboard from "./Components/EventOrganizer/SlideBar/OfferDashBoard"
-import OfferFormDashBoard from './Components/EventOrganizer/SlideBar/OfferFormDashBoard';
-import LatestOffers from "./Components/EventOrganizer/ViewPackages/LatestOffers"
-
+import OfferDashboard from "./Components/EventOrganizer/SlideBar/OfferDashBoard";
+import OfferFormDashBoard from "./Components/EventOrganizer/SlideBar/OfferFormDashBoard";
+import LatestOffers from "./Components/EventOrganizer/ViewPackages/LatestOffers";
 
 function AppRoutes() {
   return (
@@ -42,7 +41,11 @@ function AppRoutes() {
           {/* **ADMIN ROUTES END** */}
 
           {/* **OWNER ROUTES BEGIN** */}
-          <Route exact path="/owner/register" component={PropertyOwnerRegister} />
+          <Route
+            exact
+            path="/owner/register"
+            component={PropertyOwnerRegister}
+          />
           <Route exact path="/owner/newpackage" component={NewPackage} />
           <Route exact path="/owner/packages" component={ViewPackages} />
           <Route exact path="/owner/dashboard" component={OwnerDashboard} />
@@ -50,26 +53,30 @@ function AppRoutes() {
           {/* **OWNER ROUTES END** */}
 
           {/* **ORGANIZER ROUTES BEGIN** */}
-          <Route exact path="/eventorganizer/register" component={EventOrganizerRegister} />
-          <Route exact path="/eventorganizer/addcustomizedpackage" >
+          <Route
+            exact
+            path="/eventorganizer/register"
+            component={EventOrganizerRegister}
+          />
+          <Route exact path="/eventorganizer/addcustomizedpackage">
             <CreateCustomizedPackage />
           </Route>
-          <Route exact path="/eventorganizer/customizedpackages" >
+          <Route exact path="/eventorganizer/customizedpackages">
             <ViewCustomizedPackage />
           </Route>
-          <Route exact path="/eventorganizer/packagesapproval" >
+          <Route exact path="/eventorganizer/packagesapproval">
             <ViewCustomizerPackageApproval />
           </Route>
-          <Route exact path="/eventorganizer/editpackages/:id" >
+          <Route exact path="/eventorganizer/editpackages/:id">
             <UpdateCustomizedPackage />
           </Route>
-          <Route exact path="/eventorganizer/customdashboard" >
+          <Route exact path="/eventorganizer/customdashboard">
             <OfferFormDashBoard />
           </Route>
-          <Route exact path="/eventorganizer/dashboard" >
+          <Route exact path="/eventorganizer/dashboard">
             <OfferDashboard />
           </Route>
-          <Route exact path="/eventorganizer/latestoffers" >
+          <Route exact path="/eventorganizer/latestoffers">
             <LatestOffers />
           </Route>
           {/* **ORGANIZER ROUTES END** */}
@@ -82,7 +89,7 @@ function AppRoutes() {
           {/* **USER ROUTE END** */}
         </Switch>
       </div>
-    </Router >
+    </Router>
   );
 }
 

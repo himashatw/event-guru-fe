@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,13 +10,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
-
+import axios from "../../Services/axios";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Event Guru
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -61,14 +61,31 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 export default function Album() {
   const classes = useStyles();
 
+  const [adList, setAdList] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      await axios
+        .get("/admin/ads")
+        .then((response) => {
+          console.log(response.data.result);
+          setAdList(response.data.result);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    getData();
+  }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
-      
+
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
+          <Container maxWidth="lg">
             <Typography
               component="h1"
               variant="h2"
@@ -76,7 +93,7 @@ export default function Album() {
               color="textPrimary"
               gutterBottom
             >
-              Album layout
+              Welcome to Event Guru!
             </Typography>
             <Typography
               variant="h5"
@@ -84,22 +101,21 @@ export default function Album() {
               color="textSecondary"
               paragraph
             >
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don&apos;t simply skip over it entirely.
+              Are you an Event Organizer? Don&apos;t know where to start? Click
+              the button below! We will provide the latest offers!
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justifyContent="center">
                 <Grid item>
                   <Button variant="contained" color="primary">
-                    Main call to action
+                    Register Now
                   </Button>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Button variant="outlined" color="primary">
                     Secondary action
                   </Button>
-                </Grid>
+                </Grid> */}
               </Grid>
             </div>
           </Container>
@@ -107,31 +123,40 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {adList.map((card, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={card.imageUrl}
+                    // image="https://source.unsplash.com/random"
                     title="Image title"
                   />
-                  <CardContent className={classes.cardContent}>
+                  <CardContent
+                    className={classes.cardContent}
+                    style={{ textAlign: "center" }}
+                  >
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      {card.title}
                     </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
-                    </Typography>
+                    <Typography>{card.description}</Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
+                  <>
+                    <center>
+                      <Button
+                        className="text-center"
+                        size="small"
+                        color="primary"
+                        variant="outlined"
+                        style={{ marginBottom: "4px" }}
+                      >
+                        Book Now
+                      </Button>
+                    </center>
+                    {/* <Button size="small" color="primary">
                       Edit
-                    </Button>
-                  </CardActions>
+                    </Button> */}
+                  </>
                 </Card>
               </Grid>
             ))}
@@ -140,17 +165,17 @@ export default function Album() {
       </main>
       {/* Footer */}
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
+        {/* <Typography variant="h6" align="center" gutterBottom>
           Footer
-        </Typography>
-        <Typography
+        </Typography> */}
+        {/* <Typography
           variant="subtitle1"
           align="center"
           color="textSecondary"
           component="p"
         >
           Something here to give the footer a purpose!
-        </Typography>
+        </Typography> */}
         <Copyright />
       </footer>
       {/* End footer */}
