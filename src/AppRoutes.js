@@ -16,6 +16,9 @@ import ContactUs from "./Components/HomePage/ContactUsPage";
 import Enquiry from "./Components/User/Enquiry/Enquiry";
 import ViewAdd from "./Components/User/Advertisment/ViewAdvertisment";
 import UserDashboard from "./Components/User/UserDashboard";
+import OfferDashboard from "./Components/EventOrganizer/SlideBar/OfferDashBoard"
+import OfferFormDashBoard from './Components/EventOrganizer/SlideBar/OfferFormDashBoard';
+import LatestOffers from "./Components/EventOrganizer/ViewPackages/LatestOffers"
 
 function AppRoutes() {
   return (
@@ -53,7 +56,15 @@ function AppRoutes() {
           <Route exact path="/eventorganizer/editpackages/:id" >
             <UpdateCustomizedPackage />
           </Route>
-
+          <Route exact path="/eventorganizer/customdashboard" >
+            <OfferFormDashBoard />
+          </Route>
+          <Route exact path="/eventorganizer/dashboard" >
+            <OfferDashboard />
+          </Route>
+          <Route exact path="/eventorganizer/latestoffers" >
+            <LatestOffers />
+          </Route>
           {/* **ORGANIZER ROUTES END** */}
 
           {/* **USER ROUTE BEGIN** */}
@@ -64,7 +75,7 @@ function AppRoutes() {
           {/* **USER ROUTE END** */}
         </Switch>
       </div>
-    </Router>
+    </Router >
   );
 }
 
