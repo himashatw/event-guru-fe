@@ -27,7 +27,6 @@ function AppRoutes() {
   return (
     <Router>
       <div>
-        <Header />
         <Switch>
           {/* **COMMON ROUTES BEGIN** */}
           <Route exact path="/" component={HomePage} />
