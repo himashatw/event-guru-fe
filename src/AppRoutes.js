@@ -21,6 +21,7 @@ import OwnerDashboard from "./Components/PropertyOwner/OwnerDashboard";
 import OfferDashboard from "./Components/EventOrganizer/SlideBar/OfferDashBoard";
 import OfferFormDashBoard from "./Components/EventOrganizer/SlideBar/OfferFormDashBoard";
 import LatestOffers from "./Components/EventOrganizer/ViewPackages/LatestOffers";
+import RegistrationHome from "./Components/Registration/RegistrationPage";
 
 function AppRoutes() {
   return (
@@ -31,6 +32,7 @@ function AppRoutes() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/contactus" component={ContactUs} />
+          <Route exact path="/register" component={RegistrationHome} />
           {/* **COMMON ROUTES END** */}
 
           {/* **ADMIN ROUTES BEGIN** */}

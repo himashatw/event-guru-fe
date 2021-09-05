@@ -97,7 +97,7 @@ function HomePage() {
               </p>
               <p class="mt-4 text-2xl font-normal"> Try our latest offers !</p>
               <div class="flex mt-10 w-52 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-                <button class="text-lg text-md ">Register Now!</button>
+              <a href="/register"><button class="text-lg text-md ">Register Now!</button></a>
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

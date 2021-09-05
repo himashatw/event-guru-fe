@@ -118,6 +118,20 @@ export default function Login(props) {
               alert(error.response.data.message);
             });
         }
+        if (e.role === "admin") {
+          console.log("admin clicked");
+        //   axios
+        //     .post("/propertyOwner/login", values)
+        //     .then((res) => {
+        //       if (res.status === 200) {
+        //         alert(res.data.message);
+        //         //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
+        //       }
+        //     })
+        //     .catch((error) => {
+        //       alert(error.response.data.message);
+        //     });
+        }
       },
     });
 
@@ -211,12 +225,14 @@ export default function Login(props) {
                     control={<Radio required />}
                     label="Property Owner"
                   />
+                   <FormControlLabel
+                    value="admin"
+                    onChange={handleChange}
+                    control={<Radio required />}
+                    label="Admin"
+                  />
                 </RadioGroup>
               </FormControl>
-              {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
               <Button
                 type="submit"
                 fullWidth
@@ -230,7 +246,7 @@ export default function Login(props) {
               <br />
               <Link href="#">Forgot password?</Link>
               <br /> <br />
-              <Link href="#">Don't have an account? Sign Up</Link>
+              <Link href="/register">Don't have an account? Sign Up</Link>
             </form>
           </div>
         </Grid>
