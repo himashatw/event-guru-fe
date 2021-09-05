@@ -3,7 +3,7 @@ import React from "react";
 function AdCard({ cardData: { imageUrl, title, description } }) {
   //   console.log(cardData);
   return (
-    <div>
+    <div className="shadow-2xl transition duration-500 ease-in-out   transform hover:-translate-y-1 hover:scale-110">
       <main className="grid w-full min-h-1  place-content-center">
         <div className="rounded-lg">
           <div className="bg-gray-100 rounded-lg w-96">
