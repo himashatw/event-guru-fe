@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function SendEnquiry() {
+export default function ViewAdert(){
   const classes = useStyles();
 
   return (

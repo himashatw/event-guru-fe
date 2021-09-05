@@ -62,6 +62,7 @@ export default function SendEnquiry() {
   const [reason, setReason] = useState("");
   const [date, setDate] = useState("");
   const [enquiries, setEnquirie] = useState([]);
+  const [email, setEmail] = useState("");
 
   const classes = useStyles();
 
@@ -72,7 +73,8 @@ export default function SendEnquiry() {
   function getLoggedUserEmail() {
     axios.get(`/user/${loggedUserId}`)
       .then(res => {
-        console.log(res.data.data);
+        console.log(res.data.data.email);
+        setEmail(res.data.data.email);
       }).catch(error => {
         console.log(error.response.data.message);
       })
@@ -122,7 +124,7 @@ export default function SendEnquiry() {
   useEffect(() => {
     getEnquiries();
     getLoggedUserEmail();
-  }, []);
+  }, );
 
   return (
     <Grid container style={{ marginTop: "15px" }}>
@@ -140,7 +142,7 @@ export default function SendEnquiry() {
                   name="email"
                   variant="outlined"
                   disabled
-                  value={loggedUserId}
+                  value={email}
                   fullWidth
                   id="firstName"
                 />
