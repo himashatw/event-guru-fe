@@ -33,7 +33,10 @@ function HomePage() {
       <header class="min-h-screen bg-white ">
         <nav class="flex items-center py-8 px-14 justify-between sticky top-0 z-50 bg-white">
           <div class="flex items-center">
-            <h1 class="text-3xl font-bold text-gray-700 ">Event Guru</h1>
+            <div>
+              {/* <img */}
+              <h1 class="text-3xl font-bold text-gray-700 ">Event Guru</h1>
+            </div>
             <div class="ml-10 text-xl">
               <ul class="md:flex space-x-8 hidden ">
                 <li>
@@ -47,7 +50,7 @@ function HomePage() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="text-gray-800 font-semibold">
+                  <a href="/contactus" class="text-gray-800 font-semibold">
                     Contact Us
                   </a>
                 </li>
@@ -60,7 +63,9 @@ function HomePage() {
             </div>
           </div>
           <div class="lg:flex  items-center space-x-3 py-3 px-6 w-36 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-            <button>Sign In</button>
+            <a href="/login">
+              <button>Sign In</button>
+            </a>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +97,7 @@ function HomePage() {
               </p>
               <p class="mt-4 text-2xl font-normal"> Try our latest offers !</p>
               <div class="flex mt-10 w-52 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-                <button class="text-lg text-md ">Register Now!</button>
+              <a href="/register"><button class="text-lg text-md ">Register Now!</button></a>
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +126,7 @@ function HomePage() {
           </div>
         </div>
       </header>
-      <Container minWidth="md" ref={myRef}>
+      <Container minWidth="md" ref={myRef} className="bg-white">
         {/* End hero unit */}
         <Grid container spacing={7}>
           {adList.map((card, index) => (
