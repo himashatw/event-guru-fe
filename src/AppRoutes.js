@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AddNewAd from "./Components/Admin/AddNewAd";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
-import Header from "./Components/HomePage/Header";
 import HomePage from "./Components/HomePage/HomePage";
 import CreateCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/CreateCustomizedPackage";
 import ViewCustomizedPackage from "./Components/EventOrganizer/CustomizePackage/ViewCustomizedPackage";
