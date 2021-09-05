@@ -73,7 +73,7 @@ export default function ViewAdert(){
       <Grid>
         <div className={classes.paper1}>
         <Typography component="h1" variant="h5">
-            Book an Event
+          <b>Book an Event</b>
           </Typography>
         </div>
       </Grid>
