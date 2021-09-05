@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '90%',
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OrganizerSignUp() {
   const classes = useStyles();
+  const history = useHistory();
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } = useFormik({
     initialValues: {
       name: '',
@@ -71,7 +73,7 @@ export default function OrganizerSignUp() {
         .then(response => {
           console.log(response.data);
           alert('Registered Successfully');
-          //history.push('/user/attendee/login');
+          history.push('/login');
         }).catch(error => {
           console.log(error.response.data.error);
         })

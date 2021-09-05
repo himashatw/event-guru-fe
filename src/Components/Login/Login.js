@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from '../../Services/axios';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,7 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
-//import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -77,7 +76,7 @@ export default function Login(props) {
         .then(res => {  
           if (res.status === 200) {
             alert(res.data.message)
-            history.push(`/user/enquiry/${res.data.user._id}`)
+            history.push(`/user/dashboard/${res.data.user._id}`)
           }
         }).catch(error => {
           alert(error.response.data.message);

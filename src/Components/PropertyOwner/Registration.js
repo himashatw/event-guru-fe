@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
     width: '90%',
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function OwnerSignUp() {
   const classes = useStyles();
+  const history = useHistory();
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } = useFormik({
     initialValues: {
       name: '',
@@ -84,12 +86,21 @@ export default function OwnerSignUp() {
         .then(response => {
           console.log(response.data);
           alert('Registered Successfully');
-          //history.push('/user/attendee/login');
+          history.push('/login');
         }).catch(error => {
           console.log(error.response.data.error);
         })
     }
   })
+
+  const uploadImage = (e) =>{
+    const files = e.target.files;
+    const formData = new FormData();
+    formData.append("file",files[0])
+    formData.append("upload_preset", "o72lqtty")
+    axios.post("https://api.cloudinary.com/v1_1/db7nslark/image/upload",formData)
+    console.log(files[0]);
+  }
 
   return (
     <Grid container justifyContent="center" style={{ marginTop: "15px" }}>
@@ -229,7 +240,6 @@ export default function OwnerSignUp() {
                   value={values.propertyImageUrl}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  autoComplete="propertyImageUrl"
                   type="file"
                 />
                 {touched.propertyImageUrl && errors.propertyImageUrl ? (<div>{errors.propertyImageUrl}</div>) : null}
