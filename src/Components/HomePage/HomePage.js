@@ -50,7 +50,7 @@ function HomePage() {
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="text-gray-800 font-semibold">
+                  <a href="/contactus" class="text-gray-800 font-semibold">
                     Contact Us
                   </a>
                 </li>
@@ -63,7 +63,7 @@ function HomePage() {
             </div>
           </div>
           <div class="lg:flex  items-center space-x-3 py-3 px-6 w-36 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-            <button>Sign In</button>
+            <a href="/login"><button>Sign In</button></a>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
