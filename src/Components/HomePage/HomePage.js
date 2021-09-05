@@ -63,7 +63,9 @@ function HomePage() {
             </div>
           </div>
           <div class="lg:flex  items-center space-x-3 py-3 px-6 w-36 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-            <a href="/login"><button>Sign In</button></a>
+            <a href="/login">
+              <button>Sign In</button>
+            </a>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +126,7 @@ function HomePage() {
           </div>
         </div>
       </header>
-      <Container minWidth="md" ref={myRef}>
+      <Container minWidth="md" ref={myRef} className="bg-white">
         {/* End hero unit */}
         <Grid container spacing={7}>
           {adList.map((card, index) => (
