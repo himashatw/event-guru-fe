@@ -16,6 +16,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "./DetailsModel.css";
 import Progress from "react-progressbar";
 import CancelIcon from "@material-ui/icons/Cancel";
+import Moment from "moment";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import AdminHeader from "./AdminHeader";
 
 Modal.setAppElement("#root");
 
@@ -36,6 +40,7 @@ const validationSchema = Yup.object({
 
 function AddNewAd() {
   const [progressValue, setProgressValue] = useState(0);
+  const [updateProgressValue, setUpdateProgressValue] = useState(0);
   const [adList, setAdList] = useState([]);
   const [check, setCheck] = useState(false);
 
@@ -92,14 +97,72 @@ function AddNewAd() {
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleModal() {
+    if (isOpen) setUpdateProgressValue(0);
     setIsOpen(!isOpen);
   }
 
-  const onDeleteHandler = async () => {};
+  const onDeleteHandler = async () => {
+    confirmAlert({
+      title: "Are you sure want to delete " + updateTitle,
+      // message: "Are you sure to do this.",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            await axios
+              .delete(`/admin/deletead/${updateId}`)
+              .then((response) => {
+                if (response.status === 200) {
+                  setIsOpen(false);
+                  setCheck(!check);
+                  toast.success("Advertisement Deleted Successfully!", {
+                    position: "top-right",
+                    autoClose: 2700,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                } else {
+                  toast.error("Deletion Unsuccessful!", {
+                    position: "top-right",
+                    autoClose: 2700,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                  console.log("error");
+                }
+              })
+              .catch((error) => {
+                console.log("Catch " + error);
+              });
+          },
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
+  };
 
   const onSubmitHandler = async (mValues) => {
     if (isOpen) {
-      // update part
+      await axios.patch(`/admin/updatead/${updateId}`, {
+        title: updateTitle,
+        description: updateDescription,
+        scheduleTime: updateScheduleTime,
+        scheduleDate: updateScheduleDate,
+        ticketPrice: updatePrice,
+        venue: updateVenue,
+        imageUrl: updateImageUrl,
+        email: updateEmail,
+        adType: updateEventType,
+      });
     } else {
       await axios
         .post("/admin/newadd", {
@@ -125,6 +188,17 @@ function AddNewAd() {
               progress: undefined,
             });
             setCheck(!check);
+            setProgressValue(0);
+            // formic.setFieldValue("adTitle", "");
+            // formic.setFieldValue("adDescription", "");
+            // formic.setFieldValue("adDate", "");
+            // formic.setFieldValue("adEmail", "");
+            // formic.setFieldValue("adType", "");
+            // formic.setFieldValue("adPrice", "");
+            // formic.setFieldValue("adImageUrl", "");
+            // formic.setFieldValue("adTime", "");
+            // formic.setFieldValue("adVenue", "");
+            formic.resetForm();
           } else {
             toast.error("Insertion Unsuccessful!", {
               position: "top-right",
@@ -158,7 +232,7 @@ function AddNewAd() {
         data: data,
         onUploadProgress: (p) => {
           if (isOpen) {
-            // update part
+            setUpdateProgressValue((p.loaded / p.total) * 100);
           } else {
             setProgressValue((p.loaded / p.total) * 100);
           }
@@ -166,11 +240,12 @@ function AddNewAd() {
       })
       .then((response) => {
         if (isOpen) {
-          //update part
+          setUpdateImageUrl(response.data.url);
+          setUpdateProgressValue(100);
         } else {
           formic.setFieldValue("adImageUrl", response.data.url);
+          setProgressValue(100);
         }
-        setProgressValue(100);
       });
   };
 
@@ -201,6 +276,7 @@ function AddNewAd() {
 
   return (
     <div className="text-center max-h-1">
+      {/* <AdminHeader /> */}
       <p className="sm:text-4xl text-lg mt-5">Ads Management</p>
       <div className="grid grid-cols-2 divide-x divide-gray-400 items-center justify-center mt-20">
         {/* left container BEGIN */}
@@ -420,7 +496,7 @@ function AddNewAd() {
                 <div>
                   <form
                     className="flex flex-col ml-auto mr-auto mt-auto items-stretch  "
-                    // onSubmit={formic.handleSubmit}
+                    onSubmit={onSubmitHandler}
                   >
                     <TextField
                       id="adTitle"
@@ -474,7 +550,7 @@ function AddNewAd() {
                       label="Schedule date"
                       type="date"
                       InputLabelProps={{ shrink: true }}
-                      value={updateScheduleDate}
+                      value={Moment(updateScheduleDate).format("YYYY-MM-DD")}
                       onChange={(event) => {
                         setUpdateScheduleDate(event.target.value);
                       }}
@@ -485,7 +561,7 @@ function AddNewAd() {
                       label="Schedule Time"
                       fullWidth
                       type="time"
-                      defaultValue="07:30"
+                      // defaultValue="07:30"
                       InputLabelProps={{
                         shrink: true,
                       }}
@@ -558,23 +634,15 @@ function AddNewAd() {
                         </InputLabel>
                       </span>
                     </span>
-                    <Progress completed={progressValue} />
+                    <Progress completed={updateProgressValue} />
 
-                    <span className="mt-5 md:mb-5 sm:mb-3">
+                    <span className="mt-5 md:mb-5 sm:mb-3 flex flex-row justify-evenly">
                       <Button type="submit" variant="outlined">
                         Submit
                       </Button>
-                      <ToastContainer
-                        position="top-right"
-                        autoClose={2700}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                      />
+                      <Button variant="outlined" onClick={onDeleteHandler}>
+                        Delete
+                      </Button>
                     </span>
                   </form>
                 </div>
@@ -583,6 +651,17 @@ function AddNewAd() {
           </div>
         </div>
         {/* Model END */}
+        <ToastContainer
+          position="top-right"
+          autoClose={2700}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     </div>
   );
