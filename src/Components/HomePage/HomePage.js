@@ -1,67 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "../../Services/axios";
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Event Guru
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import AdCard from "./AdCard";
 
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  cardMedia: {
-    paddingTop: "56.25%", // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
-}));
+const scrollToRef = (ref) =>
+  window.scrollTo({ left: 0, top: ref.current.offsetTop, behavior: "smooth" });
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-export default function Album() {
-  const classes = useStyles();
-
+function HomePage() {
   const [adList, setAdList] = useState([]);
+
+  const myRef = useRef(null);
+  const executeScroll = () => scrollToRef(myRef);
 
   useEffect(() => {
     const getData = async () => {
@@ -79,106 +29,110 @@ export default function Album() {
   }, []);
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-
-      <main>
-        {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="lg">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="textPrimary"
-              gutterBottom
-            >
-              Welcome to Event Guru!
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              color="textSecondary"
-              paragraph
-            >
-              Are you an Event Organizer? Don&apos;t know where to start? Click
-              the button below! We will provide the latest offers!
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justifyContent="center">
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Register Now
-                  </Button>
-                </Grid>
-                {/* <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
-                  </Button>
-                </Grid> */}
-              </Grid>
-            </div>
-          </Container>
-        </div>
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {adList.map((card, index) => (
-              <Grid item key={index} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={card.imageUrl}
-                    // image="https://source.unsplash.com/random"
-                    title="Image title"
-                  />
-                  <CardContent
-                    className={classes.cardContent}
-                    style={{ textAlign: "center" }}
+    <>
+      <header class="min-h-screen bg-white ">
+        <nav class="flex items-center py-8 px-14 justify-between sticky top-0 z-50 bg-white">
+          <div class="flex items-center">
+            <h1 class="text-2xl font-bold text-gray-700 ">Event Guru</h1>
+            <div class="ml-10">
+              <ul class="md:flex space-x-8 hidden ">
+                <li>
+                  <a
+                    onClick={() => {
+                      executeScroll();
+                    }}
+                    class="text-gray-800 font-semibold cursor-pointer"
                   >
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {card.title}
-                    </Typography>
-                    <Typography>{card.description}</Typography>
-                  </CardContent>
-                  <>
-                    <center>
-                      <Button
-                        className="text-center"
-                        size="small"
-                        color="primary"
-                        variant="outlined"
-                        style={{ marginBottom: "4px" }}
-                      >
-                        Book Now
-                      </Button>
-                    </center>
-                    {/* <Button size="small" color="primary">
-                      Edit
-                    </Button> */}
-                  </>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-      {/* Footer */}
-      <footer className={classes.footer}>
-        {/* <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography> */}
-        {/* <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography> */}
-        <Copyright />
-      </footer>
-      {/* End footer */}
-    </React.Fragment>
+                    Events
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="text-gray-800 font-semibold">
+                    Contact Us
+                  </a>
+                </li>
+                {/* <li>
+                  <a href="#" class="text-gray-800 font-semibold">
+                    World
+                  </a>
+                </li> */}
+              </ul>
+            </div>
+          </div>
+          <div class="lg:flex  items-center space-x-3 py-3 px-6 w-36 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
+            <button>Sign In</button>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                />
+              </svg>
+            </span>
+          </div>
+        </nav>
+        <div class="md:flex space-x-16 mt-20 md:mr-0 mr-10">
+          <div class="md:flex items-center pl-16 mr-10">
+            <div class="">
+              <h1 class="lg:text-5xl  font-bold leading-tight text-3xl">
+                Welcome to Event Guru!
+              </h1>
+              <p class="mt-4 text-2xl font-normal ">
+                Every idea, every important moment, every event, every party,
+                every presentation will be more breathtaking, spectacular and
+                impressive than you had ever hoped for...{" "}
+              </p>
+              <p class="mt-4 text-2xl font-normal"> Try our latest offers !</p>
+              <div class="flex mt-10 w-52 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
+                <button class="text-lg text-md ">Register Now!</button>
+                <span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class=" max-w-2xl pr-14 md:flex justify-center items-center hidden">
+            <img
+              class="rounded-lg"
+              src="https://static.onecms.io/wp-content/uploads/sites/23/2021/07/27/outdoor-party-2000.jpg"
+              alt=""
+            />
+          </div>
+        </div>
+      </header>
+      <Container minWidth="md" ref={myRef}>
+        {/* End hero unit */}
+        <Grid container spacing={7}>
+          {adList.map((card, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4}>
+              <AdCard cardData={card} />
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </>
   );
 }
+
+export default HomePage;
