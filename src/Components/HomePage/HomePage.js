@@ -33,7 +33,10 @@ function HomePage() {
       <header class="min-h-screen bg-white ">
         <nav class="flex items-center py-8 px-14 justify-between sticky top-0 z-50 bg-white">
           <div class="flex items-center">
-            <h1 class="text-3xl font-bold text-gray-700 ">Event Guru</h1>
+            <div>
+              {/* <img */}
+              <h1 class="text-3xl font-bold text-gray-700 ">Event Guru</h1>
+            </div>
             <div class="ml-10 text-xl">
               <ul class="md:flex space-x-8 hidden ">
                 <li>
