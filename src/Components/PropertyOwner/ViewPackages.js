@@ -19,6 +19,7 @@ import CakeIcon from '@material-ui/icons/Cake';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import LocalBarIcon from '@material-ui/icons/LocalBar';
+import AllInboxIcon from '@material-ui/icons/AllInbox';
 
 const drawerWidth = 240;
 
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 function ViewPackages() {
   const classes = useStyles();
   const [packagesList, setPackagesList] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(1);
   useEffect(() => {
     const getData = async () => {
       await axios
@@ -63,7 +65,19 @@ function ViewPackages() {
     };
     getData();
   }, []);
-  
+
+  const handListAllItemClick  = async()=>{
+    await axios
+     .get("/propertyOwner/packages")
+      .then((response) => {
+        console.log(response.data.result);
+        setPackagesList([])
+        setPackagesList(response.data.result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleListWedItemClick  = async()=>{
         await axios
           .get("/propertyOwner/packages/weddings")
@@ -76,7 +90,7 @@ function ViewPackages() {
             console.log(error);
           });
       };
-      const handleListPartyItemClick  = async()=>{
+  const handleListPartyItemClick  = async()=>{
         await axios
           .get("/propertyOwner/packages/party")
           .then((response) => {
@@ -88,7 +102,7 @@ function ViewPackages() {
             console.log(error);
           });
       };
-      const handleListConItemClick  = async()=>{
+  const handleListConItemClick  = async()=>{
         await axios
           .get("/propertyOwner/packages/concert")
           .then((response) => {
@@ -100,7 +114,7 @@ function ViewPackages() {
             console.log(error);
           });
       };
-      const handleListOtherItemClick  = async()=>{
+  const handleListOtherItemClick  = async()=>{
         await axios
           .get("/propertyOwner/packages/other")
           .then((response) => {
@@ -112,7 +126,9 @@ function ViewPackages() {
             console.log(error);
           });
       };
-
+  const handleListItemClick = (event, index) => {
+        setSelectedIndex(index);
+      };
   return (
     <div>
 <div className={classes.root}>
@@ -134,16 +150,26 @@ function ViewPackages() {
       >
         <div className={classes.toolbar} />
         <List>
-        <ListItem>
-              
-              <ListItemText primary="Categories"/>
+        <ListItem 
+        button 
+        selected={selectedIndex === 1}
+        onClick={(event)=>{
+          handListAllItemClick()
+          handleListItemClick(event, 1)}}>
+            <ListItemIcon>
+            <AllInboxIcon />
+            </ListItemIcon>
+              <ListItemText primary="All Packages"/>
             </ListItem>
         </List>
         <Divider />
         <List>
         <ListItem 
         button 
-        onClick={handleListWedItemClick}>
+        selected={selectedIndex === 2}
+        onClick={(event)=>{
+          handleListWedItemClick()
+          handleListItemClick(event, 2)}}>
             <ListItemIcon>
             <LocalBarIcon />
             </ListItemIcon>
@@ -154,7 +180,10 @@ function ViewPackages() {
         <List>
             <ListItem 
             button
-            onClick={handleListPartyItemClick}>
+            selected={selectedIndex === 3}
+            onClick={(event)=>{
+              handleListPartyItemClick()
+              handleListItemClick(event, 3)}}>
             <ListItemIcon>
             <CakeIcon />
             </ListItemIcon>
@@ -165,7 +194,10 @@ function ViewPackages() {
         <List>
             <ListItem 
             button
-            onClick={handleListConItemClick}>
+            selected={selectedIndex === 4}
+            onClick={(event)=>{
+                handleListConItemClick()
+                handleListItemClick(event, 4)}}>
             <ListItemIcon>
             <AudiotrackIcon />
             </ListItemIcon>
@@ -176,7 +208,10 @@ function ViewPackages() {
         <List>
             <ListItem 
             button
-            onClick = {handleListOtherItemClick}>
+            selected={selectedIndex === 5}
+            onClick={(event)=>{
+              handleListOtherItemClick()
+              handleListItemClick(event, 5)}}>
             <ListItemIcon>
               <BeachAccessIcon />
               </ListItemIcon>
