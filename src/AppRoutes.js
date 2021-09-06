@@ -23,6 +23,8 @@ import OfferFormDashBoard from "./Components/EventOrganizer/SlideBar/OfferFormDa
 import LatestOffers from "./Components/EventOrganizer/ViewPackages/LatestOffers";
 import AdminHeader from "./Components/Admin/AdminHeader";
 import AdminStats from "./Components/Admin/AdminStats";
+import RegistrationHome from "./Components/Registration/RegistrationPage";
+import EditPackage from "./Components/PropertyOwner/EditPackage";
 
 function AppRoutes() {
   return (
@@ -33,6 +35,7 @@ function AppRoutes() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/contactus" component={ContactUs} />
+          <Route exact path="/register" component={RegistrationHome} />
           {/* **COMMON ROUTES END** */}
 
           {/* **ADMIN ROUTES BEGIN** */}
@@ -60,6 +63,7 @@ function AppRoutes() {
           <Route exact path="/owner/newpackage" component={NewPackage} />
           <Route exact path="/owner/packages" component={ViewPackages} />
           <Route exact path="/owner/dashboard" component={OwnerDashboard} />
+          <Route exact path="/owner/editpackage" component={EditPackage} />
 
           {/* **OWNER ROUTES END** */}
 
