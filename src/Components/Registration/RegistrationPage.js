@@ -52,7 +52,7 @@ export default function RegistrationHome() {
                             <img className={classes.img} alt="complex" src="https://www.coxblue.com/wp-content/uploads/2019/01/15-Ways-to-Guarantee-Your-Small-Business-or-Startup-Is-Meeting-Customer-Needs-1024x682.jpg" />
                         </ButtonBase>
                         <p className={classes.font}>
-                        {"As a Customer you can register with our system and you will be able to Book an Event. So Customer Registration is important."}
+                        {"As a Customer you can register with our system and you will be able to Book an Event. Customer Registration is important."}
                         </p>
                         <br/>
                         <Link to="/user/register"><Button variant="outlined" >{"Click Here <<!"}</Button></Link>

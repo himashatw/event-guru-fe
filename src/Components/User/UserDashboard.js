@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../Services/axios';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Paper, Grid, Button, Typography, Divider, Dialog, MuiDialogTitle, MuiDialogContent, 
-  MuiDialogActions, IconButton } from '@material-ui/core';
 import {
-   ArrowDownward, Check, ChevronLeft, ChevronRight, Clear, DeleteOutline
+  Paper, Grid, Button, Typography, Divider, Dialog, MuiDialogTitle, MuiDialogContent,
+  MuiDialogActions, IconButton, useMediaQuery, DialogTitle, DialogContent, DialogContentText, DialogActions
+} from '@material-ui/core';
+import {
+  ArrowDownward, Check, ChevronLeft, ChevronRight, Clear, DeleteOutline
   , FilterList, FirstPage, LastPage, Remove, Search, ViewColumn, CloseIcon
 } from '@material-ui/icons';
-import { makeStyles,useTheme,withStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import { useHistory, useParams } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
+import EditUserDetails from './EditUserDetails';
 
 const tableIcons = {
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -59,6 +62,8 @@ export default function UserDashboard() {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const userId = useParams();
   const [firstName, setFirstName] = useState("");
@@ -97,15 +102,6 @@ export default function UserDashboard() {
       })
   }
 
-  // const updateUserProfile = () =>{
-  //   axios.put(`/user/${loggedUserId}`)
-  //     .then(res =>{
-  //       console.log(res.data.message);
-  //     }).catch(error =>{
-  //       console.log(error.response.data.message);
-  //     })
-  // }
-  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -146,7 +142,28 @@ export default function UserDashboard() {
             Phone:{phoneNo}
           </Typography>
           <br />
-          <Button variant="outlined" color="primary" onClick={navigateEventPage} >Update Profile</Button>
+
+          {/**Update Dialog Box */}
+          <Button variant="outlined" color="primary" onClick={handleClickOpen} >Update Profile</Button>
+          <Dialog
+            fullScreen={fullScreen}
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="responsive-dialog-title"
+          >
+            <DialogContent>
+              <DialogContentText>
+                <EditUserDetails />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={handleClose} color="primary">
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          {/**Delete Dialog Box */}
           <Button variant="outlined" color="secondary" onClick={deleteUserProfile} style={{ marginLeft: '10px' }}>Delete Profile</Button><br /><br />
           <Button variant="outlined" color="primary" onClick={navigateEventPage}>Send Enquiry</Button>
         </Grid>

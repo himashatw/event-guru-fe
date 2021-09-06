@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(10),
     display: 'flex',
     flexDirection: 'column',
-    
+
   },
   form: {
     width: '90%',
@@ -30,53 +30,30 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0, 2),
     height: '40px'
   },
-
-  //card
-  root: {
-    marginTop: 20,
-  },
-  bullet: {
-    display: 'inline-block',
-  },
-  paper1: {
-    margin: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    
-  },
-  title: {
-    fontSize: 14,
-    marginTop: theme.spacing(3),
-  },
-  pos: {
-    marginBottom: 10,
-  },
-  button:{
-    marginLeft: 420,
-    color:'red',
-  }
 }));
 
-export default function ViewAdert(){
+export default function ViewAdert() {
   const classes = useStyles();
 
   return (
     <div>
-      <Grid item xs>
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Show List
-          </Typography>
-        </div>
-      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs>
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Show List
+            </Typography>
+          </div>
+        </Grid>
 
-      <Grid>
-        <div className={classes.paper1}>
-        <Typography component="h1" variant="h5">
-          <b>Book an Event</b>
-          </Typography>
-        </div>
+        <Grid>
+          <div className={classes.paper1}>
+            <Typography component="h1" variant="h5">
+              <b>Book an Event</b>
+            </Typography>
+          </div>
+        </Grid>
       </Grid>
-      </div>
+    </div>
   );
 }
