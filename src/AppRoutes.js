@@ -21,6 +21,8 @@ import OwnerDashboard from "./Components/PropertyOwner/OwnerDashboard";
 import OfferDashboard from "./Components/EventOrganizer/SlideBar/OfferDashBoard";
 import OfferFormDashBoard from "./Components/EventOrganizer/SlideBar/OfferFormDashBoard";
 import LatestOffers from "./Components/EventOrganizer/ViewPackages/LatestOffers";
+import AdminHeader from "./Components/Admin/AdminHeader";
+import AdminStats from "./Components/Admin/AdminStats";
 
 function AppRoutes() {
   return (
@@ -34,8 +36,19 @@ function AppRoutes() {
           {/* **COMMON ROUTES END** */}
 
           {/* **ADMIN ROUTES BEGIN** */}
-          <Route exact path="/admin/dashboard" component={AdminDashboard} />
-          <Route exact path="/admin/newad" component={AddNewAd} />
+          <Route exact path="/admin/dashboard">
+            <AdminHeader />
+            <AdminDashboard />
+          </Route>
+          <Route exact path="/admin/newad">
+            <AdminHeader />
+            <AddNewAd />
+          </Route>
+          <Route exact path="/admin/statistics">
+            <AdminHeader />
+            <AdminStats />
+          </Route>
+          {/* <Route exact path={["/admin/newad", "/admin/dashboard"]} component={AdminHeader} /> */}
           {/* **ADMIN ROUTES END** */}
 
           {/* **OWNER ROUTES BEGIN** */}
