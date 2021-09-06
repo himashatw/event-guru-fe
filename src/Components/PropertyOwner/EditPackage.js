@@ -72,6 +72,8 @@ export default function EditPackage(props) {
     },
     // validationSchema: validationSchema,
   });
+  
+
 
   const imageUploadHandler = async (e) => {
     const files = e.target.files;
@@ -133,7 +135,7 @@ export default function EditPackage(props) {
           <AddCircleIcon />
         </span>
         <Typography component="h1" variant="h5">
-          Add New Package
+          Edit Package
         </Typography>
         <form
           className={classes.form}

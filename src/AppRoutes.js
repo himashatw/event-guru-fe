@@ -22,6 +22,7 @@ import OfferDashboard from "./Components/EventOrganizer/SlideBar/OfferDashBoard"
 import OfferFormDashBoard from "./Components/EventOrganizer/SlideBar/OfferFormDashBoard";
 import LatestOffers from "./Components/EventOrganizer/ViewPackages/LatestOffers";
 import RegistrationHome from "./Components/Registration/RegistrationPage";
+import EditPackage from "./Components/PropertyOwner/EditPackage";
 
 function AppRoutes() {
   return (
@@ -49,6 +50,7 @@ function AppRoutes() {
           <Route exact path="/owner/newpackage" component={NewPackage} />
           <Route exact path="/owner/packages" component={ViewPackages} />
           <Route exact path="/owner/dashboard" component={OwnerDashboard} />
+          <Route exact path ="/owner/editpackage" component={EditPackage} />
 
           {/* **OWNER ROUTES END** */}
 
