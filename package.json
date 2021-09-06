@@ -22,7 +22,9 @@
     "react-progressbar": "^15.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-table": "^7.7.0",
     "react-toastify": "^7.0.4",
+    "reactstrap": "^8.10.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
