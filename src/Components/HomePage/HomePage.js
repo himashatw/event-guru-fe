@@ -30,46 +30,46 @@ function HomePage() {
 
   return (
     <>
-      <header class="min-h-screen bg-white ">
-        <nav class="flex items-center py-8 px-14 justify-between sticky top-0 z-50 bg-white">
-          <div class="flex items-center">
+      <header className="min-h-screen bg-white ">
+        <nav className="flex items-center py-8 px-14 justify-between sticky top-0 z-50 bg-white">
+          <div className="flex items-center">
             <div>
               {/* <img */}
-              <h1 class="text-3xl font-bold text-gray-700 ">Event Guru</h1>
+              <h1 className="text-3xl font-bold text-gray-700 ">Event Guru</h1>
             </div>
-            <div class="ml-10 text-xl">
-              <ul class="md:flex space-x-8 hidden ">
+            <div className="ml-10 text-xl">
+              <ul className="md:flex space-x-8 hidden ">
                 <li>
                   <a
                     onClick={() => {
                       executeScroll();
                     }}
-                    class="text-gray-800 font-semibold cursor-pointer"
+                    className="text-gray-800 font-semibold cursor-pointer"
                   >
                     Events
                   </a>
                 </li>
                 <li>
-                  <a href="/contactus" class="text-gray-800 font-semibold">
+                  <a href="/contactus" className="text-gray-800 font-semibold">
                     Contact Us
                   </a>
                 </li>
                 {/* <li>
-                  <a href="#" class="text-gray-800 font-semibold">
+                  <a href="#" className="text-gray-800 font-semibold">
                     World
                   </a>
                 </li> */}
               </ul>
             </div>
           </div>
-          <div class="lg:flex  items-center space-x-3 py-3 px-6 w-36 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
+          <div className="lg:flex  items-center space-x-3 py-3 px-6 w-36 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
             <a href="/login">
               <button>Sign In</button>
             </a>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -84,24 +84,27 @@ function HomePage() {
             </span>
           </div>
         </nav>
-        <div class="md:flex space-x-16 mt-20 md:mr-0 mr-10">
-          <div class="md:flex items-center pl-16 mr-10">
-            <div class="">
-              <h1 class="lg:text-5xl  font-bold leading-tight text-3xl">
+        <div className="md:flex space-x-16 mt-20 md:mr-0 mr-10">
+          <div className="md:flex items-center pl-16 mr-10">
+            <div className="">
+              <h1 className="lg:text-5xl  font-bold leading-tight text-3xl">
                 Welcome to Event Guru!
               </h1>
-              <p class="mt-4 text-2xl font-normal ">
+              <p className="mt-4 text-2xl font-normal ">
                 Every idea, every important moment, every event, every party,
                 every presentation will be more breathtaking, spectacular and
                 impressive than you had ever hoped for...{" "}
               </p>
-              <p class="mt-4 text-2xl font-normal"> Try our latest offers !</p>
-              <div class="flex mt-10 w-52 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-                <button class="text-lg text-md ">Register Now!</button>
+              <p className="mt-4 text-2xl font-normal">
+                {" "}
+                Try our latest offers !
+              </p>
+              <div className="flex mt-10 w-52 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
+                <button className="text-lg text-md ">Register Now!</button>
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
+                    className="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -117,9 +120,9 @@ function HomePage() {
               </div>
             </div>
           </div>
-          <div class=" max-w-2xl pr-14 md:flex justify-center items-center hidden">
+          <div className=" max-w-2xl pr-14 md:flex justify-center items-center hidden">
             <img
-              class="rounded-lg"
+              className="rounded-lg"
               src="https://static.onecms.io/wp-content/uploads/sites/23/2021/07/27/outdoor-party-2000.jpg"
               alt=""
             />
