@@ -16,7 +16,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-import { InputLabel, MenuItem, Input } from "@material-ui/core";
+import { InputLabel, MenuItem, Input, Card, CardContent } from "@material-ui/core";
 import { useFormik } from "formik";
 import Progress from "react-progressbar";
 import axios from "../../Services/axios";
@@ -125,7 +125,7 @@ export default function NewPackage() {
     <Container
       component="main"
       maxWidth="xs"
-      //   style={{ border: "1px solid black" }}
+      style={{ border: "1px solid black" }}
     >
       <CssBaseline />
       <div className={classes.paper}>
