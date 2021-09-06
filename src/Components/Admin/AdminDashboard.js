@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 
 function AdminDashboard(props) {
   const history = useHistory();
+
   return (
     <div>
       <div className="flex h-screen max-h-1">
