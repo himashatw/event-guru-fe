@@ -4,6 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link } from "react-router-dom";
+import axios from "../../Services/axios";
 
 const PackageCard = ({ cardContent }) => {
   //   const btnHandler = () => {
@@ -15,6 +16,19 @@ const PackageCard = ({ cardContent }) => {
       margin: theme.spacing(0.5),
     },
   }));
+
+  const deletePackage = () => {
+    axios.delete(`/propertyOwner/packages/delete/${cardContent._id}`)
+        .then((response) => {
+            console.log(response);
+            alert("Package Deleted Successfully!");
+            window.location="/owner/packages";
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}
   const classes = useStyles();
   return (
     <div className="col">
@@ -51,6 +65,7 @@ const PackageCard = ({ cardContent }) => {
            color="secondary"
            className={classes.button}
            startIcon={<DeleteIcon />}
+           onClick={deletePackage}
            >
            Delete
           </Button>
