@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
-
+import { Link } from "react-router-dom";
 
 const PackageCard = ({ cardContent }) => {
   //   const btnHandler = () => {
@@ -36,7 +36,8 @@ const PackageCard = ({ cardContent }) => {
         <div className="card-body text-center">
           <p className="card-text" style={{ color: "black" }}>
             {cardContent.packageType}
-          </p>          
+          </p>
+          <Link to={`/owner/editpackage/${cardContent._id}`}>          
           <Button
            variant="contained"
            color="primary"
@@ -44,6 +45,7 @@ const PackageCard = ({ cardContent }) => {
            >
            Edit
           </Button>
+          </Link>
           <Button
            variant="contained"
            color="secondary"

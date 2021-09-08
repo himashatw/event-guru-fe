@@ -63,7 +63,7 @@ function AppRoutes() {
           <Route exact path="/owner/newpackage" component={NewPackage} />
           <Route exact path="/owner/packages" component={ViewPackages} />
           <Route exact path="/owner/dashboard" component={OwnerDashboard} />
-          <Route exact path="/owner/editpackage" component={EditPackage} />
+          <Route exact path="/owner/editpackage/:id" component={EditPackage} />
 
           {/* **OWNER ROUTES END** */}
 

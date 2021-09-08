@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -42,9 +42,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditPackage(props) {
+  const{id}=props.match.params
+  console.log(id);
   const [progressValue, setProgressValue] = useState(0);
   const classes = useStyles();
 
+  useEffect(async()=>{
+      await axios
+      .get(`/propertyOwner/packages/get/${id}`)
+      .then(response=>{
+        console.log(response.data);
+      })
+  },[])
+  
   const formic = useFormik({
     initialValues: {
       packageName: "",
@@ -73,8 +83,7 @@ export default function EditPackage(props) {
     // validationSchema: validationSchema,
   });
   
-
-
+  
   const imageUploadHandler = async (e) => {
     const files = e.target.files;
 
