@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -8,7 +8,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -20,6 +23,7 @@ import { InputLabel, MenuItem, Input } from "@material-ui/core";
 import { useFormik } from "formik";
 import Progress from "react-progressbar";
 import axios from "../../Services/axios";
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,39 +46,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EditPackage(props) {
+  const{id}=props.match.params
+  console.log(id);
   const [progressValue, setProgressValue] = useState(0);
   const classes = useStyles();
 
-  const formic = useFormik({
-    initialValues: {
-      packageName: "",
-      packageType: "",
-      packagePrice: "",
-      packageParticipent: "",
-      packageDescription: "",
-      // packageOffer: "yes",
-      packageOfferPercentage: "",
-      packageVenue: "",
-      packageImageUrl: "",
-    },
-    onSubmit: (values) => {
-      onSubmitHandler(values);
-      // toast.success("Insertion Successful!", {
-      //   position: "bottom-right",
-      //   autoClose: 2500,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: 0,
-      // });
-      console.log(values);
-    },
-    // validationSchema: validationSchema,
-  });
+  useEffect(async()=>{
+      await axios
+      .get(`/propertyOwner/packages/get/${id}`)
+      .then(response=>{
+        console.log(response.data);
+        setPackageName(response.data.data.packageName);
+        setPackageType(response.data.data.packageType);
+        setPackagePrice(response.data.data.packagePrice)
+        setPackageParticipent(response.data.data.participants)
+        setPackageDescription(response.data.data.packageDetails)
+        setPackageOfferPercentage(response.data.data.packageOffer)
+        setImgUrl(response.data.data.packageImageUrl)
+      })
+  },[])
+
+  const [packageName,setPackageName]= useState("")
+  const [packageType,setPackageType] = useState("")
+  const [packagePrice,setPackagePrice]=useState("")
+  const [packageParticipent, setPackageParticipent] = useState("")
+  const [packageDescription,setPackageDescription] = useState("")
+  const [packageOfferPercentage, setPackageOfferPercentage] = useState("")
+  const [imgUrl, setImgUrl] = useState("")
   
-
-
   const imageUploadHandler = async (e) => {
     const files = e.target.files;
 
@@ -92,37 +91,31 @@ export default function EditPackage(props) {
         },
       })
       .then((response) => {
-        formic.setFieldValue("packageImageUrl", response.data.url);
+        console.log(response.data.url);
+        setImgUrl(response.data.url)
         setProgressValue(100);
       });
   };
 
-  const onSubmitHandler = async (mValues) => {
-    console.log("called");
-    await axios
-      .post("/propertyOwner/newpackage", {
-        packageName: mValues.packageName,
-        packageDetails: mValues.packageDescription,
-        packageImageUrl: mValues.packageImageUrl,
-        packageOffer: parseInt(mValues.packageOfferPercentage),
-        packageVenue: mValues.packageVenue,
-        participants: parseInt(mValues.packageParticipent),
-        packageType: mValues.packageType,
-        packagePrice: parseInt(mValues.packagePrice),
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log("done");
-          alert("succussfull");
-        } else {
-          alert("unsuccessful");
-          console.log(response);
-        }
-      })
-      .catch((error) => {
-        console.log({ error });
-      });
-  };
+
+  const updatePackage=()=>{
+    axios.put(`/propertyOwner/packages/update/${id}`,{
+      packageName:packageName,
+      packageDetails: packageDescription,
+      packageImageUrl: imgUrl,
+      packageOffer: parseInt(packageOfferPercentage),
+      participants: parseInt(packageParticipent),
+      packageType: packageType,
+      packagePrice: parseInt(packagePrice)
+    }).then((response)=>{
+      alert("Updated Successfully!");
+      window.location ="/owner/packages";
+      console.log(response);
+   
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
   return (
     <Container
       component="main"
@@ -140,7 +133,7 @@ export default function EditPackage(props) {
         <form
           className={classes.form}
           // noValidate
-          onSubmit={formic.handleSubmit}
+          //onSubmit={handleSubmit}
         >
           <TextField
             variant="outlined"
@@ -152,8 +145,8 @@ export default function EditPackage(props) {
             name="packageName"
             // autoComplete="email"
             // autoFocus
-            value={formic.values.packageName}
-            onChange={formic.handleChange}
+            value={packageName}
+            onChange={e=>setPackageName(e.target.value)}
           />
 
           <TextField
@@ -165,8 +158,8 @@ export default function EditPackage(props) {
             fullWidth
             variant="outlined"
             label="Event Type"
-            value={formic.values.packageType}
-            onChange={formic.handleChange}
+            value={packageType}
+            onChange={e=>setPackageType(e.target.value)}
             // error={formic.touched.adType && Boolean(formic.errors.adType)}
             // helperText={formic.touched.adType && formic.errors.adType}
           >
@@ -198,8 +191,8 @@ export default function EditPackage(props) {
             id="packagePrice"
             label="Package Price"
             name="packagePrice"
-            value={formic.values.packagePrice}
-            onChange={formic.handleChange}
+            value={packagePrice}
+            onChange={e=>setPackagePrice(e.target.value)}
             // autoComplete="email"
             // autoFocus
           />
@@ -211,8 +204,8 @@ export default function EditPackage(props) {
             id="packageParticipent"
             label="Participent Count"
             name="packageParticipent"
-            value={formic.values.packageParticipent}
-            onChange={formic.handleChange}
+            value={packageParticipent}
+            onChange={e=>setPackageParticipent(e.target.value)}
             // autoComplete="email"
             // autoFocus
           />
@@ -224,8 +217,8 @@ export default function EditPackage(props) {
             id="packageDescription"
             label="Package Description"
             name="packageDescription"
-            value={formic.values.packageDescription}
-            onChange={formic.handleChange}
+            value={packageDescription}
+            onChange={e=>setPackageDescription(e.target.value)}
             // autoComplete="email"
             // autoFocus
           />
@@ -267,8 +260,8 @@ export default function EditPackage(props) {
             id="packageOfferPercentage"
             label="Offer Percentage"
             name="packageOfferPercentage"
-            value={formic.values.packageOfferPercentage}
-            onChange={formic.handleChange}
+            value={packageOfferPercentage}
+            onChange={e=>setPackageOfferPercentage(e.target.value)}
             // autoComplete="email"
             // autoFocus
           />
@@ -282,8 +275,8 @@ export default function EditPackage(props) {
               variant="outlined"
               fullWidth
               // value={imageUrl}
-              values={formic.values.packageImageUrl}
-              onChange={formic.handleChange}
+              //value={packageImageUrl}
+             
               // error={
               //   formic.touched.adImageUrl && Boolean(formic.errors.adImageUrl)
               // }
@@ -311,7 +304,7 @@ export default function EditPackage(props) {
                   inputProps={{
                     accept: "image/*",
                   }}
-                  // onChange={onInputChange}
+                  //onChange={e=>setImgUrl(e.target.value)}
                   style={{ display: "none" }}
                   type="file"
                   onChange={imageUploadHandler}
@@ -326,10 +319,25 @@ export default function EditPackage(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={updatePackage}
           >
-            Submit
+            Update
           </Button>
         </form>
+        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <Card className=" max-w-sm">
+          <CardActionArea>
+            <CardMedia
+              className="h-36"
+              component="img"
+              alt="Contemplative Reptile"
+              height="140"
+              img src={imgUrl}
+              title="Contemplative Reptile"
+            />
+            </CardActionArea>
+          </Card>
+          </div>
       </div>
     </Container>
   );
