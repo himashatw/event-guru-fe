@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(2, 0, 2),
     height: '40px',
-    width:"200px",
-    marginLeft:'150px'
+    width: "200px",
+    marginLeft: '150px'
   },
 }));
 
@@ -69,82 +69,82 @@ export default function EditUserDetails() {
   });
 
   return (
-      <Grid item xs>
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Edit Personal Details
-          </Typography>
+    <Grid item xs>
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Typography component="h1" variant="h5">
+          Edit Personal Details
+        </Typography>
         <form className={classes.form} onSubmit={updateUserProfile}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} >
-            <TextField
-              autoComplete="fname"
-              name="firstName"
-              variant="outlined"
-              fullWidth
-              id="firstName"
-              label="First Name*"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            // onBlur={handleBlur}       
-            />
-            {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
+          <Grid container spacing={2}>
+            <Grid item xs={12} >
+              <TextField
+                autoComplete="fname"
+                name="firstName"
+                variant="outlined"
+                fullWidth
+                id="firstName"
+                label="First Name*"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              // onBlur={handleBlur}       
+              />
+              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
+            </Grid>
+            <Grid item xs={12} >
+              <TextField
+                autoComplete="lname"
+                name="lastName"
+                variant="outlined"
+                fullWidth
+                id="lastName"
+                label="Last Name*"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              // onBlur={handleBlur}
+              />
+              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
+            </Grid>
+            <Grid item xs={12} >
+              <TextField
+                autoComplete="email"
+                name="email"
+                variant="outlined"
+                fullWidth
+                id="email"
+                label="Email*"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              // onBlur={handleBlur}
+              />
+              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
+            </Grid>
+            <Grid item xs={12} >
+              <TextField
+                autoComplete="phoneNo"
+                name="phoneNo"
+                variant="outlined"
+                fullWidth
+                id="phoneNo"
+                label="Phone Number*"
+                value={phoneNo}
+                onChange={(e) => setPhoneNo(e.target.value)}
+              // onBlur={handleBlur}
+              />
+              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
+            </Grid>
           </Grid>
-          <Grid item xs={12} >
-            <TextField
-              autoComplete="lname"
-              name="lastName"
-              variant="outlined"
-              fullWidth
-              id="lastName"
-              label="Last Name*"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            // onBlur={handleBlur}
-            />
-            {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
-          </Grid>
-          <Grid item xs={12} >
-            <TextField
-              autoComplete="email"
-              name="email"
-              variant="outlined"
-              fullWidth
-              id="email"
-              label="Email*"
-              value={email}
-             onChange={(e) => setEmail(e.target.value)}
-            // onBlur={handleBlur}
-            />
-            {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
-          </Grid>
-          <Grid item xs={12} >
-            <TextField
-              autoComplete="phoneNo"
-              name="phoneNo"
-              variant="outlined"
-              fullWidth
-              id="phoneNo"
-              label="Phone Number*"
-              value={phoneNo}
-              onChange={(e) => setPhoneNo(e.target.value)}
-            // onBlur={handleBlur}
-            />
-            {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
-          </Grid>
-        </Grid>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-        >
-          Save
-        </Button>
-      </form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Save
+          </Button>
+        </form>
       </div>
-      </Grid>
-    
+    </Grid>
+
   );
 }
