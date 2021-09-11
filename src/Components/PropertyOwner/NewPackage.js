@@ -95,7 +95,7 @@ export default function NewPackage() {
       });
   };
 
-  const onSubmitHandler = async (mValues) => {
+  const onSubmitHandler = async(mValues) => {
     console.log("called");
     await axios
       .post("/propertyOwner/newpackage", {
@@ -112,6 +112,7 @@ export default function NewPackage() {
         if (response.status === 200) {
           console.log("done");
           alert("succussfull");
+          window.location="/owner/newpackage";
         } else {
           alert("unsuccessful");
           console.log(response);
