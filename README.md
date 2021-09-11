@@ -1,4 +1,4 @@
-# event-guru-fe
+# event-guru-frontend
 
 ### Group Number : 2021S2_REG_WE_54
 ### Project : Event Management System
