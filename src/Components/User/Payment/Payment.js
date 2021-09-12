@@ -2,6 +2,7 @@ import React from 'react';
 import axios from '../../../Services/axios';
 import { Button, CssBaseline, Grid, TextField, Paper, Typography, Box, Link } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import UserNavBar from '../UserNavBar';
 
 const useStyles = makeStyles((theme) => ({
   //form

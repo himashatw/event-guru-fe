@@ -26,23 +26,42 @@ export default function ViewAdert() {
 
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs>
-          <div className={classes.paper}>
+      
+          <div style={{}}>
             <Typography component="h1" variant="h5">
               Show List
             </Typography>
           </div>
-        </Grid>
+        
 
-        <Grid>
-          <div className={classes.paper1}>
-            <Typography component="h1" variant="h5">
+        
+          <div style={{margin:'auto',border:'1px solid black',width:600,height:'auto'}}>
+            <Typography component="h1" variant="h5" style={{textAlign:'center'}}>
               <b>Book an Event</b>
             </Typography>
+            <br/>
+            <img 
+              src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"  
+              alt="" 
+              style={{maxWidth:300,margin:'auto'}}
+              >
+            </img>
+            <br/>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <center>
+              <Button style={{border:'1px solid black'}}>Book Now</Button>
+            </center>
           </div>
-        </Grid>
-      </Grid>
+       
+      
     </div>
   );
 }

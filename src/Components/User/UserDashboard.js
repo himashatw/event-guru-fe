@@ -14,6 +14,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
 import EditUserDetails from './EditUserDetails';
+import UserNavBar from './UserNavBar';
 
 const tableIcons = {
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -117,6 +118,7 @@ export default function UserDashboard() {
 
   return (
     <div>
+      <UserNavBar/>
       <Grid container>
         <CssBaseline />
         <Grid item xs={12}>
