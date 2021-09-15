@@ -17,7 +17,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import Header from "../HomePage/Header";
 
 const useStyles = makeStyles((theme) => ({
@@ -67,12 +66,6 @@ export default function Login(props) {
         password: "",
         role: "",
       },
-      validationSchema: Yup.object({
-        email: Yup.string()
-          .email("Please Enter Valid Email")
-          .required("Email is Required"),
-        password: Yup.string().required("Password is Required"),
-      }),
       onSubmit: (e) => {
         console.log("button clicked");
         console.log(e.role);
@@ -120,17 +113,17 @@ export default function Login(props) {
         }
         if (e.role === "admin") {
           console.log("admin clicked");
-        //   axios
-        //     .post("/propertyOwner/login", values)
-        //     .then((res) => {
-        //       if (res.status === 200) {
-        //         alert(res.data.message);
-        //         //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
-        //       }
-        //     })
-        //     .catch((error) => {
-        //       alert(error.response.data.message);
-        //     });
+          axios
+            .post("/admin/login", values)
+            .then((res) => {
+              if (res.status === 200) {
+                alert(res.data.message);
+                history.push('/admin/dashboard') //ToDo: give your page after login you want to redirect and change AppRoutes.js
+              }
+            })
+            .catch((error) => {
+              alert(error.response.data.message);
+            });
         }
       },
     });
@@ -173,7 +166,6 @@ export default function Login(props) {
                 label="Email Address*"
                 name="email"
                 value={values.email}
-                //onChange={(e) => setEmail(e.target.value)}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="email"
@@ -188,7 +180,6 @@ export default function Login(props) {
                 type="password"
                 id="password"
                 value={values.password}
-                //onChange={(e) => setPassword(e.target.value)}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 autoComplete="password"
@@ -225,7 +216,7 @@ export default function Login(props) {
                     control={<Radio required />}
                     label="Property Owner"
                   />
-                   <FormControlLabel
+                  <FormControlLabel
                     value="admin"
                     onChange={handleChange}
                     control={<Radio required />}

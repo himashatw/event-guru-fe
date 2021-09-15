@@ -1,17 +1,6 @@
 import React from 'react';
 import axios from '../../../Services/axios';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-//import Link from '@material-ui/core/Link';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-//import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
+import { Button, CssBaseline, Grid, Paper, Typography, Box, Link } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,23 +26,42 @@ export default function ViewAdert() {
 
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs>
-          <div className={classes.paper}>
+      
+          <div style={{}}>
             <Typography component="h1" variant="h5">
               Show List
             </Typography>
           </div>
-        </Grid>
+        
 
-        <Grid>
-          <div className={classes.paper1}>
-            <Typography component="h1" variant="h5">
+        
+          <div style={{margin:'auto',border:'1px solid black',width:600,height:'auto'}}>
+            <Typography component="h1" variant="h5" style={{textAlign:'center'}}>
               <b>Book an Event</b>
             </Typography>
+            <br/>
+            <img 
+              src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"  
+              alt="" 
+              style={{maxWidth:300,margin:'auto'}}
+              >
+            </img>
+            <br/>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <Box style={{border:'1px solid black'}}>aaa</Box>
+            <center>
+              <Button style={{border:'1px solid black'}}>Book Now</Button>
+            </center>
           </div>
-        </Grid>
-      </Grid>
+       
+      
     </div>
   );
 }
