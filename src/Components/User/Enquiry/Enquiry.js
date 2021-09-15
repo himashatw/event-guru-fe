@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom';
+import UserNavBar from '../UserNavBar';
 
 const useStyles = makeStyles((theme) => ({
   //form
@@ -87,7 +88,7 @@ export default function SendEnquiry() {
     const enquiry = {
       reason,
       date,
-      users:loggedUserId
+      users: loggedUserId
     }
     axios.post('/user/enquiry', enquiry)
       .then(res => {
@@ -111,7 +112,7 @@ export default function SendEnquiry() {
   }
 
   //delete enquiry
-  const deleteEnquiry = (e,id)=>{
+  const deleteEnquiry = (e, id) => {
     axios.delete(`/user/enquiry/${id}`)
       .then(res => {
         console.log(res.data.message);
@@ -124,97 +125,100 @@ export default function SendEnquiry() {
   useEffect(() => {
     getEnquiries();
     getLoggedUserEmail();
-  }, );
+  });
 
   return (
-    <Grid container style={{ marginTop: "15px" }}>
-      <CssBaseline />
-      <Grid item xs={12} sm={6} md={5} component={Paper} elevation={1} square style={{ marginLeft: '50px' }}>
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Send Enquiry
-          </Typography>
-          <form className={classes.form} onSubmit={onSubmit}>
-            <Grid container spacing={3} >
-              <Grid item xs={12}>
-                Email :
-                <TextField
-                  name="email"
-                  variant="outlined"
-                  disabled
-                  value={email}
-                  fullWidth
-                  id="firstName"
-                />
+    <div>
+      <UserNavBar />
+      <Grid container style={{ marginTop: "15px" }}>
+        <CssBaseline />
+        <Grid item xs={12} sm={6} md={5} component={Paper} elevation={1} square style={{ marginLeft: '50px' }}>
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Send Enquiry
+            </Typography>
+            <form className={classes.form} onSubmit={onSubmit}>
+              <Grid container spacing={3} >
+                <Grid item xs={12}>
+                  Email :
+                  <TextField
+                    name="email"
+                    variant="outlined"
+                    disabled
+                    value={email}
+                    fullWidth
+                    id="firstName"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  Reason* :
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    multiline
+                    rows={5}
+                    onChange={(e) => { setReason(e.target.value); }}
+                    id="reason"
+                    name="reason"
+                    autoComplete="reason"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  Date* :
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="date"
+                    name="date"
+                    onChange={(e) => { setDate(e.target.value); }}
+                    autoComplete="date"
+                    type="date"
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                Reason* :
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  multiline
-                  rows={5}
-                  onChange={(e) => { setReason(e.target.value); }}
-                  id="reason"
-                  name="reason"
-                  autoComplete="reason"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                Date* :
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="date"
-                  name="date"
-                  onChange={(e) => { setDate(e.target.value); }}
-                  autoComplete="date"
-                  type="date"
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Send
-            </Button>
-          </form>
-        </div>
-      </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Send
+              </Button>
+            </form>
+          </div>
+        </Grid>
 
-      {/* show enquiry grid*/}
-      <Grid item xs={12} sm={6} md={5} component={Paper} style={{ marginLeft: "90px" }} elevation={1} square>
-        <div className={classes.paper1}>
-          <Typography component="h1" variant="h5">
-            Enquiries History
-          </Typography>
-          {
-            enquiries.map((value, index) => (
-              <Card className={classes.root} key={index}>
-                <CardContent>
-                  <Typography variant="h6" component="h2">
-                    Reason : {value.reason}
-                  </Typography>
-                  <Typography className={classes.pos} color="textSecondary">
-                    State : {'true'}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    Date: {value.date}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <DeleteForeverIcon className={classes.button} onClick={e => { deleteEnquiry(e, value._id) }} style={{ fontSize: '35px' }} />
-                </CardActions>
-              </Card>
-            ))
-          }
-        </div>
+        {/* show enquiry grid*/}
+        <Grid item xs={12} sm={6} md={5} component={Paper} style={{ marginLeft: "90px" }} elevation={1} square>
+          <div className={classes.paper1}>
+            <Typography component="h1" variant="h5">
+              Enquiries History
+            </Typography>
+            {
+              enquiries.map((value, index) => (
+                <Card className={classes.root} key={index}>
+                  <CardContent>
+                    <Typography variant="h6" component="h2">
+                      Reason : {value.reason}
+                    </Typography>
+                    <Typography className={classes.pos} color="textSecondary">
+                      State : {'true'}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      Date: {value.date}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <DeleteForeverIcon className={classes.button} onClick={e => { deleteEnquiry(e, value._id) }} style={{ fontSize: '35px' }} />
+                  </CardActions>
+                </Card>
+              ))
+            }
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }
