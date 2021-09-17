@@ -10,10 +10,13 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
 import Typography from '@material-ui/core/Typography';
+import { useHistory, useParams } from 'react-router-dom';
 
-const CreateCustomizedPackage = (props) => {
+const UpdateCustomizedPackage = (props) => {
 
-    console.log("props=====>", props.params);
+    const updateParam = useParams();
+    console.log(updateParam.id);
+    const [packages, setPackages] = useState([])
     const [title, setTitle] = useState('');
     const [noOfParticipants, setNoOfParticipants] = useState('');
     const [date, setDate] = useState('');
@@ -23,11 +26,9 @@ const CreateCustomizedPackage = (props) => {
     const [options, setOptions] = useState([]);
     const [selectVenue, setSelectVenue] = useState('');
 
-
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
-
         },
         paper: {
             padding: theme.spacing(10),
@@ -72,6 +73,24 @@ const CreateCustomizedPackage = (props) => {
                 console.log("options", options)
             })
             .catch(err => console.log(err.message))
+
+        var vid = 0;
+        axios.get(`/organizer/pending/get/${updateParam.id}`)
+            .then((res) => {
+                setTitle(res.data.data.title);
+                setNoOfParticipants(res.data.data.noOfParticipants);
+                setDate(res.data.data.date);
+                setEmail(res.data.data.email);
+                setMessage(res.data.data.message);
+                console.log("vid =>", res.data.data.venue);
+            }).catch(err => console.log(err.message));
+        console.log(vid)
+
+        axios.get(`/organizer/custom/view/venue/${vid}`)
+            .then(res => {
+                setSelectVenue(res.data.data.location)
+                console.log("venue=>", res.data.data.location)
+            }).catch(err => console.log(err.message));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -80,25 +99,25 @@ const CreateCustomizedPackage = (props) => {
         console.log("selectVenue", selectVenue)
     }
 
-
     const onSubmit = (e) => {
         e.preventDefault();
-        seApprove("pending");
-
         const data = {
-            "title": title,
             "venue": selectVenue,
             "noOfParticipants": noOfParticipants,
-            "date": date,
+            "title": title,
             "email": email,
             "message": message,
-            "approve": approve,
         };
         console.log("data", data)
-        axios.post("/organizer/pending/add", data)
+        axios.put(`/organizer/pending/update/${updateParam.id}`, data)
             .then(res => {
-                console.log(res.data)
-                alert("Data Added Successfully")
+                if (res.status === 200) {
+                    console.log(res.data)
+                    alert("Data Added Successfully")
+                    window.location = "/eventorganizer/customizedpackages";
+                } else {
+                    alert("Data Failed")
+                }
             })
             .catch(err => {
                 console.log(err.message)
@@ -118,7 +137,7 @@ const CreateCustomizedPackage = (props) => {
                             <form onSubmit={onSubmit}>
                                 <br />
                                 <Grid item xs={12} >
-                                    <InputLabel id="demo-simple-select-helper-label">Select The Venu*</InputLabel>
+                                    <InputLabel id="demo-simple-select-helper-label">Select The Venue*</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
@@ -128,12 +147,12 @@ const CreateCustomizedPackage = (props) => {
                                         onChange={onSelectedVenue}
                                         fullWidth
                                         variant="outlined"
+                                        defaultValue={"6123ac829e2c882ff45ba5ee"}
                                     >
                                         {options.map((value, index) => (
                                             < MenuItem value={value.value} >{value.label}</MenuItem>
                                         ))}
                                     </Select>
-
                                 </Grid>
                                 <br />
                                 <Grid item xs={12} >
@@ -162,7 +181,7 @@ const CreateCustomizedPackage = (props) => {
                                     />
                                 </Grid>
                                 <br />
-                                <Grid item xs={12} >
+                                {/* <Grid item xs={12} >
 
                                     <TextField
                                         variant="outlined"
@@ -182,7 +201,7 @@ const CreateCustomizedPackage = (props) => {
                                     />
 
                                 </Grid>
-                                <br />
+                                <br /> */}
                                 <Grid item xs={12}>
                                     <TextField
                                         variant="outlined"
@@ -217,7 +236,6 @@ const CreateCustomizedPackage = (props) => {
                                     fullWidth
                                     variant="contained"
                                     color="primary"
-
                                 >
                                     Submit
                                 </Button>
@@ -232,4 +250,4 @@ const CreateCustomizedPackage = (props) => {
     )
 
 }
-export default CreateCustomizedPackage;
+export default UpdateCustomizedPackage;

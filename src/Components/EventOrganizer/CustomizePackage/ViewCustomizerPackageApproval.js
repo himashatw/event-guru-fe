@@ -11,6 +11,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
 
 const ViewCustomizerPackageApproval = () => {
 
@@ -19,7 +21,6 @@ const ViewCustomizerPackageApproval = () => {
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
-            overflow: 'hidden',
             padding: theme.spacing(0, 3),
             margin: `${theme.spacing(1)}px auto`,
             display: 'flex',
@@ -31,7 +32,6 @@ const ViewCustomizerPackageApproval = () => {
         },
         mainDIv: {
             flexGrow: 1,
-            overflow: 'hidden',
             padding: theme.spacing(0),
             display: 'flex',
             marginLeft: 220,
@@ -53,46 +53,50 @@ const ViewCustomizerPackageApproval = () => {
 
             <OfferFormDashBoard page="ViewCustomizerPackageApproval" />
             <div className={classes.mainDIv}>
-                <Grid container >
-                    <center> <Typography gutterBottom variant="h4" component="h2">
-                        View Package Approval
-                    </Typography></center>
-                    {data.map((value, index) => (
-                        <Grid container wrap="nowrap" spacing={2}>
-                            {/* 
-                <Grid item xs={12}> */}
-                            {/* <Paper className={classes.paper}> */}
-                            <Grid item xs={12}>
-                                <Card className={classes.root}>
-                                    <CardActionArea>
-                                        <CardMedia
-                                            className={classes.media}
-                                            image=""
-                                            title="Contemplative Reptile"
-                                        />
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h5" component="h2">
-                                                {value.title}<Avatar>{value.approve === "true" ? "✅" : "❌"}</Avatar>
-                                            </Typography>
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                <h3>No Of Participants :{value.noOfParticipants}</h3>
-                                            </Typography>
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                <h3>Date               :{value.date}</h3>
-                                            </Typography>
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                <h3>Email              :{value.email}</h3>
-                                            </Typography>
-                                            <Typography variant="body2" color="textSecondary" component="p">
-                                                <h3>Message            :{value.message ? value.message : 'No message'}</h3>
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
+                <Paper style={{ height: 700, overflowX: 'hidden', overflowY: 'scroll' }}>
+                    <List>
+                        <Grid container >
+                            <center> <Typography gutterBottom variant="h4" component="h2">
+                                View Package Approval
+                            </Typography></center>
+                            {data.map((value, index) => (
+                                <Grid container wrap="nowrap" spacing={2}>
+                                    {/* 
+                 <Grid item xs={12}> */}
+                                    {/* <Paper className={classes.paper}> */}
+                                    <Grid item xs={12}>
+                                        <Card className={classes.root}>
+                                            <CardActionArea>
+                                                <CardMedia
+                                                    className={classes.media}
+                                                    image=""
+                                                    title="Contemplative Reptile"
+                                                />
+                                                <CardContent>
+                                                    <Typography gutterBottom variant="h5" component="h2">
+                                                        {value.title}<Avatar>{value.approve === "true" ? "✅" : "❌"}</Avatar>
+                                                    </Typography>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        <h3>No Of Participants :{value.noOfParticipants}</h3>
+                                                    </Typography>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        <h3>Date               :{value.date}</h3>
+                                                    </Typography>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        <h3>Email              :{value.email}</h3>
+                                                    </Typography>
+                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                        <h3>Message            :{value.message ? value.message : 'No message'}</h3>
+                                                    </Typography>
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
+                    </List>
+                </Paper>
             </div>
         </div>
     );

@@ -25,6 +25,11 @@ import AdminHeader from "./Components/Admin/AdminHeader";
 import AdminStats from "./Components/Admin/AdminStats";
 import RegistrationHome from "./Components/Registration/RegistrationPage";
 import EditPackage from "./Components/PropertyOwner/EditPackage";
+import OtherOffers from "./Components/EventOrganizer/ViewPackages/OtherOffers";
+import PartyOffers from "./Components/EventOrganizer/ViewPackages/PartyOffers";
+import ShowOffers from "./Components/EventOrganizer/ViewPackages/ShowOffers";
+import WeddingOffers from "./Components/EventOrganizer/ViewPackages/WeddingOffers";
+import EventOrganizerHeader from "./Components/EventOrganizer/SlideBar/EventOrganizerHeader"
 
 function AppRoutes() {
   return (
@@ -74,25 +79,48 @@ function AppRoutes() {
             component={EventOrganizerRegister}
           />
           <Route exact path="/eventorganizer/addcustomizedpackage">
+            <EventOrganizerHeader />
             <CreateCustomizedPackage />
           </Route>
           <Route exact path="/eventorganizer/customizedpackages">
+            <EventOrganizerHeader />
             <ViewCustomizedPackage />
           </Route>
           <Route exact path="/eventorganizer/packagesapproval">
+            <EventOrganizerHeader />
             <ViewCustomizerPackageApproval />
           </Route>
           <Route exact path="/eventorganizer/editpackages/:id">
+            <EventOrganizerHeader />
             <UpdateCustomizedPackage />
           </Route>
           <Route exact path="/eventorganizer/customdashboard">
+            <EventOrganizerHeader />
             <OfferFormDashBoard />
           </Route>
           <Route exact path="/eventorganizer/dashboard">
+            <EventOrganizerHeader />
             <OfferDashboard />
           </Route>
           <Route exact path="/eventorganizer/latestoffers">
+            <EventOrganizerHeader />
             <LatestOffers />
+          </Route>
+          <Route exact path="/eventorganizer/otherOffers">
+            <EventOrganizerHeader />
+            <OtherOffers />
+          </Route>
+          <Route exact path="/eventorganizer/partyoffers">
+            <EventOrganizerHeader />
+            <PartyOffers />
+          </Route>
+          <Route exact path="/eventorganizer/showoffers">
+            <EventOrganizerHeader />
+            <ShowOffers />
+          </Route>
+          <Route exact path="/eventorganizer/wedding">
+            <EventOrganizerHeader />
+            <WeddingOffers />
           </Route>
           {/* **ORGANIZER ROUTES END** */}
 
