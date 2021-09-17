@@ -94,7 +94,6 @@ export default function SendEnquiry() {
       .then(res => {
         console.log(res.data);
         alert('Enquiry send successfully');
-        window.location.reload();
       }).catch(error => {
         console.log(error.response.data.message);
       })
@@ -161,6 +160,7 @@ export default function SendEnquiry() {
                     id="reason"
                     name="reason"
                     autoComplete="reason"
+                    placeholder="Reason"
                   />
                 </Grid>
                 <Grid item xs={12}>

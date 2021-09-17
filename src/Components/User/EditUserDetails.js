@@ -41,21 +41,27 @@ export default function EditUserDetails() {
   console.log(userId.id);
   const loggedUserId = userId.id;
 
-  const getUserDetails = () => {
-    axios.get(`/user/${loggedUserId}`)
-      .then(res => {
-        console.log(res.data.data);
-        setFirstName(res.data.data.firstName);
-        setLastName(res.data.data.lastName);
-        setEmail(res.data.data.email);
-        setPhoneNo(res.data.data.phoneNo);
-      }).catch(error => {
-        console.log(error.response.data.message);
-      })
-  }
+  // const getUserDetails = () => {
+  //   axios.get(`/user/${loggedUserId}`)
+  //     .then(res => {
+  //       console.log(res.data.data);
+  //       setFirstName(res.data.data.firstName);
+  //       setLastName(res.data.data.lastName);
+  //       setEmail(res.data.data.email);
+  //       setPhoneNo(res.data.data.phoneNo);
+  //     }).catch(error => {
+  //       console.log(error.response.data.message);
+  //     })
+  // }
 
   const updateUserProfile = () => {
-    axios.put(`/user/${loggedUserId}`)
+    const newData = {
+      firstName,
+      lastName,
+      email,
+      phoneNo
+    }
+    axios.put(`/user/${loggedUserId}`,newData)
       .then(res => {
         console.log(res.data.message);
         //history.push(``)
@@ -64,9 +70,9 @@ export default function EditUserDetails() {
       })
   }
 
-  useEffect(() => {
-    getUserDetails();
-  });
+  // useEffect(() => {
+  //   getUserDetails();
+  // });
 
   return (
     <Grid item xs>
@@ -85,11 +91,9 @@ export default function EditUserDetails() {
                 fullWidth
                 id="firstName"
                 label="First Name*"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              // onBlur={handleBlur}       
+                //value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}   
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
             <Grid item xs={12} >
               <TextField
@@ -99,11 +103,9 @@ export default function EditUserDetails() {
                 fullWidth
                 id="lastName"
                 label="Last Name*"
-                value={lastName}
+                //value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-              // onBlur={handleBlur}
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
             <Grid item xs={12} >
               <TextField
@@ -113,11 +115,9 @@ export default function EditUserDetails() {
                 fullWidth
                 id="email"
                 label="Email*"
-                value={email}
+                //value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              // onBlur={handleBlur}
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
             <Grid item xs={12} >
               <TextField
@@ -127,11 +127,9 @@ export default function EditUserDetails() {
                 fullWidth
                 id="phoneNo"
                 label="Phone Number*"
-                value={phoneNo}
+                //value={phoneNo}
                 onChange={(e) => setPhoneNo(e.target.value)}
-              // onBlur={handleBlur}
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
           </Grid>
           <Button

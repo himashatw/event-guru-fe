@@ -79,7 +79,7 @@ export default function RegistrationHome() {
                             <b>Property Owner</b>
                         </Typography>
                         <ButtonBase className={classes.image}>
-                            <img className={classes.img} alt="complex" src="https://lh3.googleusercontent.com/proxy/xlIF-9tvCzNOrmPUDdZSMd3vO9bybTW0DrjGAXU_0mZV6_RMmf8vMlRlOOpW5MFQRMF8FHOXw4Ma2rdmcer03NuFkTmb7N-CHNd0H0X79KM-jbNgHnhyew" />
+                            <img className={classes.img} alt="complex" src="https://cdn-cms.pgimgs.com/news/2016/07/Property-Agentafafw.jpg" />
                         </ButtonBase>
                         <p className={classes.font}>
                             {"As a Property Owner you can register with system and share your Property details among the Customers."}

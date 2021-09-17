@@ -90,7 +90,7 @@ export default function Login(props) {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
+                history.push(`/eventorganizer/latestoffers/${res.data.eventOrganizer._id}`);
               }
             })
             .catch((error) => {
@@ -104,7 +104,7 @@ export default function Login(props) {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
+                history.push(`/owner/dashboard/${res.data.propertyOwner._id}`)
               }
             })
             .catch((error) => {
@@ -118,7 +118,7 @@ export default function Login(props) {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                history.push('/admin/dashboard') //ToDo: give your page after login you want to redirect and change AppRoutes.js
+                history.push('/admin/dashboard') 
               }
             })
             .catch((error) => {
@@ -197,6 +197,7 @@ export default function Login(props) {
                   name="role"
                   id="role"
                   style={{ display: "initial" }}
+                  required
                 >
                   <FormControlLabel
                     value="user"
