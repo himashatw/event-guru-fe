@@ -25,6 +25,8 @@ import AdminHeader from "./Components/Admin/AdminHeader";
 import AdminStats from "./Components/Admin/AdminStats";
 import RegistrationHome from "./Components/Registration/RegistrationPage";
 import EditPackage from "./Components/PropertyOwner/EditPackage";
+import AdminReport from "./Components/Admin/AdminReport";
+import ManageRegistrations from "./Components/Admin/ManageRegistrations";
 
 function AppRoutes() {
   return (
@@ -50,6 +52,10 @@ function AppRoutes() {
           <Route exact path="/admin/statistics">
             <AdminHeader />
             <AdminStats />
+          </Route>
+          <Route exact path="/admin/manageregistrations">
+            <AdminHeader />
+            <ManageRegistrations />
           </Route>
           {/* <Route exact path={["/admin/newad", "/admin/dashboard"]} component={AdminHeader} /> */}
           {/* **ADMIN ROUTES END** */}
