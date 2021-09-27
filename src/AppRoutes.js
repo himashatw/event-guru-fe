@@ -25,12 +25,15 @@ import AdminHeader from "./Components/Admin/AdminHeader";
 import AdminStats from "./Components/Admin/AdminStats";
 import RegistrationHome from "./Components/Registration/RegistrationPage";
 import EditPackage from "./Components/PropertyOwner/EditPackage";
+import AdminReport from "./Components/Admin/AdminReport";
+import ManageRegistrations from "./Components/Admin/ManageRegistrations";
 import OtherOffers from "./Components/EventOrganizer/ViewPackages/OtherOffers";
 import PartyOffers from "./Components/EventOrganizer/ViewPackages/PartyOffers";
 import ShowOffers from "./Components/EventOrganizer/ViewPackages/ShowOffers";
 import WeddingOffers from "./Components/EventOrganizer/ViewPackages/WeddingOffers";
 import EventOrganizerHeader from "./Components/EventOrganizer/SlideBar/EventOrganizerHeader";
 import ConfirmPayment from "./Components/User/Payment/Payment";
+
 
 function AppRoutes() {
   return (
@@ -56,6 +59,10 @@ function AppRoutes() {
           <Route exact path="/admin/statistics">
             <AdminHeader />
             <AdminStats />
+          </Route>
+          <Route exact path="/admin/manageregistrations">
+            <AdminHeader />
+            <ManageRegistrations />
           </Route>
           {/* <Route exact path={["/admin/newad", "/admin/dashboard"]} component={AdminHeader} /> */}
           {/* **ADMIN ROUTES END** */}
