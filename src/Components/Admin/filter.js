@@ -3,7 +3,13 @@ import { Input, CustomInput } from "reactstrap";
 
 export const Filter = ({ column }) => {
   return (
-    <div style={{ marginTop: 5 }}>
+    <div
+      style={{
+        marginTop: 5,
+        margin: "2%",
+        color: "black",
+      }}
+    >
       {column.canFilter && column.render("Filter")}
     </div>
   );
@@ -19,6 +25,7 @@ export const DefaultColumnFilter = ({
   return (
     <Input
       value={filterValue || ""}
+      style={{ textAlign: "center" }}
       onChange={(e) => {
         setFilter(e.target.value || undefined);
       }}
