@@ -9,7 +9,6 @@ import {
   Button,
 } from "reactstrap";
 import TableContainer from "./TableContainer";
-
 import { SelectColumnFilter } from "./filter";
 import axios from "../../Services/axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -103,7 +102,7 @@ const ManageRegistrations = () => {
   const renderRowSubComponent = (row) => {
     const { bioDetails, propertyImageUrl, _id } = row.original;
     return (
-      <Card style={{ width: "18rem", margin: "0 auto" }}>
+      <Card style={{ width: "18rem", margin: "0 auto", padding: "1%" }}>
         <CardImg top src={propertyImageUrl} alt="Card image cap" />
         <CardBody>
           <CardTitle>
@@ -115,18 +114,19 @@ const ManageRegistrations = () => {
                 justifyContent: "space-evenly",
                 display: "flex",
                 flexDirection: "row",
+                margin: "1%",
               }}
             >
               <button
                 type="button"
-                class="btn btn-success"
+                className="py-3 px-3 text-white rounded-lg bg-green-400 shadow-lg block md:inline-block"
                 onClick={() => acceptHandler(_id)}
               >
                 Approve
               </button>
               <button
+                className="py-3 px-3 text-white rounded-lg bg-red-500 shadow-lg block md:inline-block"
                 type="button"
-                class="btn btn-danger"
                 onClick={() => deletHandler(_id)}
               >
                 Decline
@@ -210,15 +210,23 @@ const ManageRegistrations = () => {
     <Container style={{ marginTop: 80 }}>
       <h3
         className="pl-8 lg:pl-0 text-gray-700 text-3xl"
-        style={{ textAlign: "center", margin: "2%" }}
+        style={{ textAlign: "center", margin: "2%", marginLeft: "10%" }}
       >
         Manage Registration Requests
       </h3>
-      <TableContainer
-        columns={columns}
-        data={data}
-        renderRowSubComponent={renderRowSubComponent}
-      />
+      <div
+        className="ml-52"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <TableContainer
+          columns={columns}
+          data={data}
+          renderRowSubComponent={renderRowSubComponent}
+        />
+      </div>
       <ToastContainer
         position="top-right"
         autoClose={2700}
