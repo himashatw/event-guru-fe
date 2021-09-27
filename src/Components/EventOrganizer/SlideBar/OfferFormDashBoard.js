@@ -11,6 +11,9 @@ import HomeIcon from '@material-ui/icons/Home';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 const drawerWidth = 240;
 
@@ -29,11 +32,7 @@ const useStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
     },
     appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
+        width: `100%`,
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -142,7 +141,7 @@ const CustomizeDashBoard = (props) => {
         window.location = `/eventorganizer/customizedpackages`;
     }
     const navigateHome = () => {
-        window.location = `/eventorganizer/latestoffers`;
+        window.location = `/eventorganizer/latestoffers/1`;
     }
 
     return (

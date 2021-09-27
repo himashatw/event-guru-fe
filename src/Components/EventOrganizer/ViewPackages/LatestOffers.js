@@ -15,8 +15,21 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Toolbar from '@material-ui/core/Toolbar';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
 
 const Latest = () => {
+
+    function createData(id, offerName, venue, discount, date, condition) {
+        return { id, offerName, venue, discount, date, condition };
+    }
+    const rows = [
+        createData(0, 'Super Discount', 'Colombo-GalaDari Hotel', '20%', '16 Sep, 2021', '20% discount more than 100 participants'),
+        createData(1, '50% Discount', 'Wadduwa-Safron Hotel', '50%', '26 Oct, 2021', '50% discount more than 100 participants'),
+        createData(2, 'Foods free of charge', 'Panadura-Hotel White', '', '06 Mar, 2021', 'Foods free of charge for more than 200'),
+        createData(3, 'Panadura Public Ground now  available', 'Pandura Public Ground', '', '16 Aug, 2021', 'More than 14 hours events, 2 hours free charge'),
+        createData(4, '3 hours Free of charge', 'Kalutara Public Conference', '', '15 Mar, 2019', 'More than 14 hours events, 2 hours free charge'),
+    ];
 
     const [data, setData] = useState([]);
 
@@ -34,9 +47,9 @@ const Latest = () => {
             padding: theme.spacing(2),
         },
         notification: {
-            position: "fixed",
             marginLeft: "1220px",
             display: 'flex',
+            hight: 10
         },
         toolbar: {
             paddingRight: 24, // keep right padding when drawer closed
@@ -68,53 +81,58 @@ const Latest = () => {
             <div className={classes.root}>
                 <OfferDashBoard />
                 <div className={classes.mainDIv}>
-                    <Grid container >
-                        <div className={classes.notification}>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
-                                    <NotificationsIcon onClick={naviagteViewApprove} />
-                                </Badge>
-                            </IconButton>
-                        </div>
-                        <Typography gutterBottom variant="h4" component="h2">
-                            Latest Offers
-                        </Typography>
-                        {data.map((value, index) => (
-                            <Grid container wrap="nowrap" spacing={2}>
-                                {/* 
+                    <div className={classes.notification}>
+                        <IconButton color="inherit">
+                            <Badge badgeContent={4} color="secondary">
+                                <NotificationsIcon onClick={naviagteViewApprove} />
+                            </Badge>
+                        </IconButton>
+                    </div>
+                    <Typography gutterBottom variant="h4" component="h2"><center>
+                        Latest Offers
+                    </center></Typography>
+
+                    <Paper style={{ height: 750, overflowX: 'hidden', overflowY: 'scroll' }}>
+                        <List>
+                            <Grid container >
+                                {rows.map((value, index) => (
+                                    <Grid container wrap="nowrap" spacing={2}>
+                                        {/* 
                 <Grid item xs={12}> */}
-                                {/* <Paper className={classes.paper}> */}
-                                <Grid item xs={12}>
-                                    <Card className={classes.root}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                className={classes.media}
-                                                image=""
-                                                title="Contemplative Reptile"
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h4" component="h2">
-                                                    {value.title}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    <h3>No Of Participants :{value.noOfParticipants}</h3>
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    <h3>Date               :{value.date}</h3>
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    <h3>Email              :{value.email}</h3>
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    <h3>Message            :{value.message ? value.message : 'No message'}</h3>
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
+                                        {/* <Paper className={classes.paper}> */}
+                                        <Grid item xs={12}>
+                                            <Card className={classes.root}>
+                                                <CardActionArea>
+                                                    <CardMedia
+                                                        className={classes.media}
+                                                        image=""
+                                                        title="Contemplative Reptile"
+                                                    />
+                                                    <CardContent>
+                                                        <Typography gutterBottom variant="h4" component="h2">
+                                                            {value.offerName}
+                                                        </Typography>
+                                                        <Typography variant="body2" color="textSecondary" component="p">
+                                                            <h3>Venue               :{value.venue}</h3>
+                                                        </Typography>
+                                                        <Typography variant="body2" color="textSecondary" component="p">
+                                                            <h3>Date               :{value.date}</h3>
+                                                        </Typography>
+                                                        <Typography variant="body2" color="textSecondary" component="p">
+                                                            <h3>Condition              :{value.condition}</h3>
+                                                        </Typography>
+                                                        <Typography variant="body2" color="textSecondary" component="p">
+                                                            <h3>Discount            :{value.discount ? value.discount : 'No discount'}</h3>
+                                                        </Typography>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        </Grid>
+                                    </Grid>
+                                ))}
                             </Grid>
-                        ))}
-                    </Grid>
+                        </List>
+                    </Paper>
                 </div>
             </div>
         </div>

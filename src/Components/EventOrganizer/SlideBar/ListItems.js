@@ -3,12 +3,18 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
+import CakeIcon from '@material-ui/icons/Cake';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
 
 export const mainListItems = (
     <div>
-        <ListItem button>
+        <ListItem button onClick={(event) => {
+            event.preventDefault();
+            window.location = `/eventorganizer/latestoffers`;
+        }}>
             <ListItemIcon>
                 <NewReleasesIcon />
             </ListItemIcon>
@@ -19,28 +25,40 @@ export const mainListItems = (
 
 export const secondaryListItems = (
     <div>
-        <ListSubheader inset>Categories</ListSubheader>
-        <ListItem button >
+        <ListSubheader inset>Offer Types</ListSubheader>
+        <ListItem button onClick={(event) => {
+            event.preventDefault();
+            window.location = `/eventorganizer/wedding`;
+        }}>
             <ListItemIcon>
-                <AssignmentIcon />
+                <LocalBarIcon />
             </ListItemIcon>
             <ListItemText primary="Wedding" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={(event) => {
+            event.preventDefault();
+            window.location = `/eventorganizer/partyoffers`;
+        }}>
             <ListItemIcon>
-                <AssignmentIcon />
+                <CakeIcon />
             </ListItemIcon>
             <ListItemText primary="Party" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={(event) => {
+            event.preventDefault();
+            window.location = `/eventorganizer/showoffers`;
+        }}>
             <ListItemIcon>
-                <AssignmentIcon />
+                <AudiotrackIcon />
             </ListItemIcon>
-            <ListItemText primary="Show" />
+            <ListItemText primary="Concert" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={(event) => {
+            event.preventDefault();
+            window.location = `/eventorganizer/otherOffers`;
+        }}>
             <ListItemIcon>
-                <AssignmentIcon />
+                <BeachAccessIcon />
             </ListItemIcon>
             <ListItemText primary="Other" />
         </ListItem>

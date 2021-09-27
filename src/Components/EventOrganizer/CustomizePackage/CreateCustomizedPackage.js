@@ -22,17 +22,14 @@ const CreateCustomizedPackage = (props) => {
     const [options, setOptions] = useState([]);
     const [selectVenue, setSelectVenue] = useState('');
 
-
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
-
         },
         paper: {
             padding: theme.spacing(10),
             color: theme.palette.text.secondary,
             marginLeft: 241,
-
         },
         formControl: {
             margin: theme.spacing(1),
@@ -79,11 +76,9 @@ const CreateCustomizedPackage = (props) => {
         console.log("selectVenue", selectVenue)
     }
 
-
     const onSubmit = (e) => {
         e.preventDefault();
         seApprove("pending");
-
         const data = {
             "title": title,
             "venue": selectVenue,
@@ -105,9 +100,9 @@ const CreateCustomizedPackage = (props) => {
                 alert("Data Failed")
             })
     }
+
     return (
         <div className={classes.root}>
-
             <div className={classes.mainDiv}>
                 <Grid container >
                     <Grid item > <OfferFormDashBoard page="CreateCustomizedPackage" /></Grid>
@@ -229,6 +224,5 @@ const CreateCustomizedPackage = (props) => {
             </div >
         </div >
     )
-
 }
 export default CreateCustomizedPackage;
