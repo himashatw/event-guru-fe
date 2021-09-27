@@ -30,14 +30,19 @@ const ViewCustomizerPackageApproval = () => {
             margin: `${theme.spacing(1)}px auto`,
             padding: theme.spacing(2),
         },
-        mainDIv: {
+        maindiv: {
             flexGrow: 1,
             padding: theme.spacing(0),
             display: 'flex',
             marginLeft: 220,
+        },
+        avatar: {
+            width: "70px",
+            height: "70px",
+            marginLeft: 10,
         }
     }));
-    const classes = useStyles();
+    const eventorg = useStyles();
     useEffect(() => {
         axios.get(`/organizer/custom/view/approval`)
             .then(res => {
@@ -46,14 +51,11 @@ const ViewCustomizerPackageApproval = () => {
             }).catch(err => console.log(err.message))
     }, [])
 
-
-
     return (
-        <div className={classes.root}>
-
+        <div className={eventorg.root}>
             <OfferFormDashBoard page="ViewCustomizerPackageApproval" />
-            <div className={classes.mainDIv}>
-                <Paper style={{ height: 700, overflowX: 'hidden', overflowY: 'scroll' }}>
+            <div className={eventorg.maindiv}>
+                <Paper style={{ height: "90vh", overflowX: 'hidden', overflowY: 'scroll' }}>
                     <List>
                         <Grid container >
                             <center> <Typography gutterBottom variant="h4" component="h2">
@@ -61,20 +63,20 @@ const ViewCustomizerPackageApproval = () => {
                             </Typography></center>
                             {data.map((value, index) => (
                                 <Grid container wrap="nowrap" spacing={2}>
-                                    {/* 
-                 <Grid item xs={12}> */}
-                                    {/* <Paper className={classes.paper}> */}
                                     <Grid item xs={12}>
-                                        <Card className={classes.root}>
+                                        <Card className={eventorg.root}>
                                             <CardActionArea>
                                                 <CardMedia
-                                                    className={classes.media}
+                                                    className={eventorg.media}
                                                     image=""
                                                     title="Contemplative Reptile"
                                                 />
                                                 <CardContent>
+                                                    <div className={eventorg.avatar}>
+                                                        {value.approve === "true" ? <div><Avatar>✅</Avatar><h1>Accept</h1></div> : <div> <Avatar>❌</Avatar><h1>Decline</h1></div>}
+                                                    </div>
                                                     <Typography gutterBottom variant="h5" component="h2">
-                                                        {value.title}<Avatar>{value.approve === "true" ? "✅" : "❌"}</Avatar>
+                                                        <div marginLeft="0">{value.title}</div>
                                                     </Typography>
                                                     <Typography variant="body2" color="textSecondary" component="p">
                                                         <h3>No Of Participants :{value.noOfParticipants}</h3>
@@ -88,6 +90,7 @@ const ViewCustomizerPackageApproval = () => {
                                                     <Typography variant="body2" color="textSecondary" component="p">
                                                         <h3>Message            :{value.message ? value.message : 'No message'}</h3>
                                                     </Typography>
+
                                                 </CardContent>
                                             </CardActionArea>
                                         </Card>

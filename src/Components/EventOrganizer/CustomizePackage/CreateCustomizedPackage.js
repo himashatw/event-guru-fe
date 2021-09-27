@@ -25,6 +25,7 @@ const CreateCustomizedPackage = (props) => {
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
+            height: "80vh",
         },
         paper: {
             padding: theme.spacing(10),
@@ -47,7 +48,7 @@ const CreateCustomizedPackage = (props) => {
             minHeight: 500,
         },
     }));
-    const classes = useStyles();
+    const eventorg = useStyles();
 
     useEffect(() => {
         console.log("start")
@@ -102,12 +103,12 @@ const CreateCustomizedPackage = (props) => {
     }
 
     return (
-        <div className={classes.root}>
-            <div className={classes.mainDiv}>
+        <div className={eventorg.root}>
+            <div className={eventorg.mainDiv}>
                 <Grid container >
                     <Grid item > <OfferFormDashBoard page="CreateCustomizedPackage" /></Grid>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}>
+                        <Paper className={eventorg.paper}>
                             <Typography gutterBottom variant="h4" component="h2">
                                 Create Custom Package
                             </Typography>
@@ -171,7 +172,7 @@ const CreateCustomizedPackage = (props) => {
                                         label="Select Evenet Date"
                                         type="datetime-local"
                                         defaultValue="2017-05-24T10:30"
-                                        className={classes.textField}
+                                        className={eventorg.textField}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -210,11 +211,31 @@ const CreateCustomizedPackage = (props) => {
                                 <br />
                                 <Button
                                     type="submit"
-                                    fullWidth
+
                                     variant="contained"
-                                    color="primary"
+                                    style={{
+                                        borderRadius: 5,
+                                        backgroundColor: "green",
+                                        color: "white",
+                                        fontSize: "18px"
+                                    }}
+
                                 >
                                     Submit
+                                </Button>
+                                <Button
+                                    type="submit"
+
+                                    variant="contained"
+                                    style={{
+                                        borderRadius: 5,
+                                        backgroundColor: "red",
+                                        marginLeft: 10,
+                                        color: "white",
+                                        fontSize: "18px"
+                                    }}
+                                >
+                                    Cancel
                                 </Button>
                                 <br /><br />
                             </form>

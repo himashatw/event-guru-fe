@@ -52,7 +52,7 @@ const UpdateCustomizedPackage = (props) => {
             minHeight: 500,
         },
     }));
-    const classes = useStyles();
+    const eventorg = useStyles();
 
     useEffect(() => {
         console.log("start")
@@ -82,22 +82,12 @@ const UpdateCustomizedPackage = (props) => {
                 setDate(res.data.data.date);
                 setEmail(res.data.data.email);
                 setMessage(res.data.data.message);
+                setSelectVenue(res.data.data.venue);
                 console.log("vid =>", res.data.data.venue);
             }).catch(err => console.log(err.message));
         console.log(vid)
-
-        axios.get(`/organizer/custom/view/venue/${vid}`)
-            .then(res => {
-                setSelectVenue(res.data.data.location)
-                console.log("venue=>", res.data.data.location)
-            }).catch(err => console.log(err.message));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const onSelectedVenue = (event) => {
-        setSelectVenue(event.target.value)
-        console.log("selectVenue", selectVenue)
-    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -126,11 +116,11 @@ const UpdateCustomizedPackage = (props) => {
     }
     return (
         <div>
-            <div className={classes.root}>
+            <div className={eventorg.root}>
                 <Grid container spacing={2}>
                     <Grid item > <OfferFormDashBoard page="UpdateCustomizedPackage" /></Grid>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}>
+                        <Paper className={eventorg.paper}>
                             <Typography gutterBottom variant="h4" component="h2">
                                 Update Custom Package
                             </Typography>
@@ -144,10 +134,9 @@ const UpdateCustomizedPackage = (props) => {
                                         label="Venue"
                                         name="venue"
                                         value={selectVenue}
-                                        onChange={onSelectedVenue}
+                                        onChange={e => setSelectVenue(e.target.value)}
                                         fullWidth
                                         variant="outlined"
-                                        defaultValue={"6123ac829e2c882ff45ba5ee"}
                                     >
                                         {options.map((value, index) => (
                                             < MenuItem value={value.value} >{value.label}</MenuItem>
@@ -194,7 +183,7 @@ const UpdateCustomizedPackage = (props) => {
                                         label="Select Evenet Date"
                                         type="datetime-local"
                                         defaultValue="2017-05-24T10:30"
-                                        className={classes.textField}
+                                        className={eventorg.textField}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -233,11 +222,31 @@ const UpdateCustomizedPackage = (props) => {
                                 <br />
                                 <Button
                                     type="submit"
-                                    fullWidth
+
                                     variant="contained"
-                                    color="primary"
+                                    style={{
+                                        borderRadius: 5,
+                                        backgroundColor: "green",
+                                        color: "white",
+                                        fontSize: "18px"
+                                    }}
+
                                 >
                                     Submit
+                                </Button>
+                                <Button
+                                    type="submit"
+
+                                    variant="contained"
+                                    style={{
+                                        borderRadius: 5,
+                                        backgroundColor: "red",
+                                        marginLeft: 10,
+                                        color: "white",
+                                        fontSize: "18px"
+                                    }}
+                                >
+                                    Cancel
                                 </Button>
                                 <br /><br />
                             </form>

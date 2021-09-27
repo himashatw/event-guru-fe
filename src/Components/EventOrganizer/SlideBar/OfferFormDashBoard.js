@@ -6,14 +6,8 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
-import TextField from '@material-ui/core/TextField';
 import HomeIcon from '@material-ui/icons/Home';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router';
 
 const drawerWidth = 240;
 
@@ -125,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomizeDashBoard = (props) => {
 
-    const cusDash = useStyles();
+    const eventorg = useStyles();
     const [page, setPage] = React.useState(props.page);
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -135,53 +129,48 @@ const CustomizeDashBoard = (props) => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const fixedHeightPaper = clsx(cusDash.paper, cusDash.fixedHeight);
+    const fixedHeightPaper = clsx(eventorg.paper, eventorg.fixedHeight);
 
+    const history = useHistory();
     const navigateEdit = () => {
-        window.location = `/eventorganizer/customizedpackages`;
+        history.push(`/eventorganizer/customizedpackages`);
     }
     const navigateHome = () => {
-        window.location = `/eventorganizer/latestoffers/1`;
+        history.push(`/eventorganizer/latestoffers`);
     }
 
     return (
-        <div className={cusDash.root}>
+        <div className={eventorg.root}>
             <CssBaseline />
             <Drawer
                 variant="permanent"
-                cusDash={{
-                    paper: clsx(cusDash.drawerPaper, !open && cusDash.drawerPaperClose),
+                eventorg={{
+                    paper: clsx(eventorg.drawerPaper, !open && eventorg.drawerPaperClose),
                 }}
                 open={open}
             >
-                <div className={cusDash.packageFont}>
+                <div className={eventorg.packageFont}>
                     <center> <b>Customize Package</b></center>
                 </div>
-                <DoubleArrowIcon className={cusDash.arrow} fontSizeLarge={true}></DoubleArrowIcon>
+                <DoubleArrowIcon className={eventorg.arrow} fontSizeLarge={true}></DoubleArrowIcon>
                 {page === "CreateCustomizedPackage" ?
-                    <Button variant="contained" color="primary" className={cusDash.Dbutton} onClick={navigateEdit}>
-                        <EditIcon className={cusDash.setting} />Edit Requested Package
+                    <Button variant="contained" color="primary" className={eventorg.Dbutton} onClick={navigateEdit}>
+                        <EditIcon className={eventorg.setting} />Edit Requested Package
                     </Button> :
                     page === "UpdateCustomizedPackage" ?
-                        <Button variant="contained" color="primary" className={cusDash.Dbutton} onClick={navigateHome}>
-                            <HomeIcon className={cusDash.setting} />Home
+                        <Button variant="contained" color="primary" className={eventorg.Dbutton} onClick={navigateHome}>
+                            <HomeIcon className={eventorg.setting} />Home
                         </Button> :
                         page === "ViewCustomizedPackage" ?
-                            <Button variant="contained" color="primary" className={cusDash.Dbutton} onClick={navigateHome}>
-                                <HomeIcon className={cusDash.setting} />Home
+                            <Button variant="contained" color="primary" className={eventorg.Dbutton} onClick={navigateHome}>
+                                <HomeIcon className={eventorg.setting} />Home
                             </Button> :
                             page === "ViewCustomizerPackageApproval" ?
-                                <Button variant="contained" color="primary" className={cusDash.Dbutton} onClick={navigateHome}>
-                                    <EditIcon className={cusDash.setting} />HOME
+                                <Button variant="contained" color="primary" className={eventorg.Dbutton} onClick={navigateHome}>
+                                    <HomeIcon className={eventorg.setting} />HOME
                                 </Button> : ""
                 }
             </Drawer>
-
-            {page === "ViewCustomizedPackage" || page === "ViewCustomizerPackageApproval" ?
-                <form className={cusDash.searchForm} noValidate autoComplete="off">
-                    <TextField id="outlined-basic" label="SEARCH HERE" variant="outlined" />
-                </form> : ''
-            }
         </div >
     );
 }

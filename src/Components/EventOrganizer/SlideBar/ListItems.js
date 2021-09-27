@@ -8,59 +8,55 @@ import CakeIcon from '@material-ui/icons/Cake';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import LocalBarIcon from '@material-ui/icons/LocalBar';
+import { Link } from "react-router-dom";
 
 export const mainListItems = (
     <div>
-        <ListItem button onClick={(event) => {
-            event.preventDefault();
-            window.location = `/eventorganizer/latestoffers`;
-        }}>
-            <ListItemIcon>
-                <NewReleasesIcon />
-            </ListItemIcon>
-            <ListItemText primary="Latest Offers" />
-        </ListItem>
+        <Link to="/eventorganizer/latestoffers">
+            <ListItem button>
+                <ListItemIcon>
+                    <NewReleasesIcon />
+                </ListItemIcon>
+                <ListItemText primary="Latest Offers" />
+            </ListItem>
+        </Link>
     </div>
 );
 
 export const secondaryListItems = (
     <div>
         <ListSubheader inset>Offer Types</ListSubheader>
-        <ListItem button onClick={(event) => {
-            event.preventDefault();
-            window.location = `/eventorganizer/wedding`;
-        }}>
-            <ListItemIcon>
-                <LocalBarIcon />
-            </ListItemIcon>
-            <ListItemText primary="Wedding" />
-        </ListItem>
-        <ListItem button onClick={(event) => {
-            event.preventDefault();
-            window.location = `/eventorganizer/partyoffers`;
-        }}>
-            <ListItemIcon>
-                <CakeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Party" />
-        </ListItem>
-        <ListItem button onClick={(event) => {
-            event.preventDefault();
-            window.location = `/eventorganizer/showoffers`;
-        }}>
-            <ListItemIcon>
-                <AudiotrackIcon />
-            </ListItemIcon>
-            <ListItemText primary="Concert" />
-        </ListItem>
-        <ListItem button onClick={(event) => {
-            event.preventDefault();
-            window.location = `/eventorganizer/otherOffers`;
-        }}>
-            <ListItemIcon>
-                <BeachAccessIcon />
-            </ListItemIcon>
-            <ListItemText primary="Other" />
-        </ListItem>
+        <Link to="/eventorganizer/wedding">
+            <ListItem button>
+                <ListItemIcon>
+                    <LocalBarIcon />
+                </ListItemIcon>
+                <ListItemText primary="Wedding" />
+            </ListItem>
+        </Link>
+        <Link to="/eventorganizer/partyoffers">
+            <ListItem button>
+                <ListItemIcon>
+                    <CakeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Party" />
+            </ListItem>
+        </Link>
+        <Link to="/eventorganizer/showoffers">
+            <ListItem button >
+                <ListItemIcon>
+                    <AudiotrackIcon />
+                </ListItemIcon>
+                <ListItemText primary="Concert" />
+            </ListItem>
+        </Link>
+        <Link to="/eventorganizer/otherOffers">
+            <ListItem button>
+                <ListItemIcon>
+                    <BeachAccessIcon />
+                </ListItemIcon>
+                <ListItemText primary="Other" />
+            </ListItem>
+        </Link>
     </div>
 );

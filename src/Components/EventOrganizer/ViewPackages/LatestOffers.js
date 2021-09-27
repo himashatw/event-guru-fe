@@ -63,7 +63,7 @@ const Latest = () => {
         },
     }));
 
-    const classes = useStyles();
+    const eventorg = useStyles();
     useEffect(() => {
         axios.get(`/organizer/custom/view/approval`)
             .then(res => {
@@ -78,16 +78,9 @@ const Latest = () => {
 
     return (
         <div>
-            <div className={classes.root}>
+            <div className={eventorg.root}>
                 <OfferDashBoard />
-                <div className={classes.mainDIv}>
-                    <div className={classes.notification}>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon onClick={naviagteViewApprove} />
-                            </Badge>
-                        </IconButton>
-                    </div>
+                <div className={eventorg.mainDIv}>
                     <Typography gutterBottom variant="h4" component="h2"><center>
                         Latest Offers
                     </center></Typography>
@@ -99,12 +92,12 @@ const Latest = () => {
                                     <Grid container wrap="nowrap" spacing={2}>
                                         {/* 
                 <Grid item xs={12}> */}
-                                        {/* <Paper className={classes.paper}> */}
+                                        {/* <Paper className={eventorg.paper}> */}
                                         <Grid item xs={12}>
-                                            <Card className={classes.root}>
+                                            <Card className={eventorg.root}>
                                                 <CardActionArea>
                                                     <CardMedia
-                                                        className={classes.media}
+                                                        className={eventorg.media}
                                                         image=""
                                                         title="Contemplative Reptile"
                                                     />
