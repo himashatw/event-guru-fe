@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import localAxios from "../../Services/axios";
+import AdminReport from "./AdminReport";
 
 function AdminStats() {
   const [usersCount, setUsersCount] = useState(null);
@@ -137,7 +138,16 @@ function AdminStats() {
           <div className="w-11/12 mx-auto">
             <div className="bg-white my-6">
               <h1 className="font-bold uppercase text-center text-gray-600 font-thin">
-                Users
+                <div className=" flex justify-between flex-row items-baseline">
+                  <p> Users </p>
+                  <span className="mb-2">
+                    <AdminReport
+                      title={"Users"}
+                      headersArray={["Name", "Contact"]}
+                      dataArray={usersList}
+                    />
+                  </span>
+                </div>
               </h1>
               <table className="text-left w-full border-collapse">
                 <thead>
@@ -173,7 +183,16 @@ function AdminStats() {
           <div className="w-11/12 mx-auto">
             <div className="bg-white my-6">
               <h1 className="font-bold uppercase text-center text-gray-600 font-thin">
-                Owners
+                <div className=" flex justify-between flex-row items-baseline">
+                  <p> Owners </p>
+                  <span className="mb-2">
+                    <AdminReport
+                      title={"Owners"}
+                      headersArray={["Name", "Location"]}
+                      dataArray={ownersList}
+                    />
+                  </span>
+                </div>
               </h1>
               <table className="text-left w-full border-collapse">
                 <thead>
@@ -209,7 +228,16 @@ function AdminStats() {
           <div className="w-11/12 mx-auto">
             <div className="bg-white my-6">
               <h1 className="font-bold uppercase text-center text-gray-600 font-thin">
-                Oraganizers
+                <div className=" flex justify-between flex-row items-baseline">
+                  <p> Organizers </p>
+                  <span className="mb-2">
+                    <AdminReport
+                      title={"Organizers"}
+                      headersArray={["Name", "Contact Number"]}
+                      dataArray={organizersList}
+                    />
+                  </span>
+                </div>
               </h1>
               <table className="text-left w-full border-collapse">
                 <thead>
