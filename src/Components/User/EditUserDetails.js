@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../Services/axios'
-import { useHistory, useParams } from 'react-router-dom';
 import { CssBaseline, Grid, Typography, Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -24,55 +23,54 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0, 2),
     height: '40px',
     width: "200px",
-    marginLeft: '150px'
+    marginLeft: '120px'
   },
 }));
 
 export default function EditUserDetails() {
   const classes = useStyles();
-  const history = useHistory();
-  const userId = useParams();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
-  const [imageUrl, setimageUrl] = useState("");
+  //const [imageUrl, setimageUrl] = useState("");
+  
+  const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log(userId.id);
-  const loggedUserId = userId.id;
-
-  // const getUserDetails = () => {
-  //   axios.get(`/user/${loggedUserId}`)
-  //     .then(res => {
-  //       console.log(res.data.data);
-  //       setFirstName(res.data.data.firstName);
-  //       setLastName(res.data.data.lastName);
-  //       setEmail(res.data.data.email);
-  //       setPhoneNo(res.data.data.phoneNo);
-  //     }).catch(error => {
-  //       console.log(error.response.data.message);
-  //     })
-  // }
-
-  const updateUserProfile = () => {
-    const newData = {
-      firstName,
-      lastName,
-      email,
-      phoneNo
-    }
-    axios.put(`/user/${loggedUserId}`,newData)
+  const getUserDetails = () => {
+    axios.get(`/user/${user.user._id}`)
       .then(res => {
-        console.log(res.data.message);
-        //history.push(``)
+        console.log(res.data.data);
+        setFirstName(res.data.data.firstName);
+        setLastName(res.data.data.lastName);
+        setEmail(res.data.data.email);
+        setPhoneNo(res.data.data.phoneNo);
       }).catch(error => {
         console.log(error.response.data.message);
       })
   }
 
-  // useEffect(() => {
-  //   getUserDetails();
-  // });
+  const updateUserProfile = (e) => {
+    e.preventDefault();
+    const newData = {
+      firstName:firstName,
+      lastName:lastName,
+      email:email,
+      phoneNo:phoneNo
+    }
+    axios.put(`/user/${user.user._id}`,newData)
+      .then(res => {
+        alert('update successfully !!!')
+        window.location.reload();
+      }).catch(error => {
+        console.log(error.response.data.message);
+      })
+  }
+
+  useEffect(() => {
+    getUserDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return (
     <Grid item xs>
@@ -91,7 +89,7 @@ export default function EditUserDetails() {
                 fullWidth
                 id="firstName"
                 label="First Name*"
-                //value={firstName}
+                value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}   
               />
             </Grid>
@@ -103,7 +101,7 @@ export default function EditUserDetails() {
                 fullWidth
                 id="lastName"
                 label="Last Name*"
-                //value={lastName}
+                value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </Grid>
@@ -115,7 +113,7 @@ export default function EditUserDetails() {
                 fullWidth
                 id="email"
                 label="Email*"
-                //value={email}
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
@@ -127,7 +125,7 @@ export default function EditUserDetails() {
                 fullWidth
                 id="phoneNo"
                 label="Phone Number*"
-                //value={phoneNo}
+                value={phoneNo}
                 onChange={(e) => setPhoneNo(e.target.value)}
               />
             </Grid>

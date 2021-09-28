@@ -24,7 +24,9 @@ function AdCard({ cardData: { _id, imageUrl, title, description } }) {
               </div>
               <span className="text-sm">{description}</span>
             </div>
-            <button className="w-full h-16 text-lg font-extrabold text-gray-100 transition duration-300 bg-purple-600 rounded-b-lg hover:bg-purple-700" onClick={e => { navigateViewAdvert(e,_id) }}>
+            <button className="w-full h-16 text-lg font-extrabold text-gray-100 transition duration-300 bg-purple-600 rounded-b-lg hover:bg-purple-700" 
+              onClick={e => { navigateViewAdvert(e,_id) }}
+            >
               VIEW AD
             </button>
           </div>

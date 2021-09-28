@@ -75,7 +75,7 @@ function AppRoutes() {
           />
           <Route exact path="/owner/newpackage" component={NewPackage} />
           <Route exact path="/owner/packages" component={ViewPackages} />
-          <Route exact path="/owner/dashboard/:id" component={OwnerDashboard} />
+          <Route exact path="/owner/dashboard" component={OwnerDashboard} />
           <Route exact path="/owner/editpackage/:id" component={EditPackage} />
 
           {/* **OWNER ROUTES END** */}
@@ -134,9 +134,9 @@ function AppRoutes() {
 
           {/* **USER ROUTE BEGIN** */}
           <Route exact path="/user/register" component={UserRegister} />
-          <Route exact path="/user/enquiry/:id" component={Enquiry} />
+          <Route exact path="/user/enquiry" component={Enquiry} />
           <Route exact path="/view/advertisment/:id" component={ViewAdd} />
-          <Route exact path="/user/dashboard/:id" component={UserDashboard} />
+          <Route exact path="/user/dashboard" component={UserDashboard} />
           <Route exact path="/user/payment/:id" component={ConfirmPayment} />
           {/* **USER ROUTE END** */}
         </Switch>

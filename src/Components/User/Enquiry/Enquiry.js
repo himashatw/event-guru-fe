@@ -11,7 +11,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useParams } from 'react-router-dom';
 import UserNavBar from '../UserNavBar';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +58,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SendEnquiry() {
 
-  const userId = useParams();
   const [reason, setReason] = useState("");
   const [date, setDate] = useState("");
   const [enquiries, setEnquirie] = useState([]);
@@ -67,12 +65,11 @@ export default function SendEnquiry() {
 
   const classes = useStyles();
 
-  console.log(userId.id);
-  const loggedUserId = userId.id;
+  const user = JSON.parse(localStorage.getItem("user"));
 
   //get user email
   function getLoggedUserEmail() {
-    axios.get(`/user/${loggedUserId}`)
+    axios.get(`/user/${user.user._id}`)
       .then(res => {
         console.log(res.data.data.email);
         setEmail(res.data.data.email);
@@ -88,11 +85,10 @@ export default function SendEnquiry() {
     const enquiry = {
       reason,
       date,
-      users: loggedUserId
+      users: user.user._id
     }
     axios.post('/user/enquiry', enquiry)
       .then(res => {
-        console.log(res.data);
         alert('Enquiry send successfully');
       }).catch(error => {
         console.log(error.response.data.message);
@@ -101,9 +97,8 @@ export default function SendEnquiry() {
 
   //get enquiries
   const getEnquiries = () => {
-    axios.get(`/user/enquiry/${loggedUserId}`)
+    axios.get(`/user/enquiry/${user.user._id}`)
       .then(res => {
-        console.log(res.data.data);
         setEnquirie(res.data.data)
       }).catch(error => {
         console.log(error.response.data.message);
@@ -191,32 +186,35 @@ export default function SendEnquiry() {
         </Grid>
 
         {/* show enquiry grid*/}
-        <Grid item xs={12} sm={6} md={5} component={Paper} style={{ marginLeft: "90px" }} elevation={1} square>
-          <div className={classes.paper1}>
-            <Typography component="h1" variant="h5">
-              Enquiries History
-            </Typography>
-            {
-              enquiries.map((value, index) => (
-                <Card className={classes.root} key={index}>
-                  <CardContent>
-                    <Typography variant="h6" component="h2">
-                      Reason : {value.reason}
-                    </Typography>
-                    <Typography className={classes.pos} color="textSecondary">
-                      State : {'true'}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                      Date: {value.date}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <DeleteForeverIcon className={classes.button} onClick={e => { deleteEnquiry(e, value._id) }} style={{ fontSize: '35px' }} />
-                  </CardActions>
-                </Card>
-              ))
-            }
-          </div>
+
+        <Grid item xs={12} sm={6} md={5} style={{ marginLeft: "90px" }} elevation={1} square>
+          <Paper style={{ height: 700, overflowX: 'hidden', overflowY: 'scroll' }}>
+            <div className={classes.paper1}>
+              <Typography component="h1" variant="h5">
+                Enquiries History
+              </Typography>
+              {
+                enquiries.map((value, index) => (
+                  <Card className={classes.root} key={index}>
+                    <CardContent>
+                      <Typography variant="h6" component="h2">
+                        Reason : {value.reason}
+                      </Typography>
+                      <Typography className={classes.pos} color="textSecondary">
+                        State : {'true'}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        Date: {value.date}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <DeleteForeverIcon className={classes.button} onClick={e => { deleteEnquiry(e, value._id) }} style={{ fontSize: '35px' }} />
+                    </CardActions>
+                  </Card>
+                ))
+              }
+            </div>
+          </Paper>
         </Grid>
       </Grid>
     </div>

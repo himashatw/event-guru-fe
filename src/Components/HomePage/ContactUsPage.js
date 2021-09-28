@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import Header from './Header';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +68,6 @@ export default function ContactUs() {
         .then(response => {
           console.log(response.data);
           alert('Send Successfully');
-          //history.push('/user/attendee/login');
         }).catch(error => {
           console.log(error.response.data.error);
         })
@@ -75,86 +75,89 @@ export default function ContactUs() {
   })
 
   return (
-    <Grid container justifyContent="space-evenly" style={{ marginTop: "15px" }}>
-      <CssBaseline />
-      <Grid item xs={12} sm={6} md={5} component={Paper} elevation={20} square>
-        <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Contact Us
-          </Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <Grid container spacing={3} >
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="name"
-                  label="Full Name*"
-                  name="name"
-                  value={values.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="name"
-                />
-                {touched.name && errors.name ? (<div>{errors.name}</div>) : null}
+    <div>
+      <Header />
+      <Grid container justifyContent="space-evenly" style={{ marginTop: "15px" }}>
+        <CssBaseline />
+        <Grid item xs={12} sm={6} md={5} component={Paper} elevation={20} square>
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Contact Us
+            </Typography>
+            <form className={classes.form} onSubmit={handleSubmit}>
+              <Grid container spacing={3} >
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="name"
+                    label="Full Name*"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="name"
+                  />
+                  {touched.name && errors.name ? (<div className="yupErros">{errors.name}</div>) : null}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="email"
+                    label="Email Address*"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="email"
+                  />
+                  {touched.email && errors.email ? (<div className="yupErros">{errors.email}</div>) : null}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="subject"
+                    label="Subject*"
+                    name="subject"
+                    value={values.subject}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="subject"
+                  />
+                  {touched.subject && errors.subject ? (<div className="yupErros">{errors.subject}</div>) : null}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    multiline
+                    rows={5}
+                    fullWidth
+                    id="message"
+                    label="Message*"
+                    name="message"
+                    value={values.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="messsage"
+                  />
+                  {touched.message && errors.message ? (<div className="yupErros">{errors.message}</div>) : null}
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="email"
-                  label="Email Address*"
-                  name="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="email"
-                />
-                {touched.email && errors.email ? (<div>{errors.email}</div>) : null}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="subject"
-                  label="Subject*"
-                  name="subject"
-                  value={values.subject}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="subject"
-                />
-                {touched.subject && errors.subject ? (<div>{errors.subject}</div>) : null}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  multiline
-                  rows={5}
-                  fullWidth
-                  id="message"
-                  label="Message*"
-                  name="message"
-                  value={values.message}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="messsage"
-                />
-                {touched.message && errors.message ? (<div>{errors.message}</div>) : null}
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Send
-            </Button>
-          </form>
-        </div>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Send
+              </Button>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }

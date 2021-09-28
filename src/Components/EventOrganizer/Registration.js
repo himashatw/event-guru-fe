@@ -105,7 +105,7 @@ export default function OrganizerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="name"
                 />
-                {touched.name && errors.name ? (<div>{errors.name}</div>) : null}
+                {touched.name && errors.name ? (<div className="yupErros">{errors.name}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -118,7 +118,7 @@ export default function OrganizerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="email"
                 />
-                {touched.email && errors.email ? (<div>{errors.email}</div>) : null}
+                {touched.email && errors.email ? (<div className="yupErros">{errors.email}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -132,7 +132,7 @@ export default function OrganizerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="phone"
                 />
-                {touched.phone && errors.phone ? (<div>{errors.phone}</div>) : null}
+                {touched.phone && errors.phone ? (<div className="yupErros">{errors.phone}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -147,7 +147,7 @@ export default function OrganizerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="current-password"
                 />
-                {touched.password && errors.password ? (<div>{errors.password}</div>) : null}
+                {touched.password && errors.password ? (<div className="yupErros">{errors.password}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -162,7 +162,7 @@ export default function OrganizerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="current-password"
                 />
-                {touched.confirmPassword && errors.confirmPassword ? (<div>{errors.confirmPassword}</div>) : null}
+                {touched.confirmPassword && errors.confirmPassword ? (<div className="yupErros">{errors.confirmPassword}</div>) : null}
               </Grid>
               <FormControlLabel
                 style={{ marginLeft: "9px" }}

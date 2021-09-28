@@ -2,29 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from '../../../Services/axios';
 import {Grid, Paper, Typography } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
+import '../styles/styles.css';
+import Header from '../../HomePage/Header';
 import '../styles/styles.css';
 
-const useStyles = makeStyles((theme) => ({
-  //form
-  paper: {
-    margin: theme.spacing(10),
-    display: 'flex',
-    flexDirection: 'column',
-
-  },
-  form: {
-    width: '90%',
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(2, 0, 2),
-    height: '40px'
-  },
-}));
-
 export default function ViewAdert() {
-
   const advertId = useParams();
   const history = useHistory();
   const [title, setTitle] = useState("");
@@ -36,8 +18,9 @@ export default function ViewAdert() {
   const [adType, setAdType] = useState("");
   const [imageUrl, setImgUrl] = useState("");
 
-  //console.log("Advert Id",advertId.id);
+  console.log("Advert Id",advertId.id);
   const addId = advertId.id;
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const getAdvertDetails = () => {
     axios.get(`/advert/${addId}`)
@@ -57,21 +40,27 @@ export default function ViewAdert() {
   }
 
   const bookEvent = () => {
-
-
+    if(user === null){
+      alert('please log before booking');
+      history.push('/login');
+    }else{
+      history.push(`/user/payment/${addId}`)
+    } 
   }
 
   useEffect(() => {
     getAdvertDetails();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return (
     <div>
+      <Header/>
       <br />
       <div>
       <Grid container>
         <div style={{ margin: 'auto', width: 600, height: 'auto' }} >
-          <Paper elevation={15}> 
+          <Paper elevation={5}> 
             <Typography component="h1" variant="h5" style={{ textAlign: 'center' }}>
               <b>Book an Event</b>
             </Typography>
@@ -99,7 +88,7 @@ export default function ViewAdert() {
             </center>
           </Paper>
         </div>
-        </Grid>
+      </Grid>
       </div>
     </div>
   );

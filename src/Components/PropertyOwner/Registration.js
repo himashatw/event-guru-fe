@@ -127,7 +127,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="name"
                 />
-                {touched.name && errors.name ? (<div>{errors.name}</div>) : null}
+                {touched.name && errors.name ? (<div className="yupErros">{errors.name}</div>) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -141,7 +141,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="email"
                 />
-                {touched.email && errors.email ? (<div>{errors.email}</div>) : null}
+                {touched.email && errors.email ? (<div className="yupErros">{errors.email}</div>) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -155,7 +155,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="contactNumber"
                 />
-                {touched.contactNumber && errors.contactNumber ? (<div>{errors.contactNumber}</div>) : null}
+                {touched.contactNumber && errors.contactNumber ? (<div className="yupErros">{errors.contactNumber}</div>) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -169,7 +169,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="propertyType"
                 />
-                {touched.propertyType && errors.propertyType ? (<div>{errors.propertyType}</div>) : null}
+                {touched.propertyType && errors.propertyType ? (<div className="yupErros">{errors.propertyType}</div>) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -184,7 +184,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="password"
                 />
-                {touched.password && errors.password ? (<div>{errors.password}</div>) : null}
+                {touched.password && errors.password ? (<div className="yupErros">{errors.password}</div>) : null}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -199,7 +199,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="confirmPassword"
                 />
-                {touched.confirmPassword && errors.confirmPassword ? (<div>{errors.confirmPassword}</div>) : null}
+                {touched.confirmPassword && errors.confirmPassword ? (<div className="yupErros">{errors.confirmPassword}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -213,7 +213,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="location"
                 />
-                {touched.location && errors.location ? (<div>{errors.location}</div>) : null}
+                {touched.location && errors.location ? (<div className="yupErros">{errors.location}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -229,7 +229,7 @@ export default function OwnerSignUp() {
                   onBlur={handleBlur}
                   autoComplete="bioDetails"
                 />
-                {touched.bioDetails && errors.bioDetails ? (<div>{errors.bioDetails}</div>) : null}
+                {touched.bioDetails && errors.bioDetails ? (<div className="yupErros">{errors.bioDetails}</div>) : null}
               </Grid>
               <Grid item xs={12}>
                 <TextField
