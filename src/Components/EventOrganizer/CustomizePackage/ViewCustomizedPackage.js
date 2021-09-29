@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from '../../../Services/axios.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,7 +13,9 @@ import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import { useHistory } from "react-router-dom";
-import ImportExportIcon from '@material-ui/icons/ImportExport';
+import LocalPrintshopIcon from '@material-ui/icons/LocalPrintshop';
+import jspdf from 'jspdf';
+import 'jspdf-autotable';
 
 const ViewCustomizedPackage = (props) => {
 
@@ -41,8 +42,10 @@ const ViewCustomizedPackage = (props) => {
             left: 100,
         }
     }));
+
     const eventorg = useStyles();
     const history = useHistory();
+
     useEffect(() => {
         axios.get(`/organizer/pending/requests`)
             .then(res => {
@@ -55,6 +58,7 @@ const ViewCustomizedPackage = (props) => {
         e.preventDefault();
         history.push(`/eventorganizer/editpackages/${id}`);
     }
+
     const navigateDelete = (e, id) => {
         e.preventDefault();
         axios.delete(`organizer/pending/delete/${id}`)
@@ -63,6 +67,28 @@ const ViewCustomizedPackage = (props) => {
                 alert("Delete successfully!");
                 window.location = `/eventorganizer/customizedpackages`;
             }).catch(err => console.log(err.message));
+    }
+
+    const downloadPdf = () => {
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4 
+        const orientation = "portrait"; // portrait or landscape
+        const marginLeft = 40;
+
+        const doc = new jspdf(orientation, unit, size);
+        const title = "Package Requests";
+        const headers = [['Package Title', 'No Of Participants', 'Date', 'Email', 'Message']]
+
+        const dataGrid = data.map(elt => [elt.title, elt.noOfParticipants, elt.date, elt.email, elt.message ? elt.message : "No message"]);
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: dataGrid
+        };
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("report.pdf")
     }
 
     return (
@@ -77,10 +103,14 @@ const ViewCustomizedPackage = (props) => {
                             </Typography></center>
                         </Grid>
                         <Grid item xs={3}>
-                            <Button variant="contained" color="primary" className={eventorg.exbutton}
-                            //  onClick={navigateCustomize}
+                            <Button variant="contained"
+                                color="primary"
+                                style={{ marginLeft: 50, }}
+                                className={eventorg.exbutton}
+                                onClick={downloadPdf}
+                                tooltip="Export as Pdf."
                             >
-                                <ImportExportIcon />Export
+                                <LocalPrintshopIcon />
                             </Button>
                         </Grid>
                     </Grid>
@@ -99,19 +129,19 @@ const ViewCustomizedPackage = (props) => {
                                                     title="Contemplative Reptile"
                                                 />
                                                 <CardContent>
-                                                    <Typography gutterBottom variant="h5" component="h2">
+                                                    <Typography gutterBottom variant="h4" component="h2">
                                                         {value.title}
                                                     </Typography>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                    <Typography variant="body1" color="black" component="p">
                                                         <h3>No Of Participants :{value.noOfParticipants}</h3>
                                                     </Typography>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                    <Typography variant="body2" color="black" component="p">
                                                         <h3>Date               :{value.date}</h3>
                                                     </Typography>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                    <Typography variant="body2" color="black" component="p">
                                                         <h3>Email              :{value.email}</h3>
                                                     </Typography>
-                                                    <Typography variant="body2" color="textSecondary" component="p">
+                                                    <Typography variant="body2" color="black" component="p">
                                                         <h3>Message            :{value.message ? value.message : 'No message'}</h3>
                                                     </Typography>
                                                 </CardContent>
@@ -133,7 +163,7 @@ const ViewCustomizedPackage = (props) => {
                     </List>
                 </Paper>
             </div>
-        </div>
+        </div >
     );
 }
 

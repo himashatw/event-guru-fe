@@ -4,18 +4,15 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from "react-router-dom";
-import { useHistory } from 'react-router';
+import { useHistory, } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -82,16 +79,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+
     const eventorg = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
     const history = useHistory();
 
+    const user = JSON.parse(localStorage.getItem("eventOrganizer"));
+    console.log(user)
+
     const naviagteViewApprove = () => {
-        // window.location = `/eventorganizer/packagesapproval`;
         history.push(`/eventorganizer/packagesapproval`);
     }
 
@@ -112,6 +111,11 @@ export default function PrimarySearchAppBar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLogout = (e) => {
+        localStorage.removeItem("eventOrganizer");
+        history.push(`/login`);
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -123,8 +127,8 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem >{user ? user.eventOrganizer.email : history.push('/login')}</MenuItem>
+            {user ? <MenuItem onClick={handleLogout}>Logout</MenuItem> : <MenuItem onClick={handleLogout}>Go to Login</MenuItem>}
         </Menu>
     );
 
