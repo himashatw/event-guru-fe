@@ -259,10 +259,10 @@ export default function UserDashboard() {
         </div>
         <div className="column right">
           <div style={{ marginTop: 50 }}>
-            <p>First Name:{" " + firstName}</p>
-            <p>Last Name:{" " + lastName}</p>
-            <p>Email :{" " + email}</p>
-            <p>Phone:{" " + phoneNo}</p>
+            <p className="dashp">First Name:{" " + firstName}</p>
+            <p className="dashp">Last Name:{" " + lastName}</p>
+            <p className="dashp">Email :{" " + email}</p>
+            <p className="dashp">Phone:{" " + phoneNo}</p>
           </div>
           <br />
           <Button variant="outlined" color="primary" onClick={handleClickOpen} ><Edit />Edit</Button>
