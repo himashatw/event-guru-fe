@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import { mainListItems, secondaryListItems } from './ListItems';
 import Button from '@material-ui/core/Button';
 import SettingsIcon from '@material-ui/icons/Settings';
+import { useHistory } from 'react-router';
 
 const drawerWidth = 240;
 
@@ -107,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function OfferDashBoard() {
-    const classes = useStyles();
+    const eventorg = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -116,33 +117,34 @@ export default function OfferDashBoard() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const fixedHeightPaper = clsx(eventorg.paper, eventorg.fixedHeight);
 
+    const history = useHistory();
     const navigateCustomize = () => {
-        window.location = `/eventorganizer/addcustomizedpackage`;
+        history.push(`/eventorganizer/addcustomizedpackage`);
     }
 
     return (
-        <div className={classes.root}>
+        <div className={eventorg.root}>
             <CssBaseline />
             <Drawer
                 variant="permanent"
                 classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                    paper: clsx(eventorg.drawerPaper, !open && eventorg.drawerPaperClose),
                 }}
                 open={open} >
                 <Divider />
                 <List>{mainListItems}</List>
                 <Divider />
                 <List>{secondaryListItems}</List>
-                <Button variant="contained" color="primary" className={classes.Dbutton} onClick={navigateCustomize}>
-                    <SettingsIcon className={classes.setting} />Customize Your Package
+                <Button variant="contained" color="primary" className={eventorg.Dbutton} onClick={navigateCustomize}>
+                    <SettingsIcon className={eventorg.setting} />Customize Your Package
                 </Button>
             </Drawer>
-            <div className={classes.notification}>
+            <div className={eventorg.notification}>
             </div>
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
+            <main className={eventorg.content}>
+                <div className={eventorg.appBarSpacer} />
             </main >
         </div >
     );

@@ -14,6 +14,7 @@ import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import { useHistory } from "react-router-dom";
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 
 const ViewCustomizedPackage = (props) => {
 
@@ -31,12 +32,16 @@ const ViewCustomizedPackage = (props) => {
         },
         mainDIv: {
             flexGrow: 1,
-            padding: theme.spacing(0),
-            display: 'flex',
             marginLeft: 220,
+        },
+        heading: {
+            marginTop: 10,
+        },
+        exbutton: {
+            left: 100,
         }
     }));
-    const classes = useStyles();
+    const eventorg = useStyles();
     const history = useHistory();
     useEffect(() => {
         axios.get(`/organizer/pending/requests`)
@@ -61,24 +66,35 @@ const ViewCustomizedPackage = (props) => {
     }
 
     return (
-        <div className={classes.root}>
-
+        <div className={eventorg.root}>
             <OfferFormDashBoard page="ViewCustomizedPackage" />
-
-            <div className={classes.mainDIv}>
-                <Paper style={{ height: 700, overflowX: 'hidden', overflowY: 'scroll' }}>
-                    <List>
-                        <Grid container >
+            <div className={eventorg.mainDIv}>
+                <div className={eventorg.heading}>
+                    <Grid container>
+                        <Grid item xs={9}>
                             <center><Typography gutterBottom variant="h4" component="h2">
                                 Edit Package
                             </Typography></center>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Button variant="contained" color="primary" className={eventorg.exbutton}
+                            //  onClick={navigateCustomize}
+                            >
+                                <ImportExportIcon />Export
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div>
+                <Paper style={{ height: "80vh", overflowX: 'hidden', overflowY: 'scroll' }}>
+                    <List>
+                        <Grid container >
                             {data.map((value, index) => (
                                 <Grid container wrap="nowrap" spacing={2}>
                                     <Grid item xs={12} spacing={2}>
-                                        <Card className={classes.root}>
+                                        <Card className={eventorg.root}>
                                             <CardActionArea>
                                                 <CardMedia
-                                                    className={classes.media}
+                                                    className={eventorg.media}
                                                     image=""
                                                     title="Contemplative Reptile"
                                                 />

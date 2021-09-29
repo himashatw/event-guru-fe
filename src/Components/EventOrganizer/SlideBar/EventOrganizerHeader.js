@@ -14,6 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Link } from "react-router-dom";
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -80,12 +82,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-    const classes = useStyles();
+    const eventorg = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const history = useHistory();
+
+    const naviagteViewApprove = () => {
+        // window.location = `/eventorganizer/packagesapproval`;
+        history.push(`/eventorganizer/packagesapproval`);
+    }
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -162,43 +170,32 @@ export default function PrimarySearchAppBar() {
     );
 
     return (
-        <div className={classes.grow}>
+        <div className={eventorg.grow}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
-                    </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
+                    <Link to="/eventorganizer/latestoffers">
+                        <Typography className={eventorg.title} variant="h6" noWrap>
+                            Event Oraganizer
+                        </Typography>
+                    </Link>
+                    {/* <div className={eventorg.search}>
+                        <div className={eventorg.searchIcon}>
                             <SearchIcon />
                         </div>
                         <InputBase
                             placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
+                            eventorg={{
+                                root: eventorg.inputRoot,
+                                input: eventorg.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
-                    </div>
-                    <div className={classes.grow} />
-                    <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
+                    </div> */}
+                    <div className={eventorg.grow} />
+                    <div className={eventorg.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
+                                <NotificationsIcon onClick={naviagteViewApprove} />
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -212,7 +209,7 @@ export default function PrimarySearchAppBar() {
                             <AccountCircle />
                         </IconButton>
                     </div>
-                    <div className={classes.sectionMobile}>
+                    <div className={eventorg.sectionMobile}>
                         <IconButton
                             aria-label="show more"
                             aria-controls={mobileMenuId}
