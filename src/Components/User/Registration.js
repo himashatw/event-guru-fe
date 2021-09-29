@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import Header from '../HomePage/Header';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,7 +47,7 @@ export default function UserSignUp() {
       lastName: '',
       email: '',
       phoneNo: '',
-      password:'',
+      password: '',
       confirmPassword: ''
     },
     validationSchema: Yup.object({
@@ -85,129 +86,132 @@ export default function UserSignUp() {
   })
 
   return (
-    <Grid container justifyContent="center" style={{ marginTop: "15px" }}>
-      <CssBaseline />
-      <Grid item xs={12} sm={6} md={5} component={Paper} elevation={20} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <Grid container spacing={3} >
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
-                  name="firstName"
-                  variant="outlined"
-                  fullWidth
-                  id="firstName"
-                  label="First Name*"
-                  value={values.firstname}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
+    <div>
+      <Header />
+      <Grid container justifyContent="center" style={{ marginTop: "15px" }}>
+        <CssBaseline />
+        <Grid item xs={12} sm={6} md={5} component={Paper} elevation={20} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <form className={classes.form} onSubmit={handleSubmit}>
+              <Grid container spacing={3} >
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="fname"
+                    name="firstName"
+                    variant="outlined"
+                    fullWidth
+                    id="firstName"
+                    label="First Name*"
+                    value={values.firstname}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {touched.firstName && errors.firstName ? (<div className="yupErros">{errors.firstName}</div>) : null}
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="lastName"
+                    label="Last Name*"
+                    name="lastName"
+                    value={values.lastName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="lname"
+                  />
+                  {touched.lastName && errors.lastName ? (<div className="yupErros">{errors.lastName}</div>) : null}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="email"
+                    label="Email Address*"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="email"
+                  />
+                  {touched.email && errors.email ? (<div className="yupErros">{errors.email}</div>) : null}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    id="phoneNo"
+                    label="Phone Number*"
+                    name="phoneNo"
+                    value={values.phoneNo}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="phoneNo"
+                  />
+                  {touched.phoneNo && errors.phoneNo ? (<div className="yupErros">{errors.phoneNo}</div>) : null}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    name="password"
+                    label="Password*"
+                    type="password"
+                    id="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="current-password"
+                  />
+                  {touched.password && errors.password ? (<div className="yupErros">{errors.password}</div>) : null}
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    name="confirmPassword"
+                    label="Confirm Password*"
+                    type="password"
+                    id="confirmPassword"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    autoComplete="current-password"
+                  />
+                  {touched.confirmPassword && errors.confirmPassword ? (<div className="yupErros">{errors.confirmPassword}</div>) : null}
+                </Grid>
+                <FormControlLabel
+                  style={{ marginLeft: "9px" }}
+                  control={<Checkbox color="primary" />}
+                  label="I agree with privacy and policy agreement."
                 />
-                {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null}
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="lastName"
-                  label="Last Name*"
-                  name="lastName"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="lname"
-                />
-                {touched.lastName && errors.lastName ? (<div>{errors.lastName }</div>) : null}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-start">
+                <Grid item>
+                  <Link href="/login" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="email"
-                  label="Email Address*"
-                  name="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="email"
-                />
-                {touched.email && errors.email ? (<div>{errors.email}</div>) : null}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="phoneNo"
-                  label="Phone Number*"
-                  name="phoneNo"
-                  value={values.phoneNo}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="phoneNo"
-                />
-                {touched.phoneNo && errors.phoneNo ? (<div>{errors.phoneNo}</div>) : null}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  name="password"
-                  label="Password*"
-                  type="password"
-                  id="password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="current-password"
-                />
-                {touched.password && errors.password ? (<div>{errors.password}</div>) : null}
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  name="confirmPassword"
-                  label="Confirm Password*"
-                  type="password"
-                  id="confirmPassword"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  autoComplete="current-password"
-                />
-                {touched.confirmPassword && errors.confirmPassword ? (<div>{errors.confirmPassword}</div>) : null}
-              </Grid>
-              <FormControlLabel
-                style={{ marginLeft: "9px" }}
-                control={<Checkbox color="primary" />}
-                label="I agree with privacy and policy agreement."
-              />
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-start">
-              <Grid item>
-                <Link href="/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }

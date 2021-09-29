@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../Services/axios'
-import { useHistory, useParams } from 'react-router-dom';
 import { CssBaseline, Grid, Typography, Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -24,25 +23,22 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0, 2),
     height: '40px',
     width: "200px",
-    marginLeft: '150px'
+    marginLeft: '120px'
   },
 }));
 
 export default function EditUserDetails() {
   const classes = useStyles();
-  const history = useHistory();
-  const userId = useParams();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
-  const [imageUrl, setimageUrl] = useState("");
-
-  console.log(userId.id);
-  const loggedUserId = userId.id;
+  //const [imageUrl, setimageUrl] = useState("");
+  
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const getUserDetails = () => {
-    axios.get(`/user/${loggedUserId}`)
+    axios.get(`/user/${user.user._id}`)
       .then(res => {
         console.log(res.data.data);
         setFirstName(res.data.data.firstName);
@@ -54,11 +50,18 @@ export default function EditUserDetails() {
       })
   }
 
-  const updateUserProfile = () => {
-    axios.put(`/user/${loggedUserId}`)
+  const updateUserProfile = (e) => {
+    e.preventDefault();
+    const newData = {
+      firstName:firstName,
+      lastName:lastName,
+      email:email,
+      phoneNo:phoneNo
+    }
+    axios.put(`/user/${user.user._id}`,newData)
       .then(res => {
-        console.log(res.data.message);
-        //history.push(``)
+        alert('update successfully !!!')
+        window.location.reload();
       }).catch(error => {
         console.log(error.response.data.message);
       })
@@ -66,7 +69,8 @@ export default function EditUserDetails() {
 
   useEffect(() => {
     getUserDetails();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   return (
     <Grid item xs>
@@ -86,10 +90,8 @@ export default function EditUserDetails() {
                 id="firstName"
                 label="First Name*"
                 value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              // onBlur={handleBlur}       
+                onChange={(e) => setFirstName(e.target.value)}   
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
             <Grid item xs={12} >
               <TextField
@@ -101,9 +103,7 @@ export default function EditUserDetails() {
                 label="Last Name*"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-              // onBlur={handleBlur}
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
             <Grid item xs={12} >
               <TextField
@@ -115,9 +115,7 @@ export default function EditUserDetails() {
                 label="Email*"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              // onBlur={handleBlur}
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
             <Grid item xs={12} >
               <TextField
@@ -129,9 +127,7 @@ export default function EditUserDetails() {
                 label="Phone Number*"
                 value={phoneNo}
                 onChange={(e) => setPhoneNo(e.target.value)}
-              // onBlur={handleBlur}
               />
-              {/* {touched.firstName && errors.firstName ? (<div>{errors.firstName}</div>) : null} */}
             </Grid>
           </Grid>
           <Button

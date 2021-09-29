@@ -100,7 +100,9 @@ function HomePage() {
                 Try our latest offers !
               </p>
               <div className="flex mt-10 w-52 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg  transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
+              <a href="/register">
                 <button className="text-lg text-md ">Register Now!</button>
+              </a>
                 <span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +136,7 @@ function HomePage() {
         <Grid container spacing={7}>
           {adList.map((card, index) => (
             <Grid item key={index} xs={12} sm={6} md={4}>
-              <AdCard cardData={card} />
+              <AdCard cardData={card}  />
             </Grid>
           ))}
         </Grid>

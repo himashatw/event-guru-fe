@@ -31,7 +31,8 @@ import OtherOffers from "./Components/EventOrganizer/ViewPackages/OtherOffers";
 import PartyOffers from "./Components/EventOrganizer/ViewPackages/PartyOffers";
 import ShowOffers from "./Components/EventOrganizer/ViewPackages/ShowOffers";
 import WeddingOffers from "./Components/EventOrganizer/ViewPackages/WeddingOffers";
-import EventOrganizerHeader from "./Components/EventOrganizer/SlideBar/EventOrganizerHeader"
+import EventOrganizerHeader from "./Components/EventOrganizer/SlideBar/EventOrganizerHeader";
+import ConfirmPayment from "./Components/User/Payment/Payment";
 
 
 function AppRoutes() {
@@ -133,9 +134,10 @@ function AppRoutes() {
 
           {/* **USER ROUTE BEGIN** */}
           <Route exact path="/user/register" component={UserRegister} />
-          <Route exact path="/user/enquiry/:id" component={Enquiry} />
-          <Route exact path="/view/advertisment" component={ViewAdd} />
-          <Route exact path="/user/dashboard/:id" component={UserDashboard} />
+          <Route exact path="/user/enquiry" component={Enquiry} />
+          <Route exact path="/view/advertisment/:id" component={ViewAdd} />
+          <Route exact path="/user/dashboard" component={UserDashboard} />
+          <Route exact path="/user/payment/:id" component={ConfirmPayment} />
           {/* **USER ROUTE END** */}
         </Switch>
       </div>

@@ -1,7 +1,12 @@
 import React from "react";
 
-function AdCard({ cardData: { imageUrl, title, description } }) {
+function AdCard({ cardData: { _id, imageUrl, title, description } }) {
   //   console.log(cardData);
+
+  const navigateViewAdvert = (e, id) => {
+    window.location = `/view/advertisment/${id}`;
+}
+
   return (
     <div className="shadow-2xl transition duration-500 ease-in-out   transform hover:-translate-y-1 hover:scale-110">
       <main className="grid w-full min-h-1  place-content-center">
@@ -19,7 +24,9 @@ function AdCard({ cardData: { imageUrl, title, description } }) {
               </div>
               <span className="text-sm">{description}</span>
             </div>
-            <button className="w-full h-16 text-lg font-extrabold text-gray-100 transition duration-300 bg-purple-600 rounded-b-lg hover:bg-purple-700">
+            <button className="w-full h-16 text-lg font-extrabold text-gray-100 transition duration-300 bg-purple-600 rounded-b-lg hover:bg-purple-700" 
+              onClick={e => { navigateViewAdvert(e,_id) }}
+            >
               VIEW AD
             </button>
           </div>

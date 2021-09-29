@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(props) {
+export default function Login() {
   const classes = useStyles();
   const history = useHistory();
   const { handleSubmit, handleChange, values, touched, errors, handleBlur } =
@@ -76,7 +76,9 @@ export default function Login(props) {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                history.push(`/user/dashboard/${res.data.user._id}`);
+                localStorage.setItem('user', JSON.stringify(res.data))
+                console.log(res.data)
+                history.push('/user/dashboard');
               }
             })
             .catch((error) => {
@@ -90,7 +92,7 @@ export default function Login(props) {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
+                history.push('/eventorganizer/latestoffers');
               }
             })
             .catch((error) => {
@@ -104,7 +106,8 @@ export default function Login(props) {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                //history.push('/attendee/dashboard') ToDo: give your page after login you want to redirect and change AppRoutes.js
+                localStorage.setItem('owner', JSON.stringify(res.data))
+                history.push('/owner/dashboard')
               }
             })
             .catch((error) => {
@@ -118,7 +121,7 @@ export default function Login(props) {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                history.push('/admin/dashboard') //ToDo: give your page after login you want to redirect and change AppRoutes.js
+                history.push('/admin/dashboard') 
               }
             })
             .catch((error) => {
@@ -197,6 +200,7 @@ export default function Login(props) {
                   name="role"
                   id="role"
                   style={{ display: "initial" }}
+                  required
                 >
                   <FormControlLabel
                     value="user"
