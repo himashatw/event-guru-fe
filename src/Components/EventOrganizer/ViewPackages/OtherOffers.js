@@ -99,19 +99,28 @@ function Other(props) {
     }));
 
     const eventorg = useStyles();
-    useEffect(() => {
+
+    const getOtherOfferData = () => {
         axios.get(`/organizer/packages/other`)
             .then(res => {
                 console.log(res.data.data)
                 setData(res.data.data);
             }).catch(err => console.log(err.message))
+    }
+
+    useEffect(() => {
+        getOtherOfferData();
     }, []);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axios.get(`/organizer/packages/search/${keyword}`)
+        const type = "Other";
+        axios.get(`/organizer/packages/search/${type}/${keyword}`)
             .then(res => {
-                setData(res.data.data);
+                if (res.data.data)
+                    setData(res.data.data);
+                else
+                    getOtherOfferData();
             }).catch(err => console.log(err.message))
     }
 
@@ -136,7 +145,7 @@ function Other(props) {
                                                 <SearchIcon />
                                             </div>
                                             <InputBase
-                                                placeholder="Search…"
+                                                placeholder="Search the Package"
                                                 classes={{
                                                     root: eventorg.inputRoot,
                                                     input: eventorg.inputInput,
@@ -207,7 +216,7 @@ function Other(props) {
                                                                     <h2>Package Price            :{value.packagePrice}</h2>
                                                                 </Typography>
                                                                 <Typography variant="subtitle1" gutterBottom component="div">
-                                                                    <h2>Discount            :{value.discount ? value.discount : 'No discount'}</h2>
+                                                                    <h2><b>Discount           :{value.packageOffer ? value.packageOffer + '%' : 'No discount'}</b> </h2>
                                                                 </Typography>
                                                             </Grid>
                                                         </Grid>

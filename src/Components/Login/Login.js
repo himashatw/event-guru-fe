@@ -92,6 +92,8 @@ export default function Login() {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
+                localStorage.setItem('eventOrganizer', JSON.stringify(res.data))
+                console.log(res.data)
                 history.push('/eventorganizer/latestoffers');
               }
             })
@@ -121,7 +123,7 @@ export default function Login() {
             .then((res) => {
               if (res.status === 200) {
                 alert(res.data.message);
-                history.push('/admin/dashboard') 
+                history.push('/admin/dashboard')
               }
             })
             .catch((error) => {

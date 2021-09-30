@@ -1,45 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../../Services/axios.js';
-import { makeStyles } from '@material-ui/core/styles';
+import { alpha, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import OfferDashBoard from '../SlideBar/OfferDashBoard';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 const Latest = () => {
 
-    function createData(id, offerName, venue, discount, date, condition) {
-        return { id, offerName, venue, discount, date, condition };
-    }
-    const rows = [
-        createData(0, 'Super Discount', 'Colombo-GalaDari Hotel', '20%', '16 Sep, 2021', '20% discount more than 100 participants'),
-        createData(1, '50% Discount', 'Wadduwa-Safron Hotel', '50%', '26 Oct, 2021', '50% discount more than 100 participants'),
-        createData(2, 'Foods free of charge', 'Panadura-Hotel White', '', '06 Mar, 2021', 'Foods free of charge for more than 200'),
-        createData(3, 'Panadura Public Ground now  available', 'Pandura Public Ground', '', '16 Aug, 2021', 'More than 14 hours events, 2 hours free charge'),
-        createData(4, '3 hours Free of charge', 'Kalutara Public Conference', '', '15 Mar, 2019', 'More than 14 hours events, 2 hours free charge'),
-    ];
-
     const [data, setData] = useState([]);
+    const [keyword, setKeyword] = useState('');
 
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
-            overflow: 'hidden',
+            overflowY: 'hidden',
             padding: theme.spacing(0, 3),
             margin: `${theme.spacing(1)}px auto`,
             display: 'flex',
+            overflowX: 'hidden',
+        },
+        maindiv: {
+            flexGrow: 1,
+            marginLeft: 240,
+        },
+        dashboard: {
+            position: 'fixed',
         },
         paper: {
             maxWidth: 400,
@@ -61,38 +55,125 @@ const Latest = () => {
             padding: '0 8px',
             ...theme.mixins.toolbar,
         },
+        packageContent: {
+            marginLeft: '320px',
+            top: 'flex',
+            padding: theme.spacing(2),
+        },
+        search: {
+            position: 'relative',
+            borderRadius: theme.shape.borderRadius,
+            backgroundColor: alpha(theme.palette.common.white, 0.15),
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.common.white, 0.25),
+            },
+            marginRight: theme.spacing(2),
+            marginLeft: 0,
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                marginLeft: theme.spacing(3),
+                width: 'auto',
+            },
+        },
+        searchIcon: {
+            padding: theme.spacing(0, 2),
+            height: '100%',
+            position: 'absolute',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        inputRoot: {
+            color: 'inherit',
+        },
+        inputInput: {
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('md')]: {
+                width: '20ch',
+            },
+        },
     }));
 
     const eventorg = useStyles();
-    useEffect(() => {
-        axios.get(`/organizer/custom/view/approval`)
+
+    const getOtherOfferData = () => {
+        axios.get(`/organizer/packages/latest`)
             .then(res => {
                 console.log(res.data.data)
                 setData(res.data.data);
             }).catch(err => console.log(err.message))
-    }, [])
-
-    const naviagteViewApprove = () => {
-        window.location = `/eventorganizer/packagesapproval`;
     }
 
+    useEffect(() => {
+        getOtherOfferData();
+    }, []);
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        axios.get(`/organizer/packages/search/${keyword}`)
+            .then(res => {
+                if (res.data.data)
+                    setData(res.data.data);
+                else
+                    getOtherOfferData();
+            }).catch(err => console.log(err.message))
+    }
+
+    console.log("data=>", data)
     return (
         <div>
             <div className={eventorg.root}>
-                <OfferDashBoard />
-                <div className={eventorg.mainDIv}>
-                    <Typography gutterBottom variant="h4" component="h2"><center>
-                        Latest Offers
-                    </center></Typography>
-
-                    <Paper style={{ height: 750, overflowX: 'hidden', overflowY: 'scroll' }}>
+                <div className={eventorg.dashboard}><OfferDashBoard /></div>
+                <div className={eventorg.maindiv}>
+                    <Grid container >
+                        <Grid item xs={9}>
+                            <Typography gutterBottom variant="h3" component="h2">
+                                <center>Check out our latest offers!</center>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <div className={eventorg.search}>
+                                <form onSubmit={onSubmit}>
+                                    <Grid container >
+                                        <Grid item xs={9}>
+                                            <div className={eventorg.searchIcon}>
+                                                <SearchIcon />
+                                            </div>
+                                            <InputBase
+                                                placeholder="Search the Package"
+                                                classes={{
+                                                    root: eventorg.inputRoot,
+                                                    input: eventorg.inputInput,
+                                                }}
+                                                name="keyword"
+                                                value={keyword}
+                                                onChange={(e) => setKeyword(e.target.value)}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={3}>
+                                            <Button
+                                                type="submit"
+                                                variant="contained"
+                                                color="primary"
+                                            >
+                                                Search
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </form>
+                            </div>
+                        </Grid>
+                    </Grid>
+                    <Paper style={{ height: "80vh", overflowX: 'hidden', overflowY: 'scroll' }}>
                         <List>
                             <Grid container >
-                                {rows.map((value, index) => (
+                                {data.map((value, index) => (
                                     <Grid container wrap="nowrap" spacing={2}>
-                                        {/* 
-                <Grid item xs={12}> */}
-                                        {/* <Paper className={eventorg.paper}> */}
                                         <Grid item xs={12}>
                                             <Card className={eventorg.root}>
                                                 <CardActionArea>
@@ -102,21 +183,43 @@ const Latest = () => {
                                                         title="Contemplative Reptile"
                                                     />
                                                     <CardContent>
-                                                        <Typography gutterBottom variant="h4" component="h2">
-                                                            {value.offerName}
-                                                        </Typography>
-                                                        <Typography variant="body2" color="textSecondary" component="p">
-                                                            <h3>Venue               :{value.venue}</h3>
-                                                        </Typography>
-                                                        <Typography variant="body2" color="textSecondary" component="p">
-                                                            <h3>Date               :{value.date}</h3>
-                                                        </Typography>
-                                                        <Typography variant="body2" color="textSecondary" component="p">
-                                                            <h3>Condition              :{value.condition}</h3>
-                                                        </Typography>
-                                                        <Typography variant="body2" color="textSecondary" component="p">
-                                                            <h3>Discount            :{value.discount ? value.discount : 'No discount'}</h3>
-                                                        </Typography>
+                                                        <Grid container spacing={3}>
+                                                            <Grid item xs={12}>
+                                                                <center><Typography gutterBottom variant="h5" component="h2">
+                                                                    {value.packageName}
+                                                                </Typography></center>
+                                                            </Grid>
+                                                            <Grid item xs={3}>
+                                                                <img
+                                                                    src={value.packageImageUrl}
+                                                                    className="card-img-top"
+                                                                    alt="..."
+                                                                    style={{
+                                                                        objectFit: "cover",
+                                                                        maxHeight: "200px",
+                                                                        borderRadius: "20px",
+                                                                        border: "1px solid black",
+                                                                    }}
+                                                                />
+                                                            </Grid>
+                                                            <Grid item xs={3}>
+                                                                <Typography variant="subtitle1" gutterBottom component="div">
+                                                                    <h2>Package Details               :{value.packageDetails}</h2>
+                                                                </Typography>
+                                                                <Typography variant="subtitle1" gutterBottom component="div">
+                                                                    <h2>Packaage Venue            :{value.packageVenue}</h2>
+                                                                </Typography>
+                                                                <Typography variant="subtitle1" gutterBottom component="div">
+                                                                    <h2>Maximum Participants              :{value.participants}</h2>
+                                                                </Typography>
+                                                                <Typography variant="subtitle1" gutterBottom component="div">
+                                                                    <h2>Package Price            :{value.packagePrice}</h2>
+                                                                </Typography>
+                                                                <Typography variant="subtitle1" gutterBottom component="div">
+                                                                    <h2><b>Discount           :{value.packageOffer ? value.packageOffer + '%' : 'No discount'}</b> </h2>
+                                                                </Typography>
+                                                            </Grid>
+                                                        </Grid>
                                                     </CardContent>
                                                 </CardActionArea>
                                             </Card>
@@ -131,5 +234,4 @@ const Latest = () => {
         </div>
     );
 }
-
 export default Latest;

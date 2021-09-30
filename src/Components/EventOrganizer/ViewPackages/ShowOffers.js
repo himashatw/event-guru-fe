@@ -111,7 +111,8 @@ function Show(props) {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axios.get(`/organizer/packages/search/${keyword}`)
+        const type = "Show";
+        axios.get(`/organizer/packages/search/${type}/${keyword}`)
             .then(res => {
                 setData(res.data.data);
             }).catch(err => console.log(err.message))
@@ -209,7 +210,7 @@ function Show(props) {
                                                                     <h2>Package Price            :{value.packagePrice}</h2>
                                                                 </Typography>
                                                                 <Typography variant="subtitle1" gutterBottom component="div">
-                                                                    <h2>Discount            :{value.discount ? value.discount : 'No discount'}</h2>
+                                                                    <h2><b>Discount           :{value.packageOffer ? value.packageOffer + '%' : 'No discount'}</b> </h2>
                                                                 </Typography>
                                                             </Grid>
                                                         </Grid>
