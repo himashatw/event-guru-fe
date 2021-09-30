@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
 
 const CreateCustomizedPackage = (props) => {
 
@@ -21,6 +22,7 @@ const CreateCustomizedPackage = (props) => {
     const [approve, seApprove] = useState("pending")
     const [options, setOptions] = useState([]);
     const [selectVenue, setSelectVenue] = useState('');
+    const history = useHistory();
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -130,7 +132,6 @@ const CreateCustomizedPackage = (props) => {
                                             < MenuItem value={value.value} >{value.label}</MenuItem>
                                         ))}
                                     </Select>
-
                                 </Grid>
                                 <br />
                                 <Grid item xs={12} >
@@ -160,7 +161,6 @@ const CreateCustomizedPackage = (props) => {
                                 </Grid>
                                 <br />
                                 <Grid item xs={12} >
-
                                     <TextField
                                         variant="outlined"
                                         id="datetime-local"
@@ -177,7 +177,6 @@ const CreateCustomizedPackage = (props) => {
                                             shrink: true,
                                         }}
                                     />
-
                                 </Grid>
                                 <br />
                                 <Grid item xs={12}>
@@ -194,11 +193,9 @@ const CreateCustomizedPackage = (props) => {
                                     />
                                 </Grid>
                                 <br />
-
                                 <Grid item xs={12}>
                                     <TextField
                                         variant="outlined"
-
                                         fullWidth
                                         id="message"
                                         label="Message about package"
@@ -211,7 +208,6 @@ const CreateCustomizedPackage = (props) => {
                                 <br />
                                 <Button
                                     type="submit"
-
                                     variant="contained"
                                     style={{
                                         borderRadius: 5,
@@ -219,13 +215,10 @@ const CreateCustomizedPackage = (props) => {
                                         color: "white",
                                         fontSize: "18px"
                                     }}
-
                                 >
                                     Submit
                                 </Button>
                                 <Button
-                                    type="submit"
-
                                     variant="contained"
                                     style={{
                                         borderRadius: 5,
@@ -234,6 +227,7 @@ const CreateCustomizedPackage = (props) => {
                                         color: "white",
                                         fontSize: "18px"
                                     }}
+                                    onClick={(e) => history.push('/eventorganizer/latestoffers')}
                                 >
                                     Cancel
                                 </Button>

@@ -10,21 +10,19 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import OfferFormDashBoard from '../SlideBar/OfferFormDashBoard';
 import Typography from '@material-ui/core/Typography';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const UpdateCustomizedPackage = (props) => {
 
     const updateParam = useParams();
     console.log(updateParam.id);
-    const [packages, setPackages] = useState([])
     const [title, setTitle] = useState('');
     const [noOfParticipants, setNoOfParticipants] = useState('');
-    const [date, setDate] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    const [approve, seApprove] = useState("pending")
     const [options, setOptions] = useState([]);
     const [selectVenue, setSelectVenue] = useState('');
+    const history = useHistory();
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -79,7 +77,6 @@ const UpdateCustomizedPackage = (props) => {
             .then((res) => {
                 setTitle(res.data.data.title);
                 setNoOfParticipants(res.data.data.noOfParticipants);
-                setDate(res.data.data.date);
                 setEmail(res.data.data.email);
                 setMessage(res.data.data.message);
                 setSelectVenue(res.data.data.venue);
@@ -170,27 +167,6 @@ const UpdateCustomizedPackage = (props) => {
                                     />
                                 </Grid>
                                 <br />
-                                {/* <Grid item xs={12} >
-
-                                    <TextField
-                                        variant="outlined"
-                                        id="datetime-local"
-                                        fullWidth
-                                        required
-                                        name="date"
-                                        value={date}
-                                        onChange={(e) => setDate(e.target.value)}
-                                        label="Select Evenet Date"
-                                        type="datetime-local"
-                                        defaultValue="2017-05-24T10:30"
-                                        className={eventorg.textField}
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
-
-                                </Grid>
-                                <br /> */}
                                 <Grid item xs={12}>
                                     <TextField
                                         variant="outlined"
@@ -230,13 +206,11 @@ const UpdateCustomizedPackage = (props) => {
                                         color: "white",
                                         fontSize: "18px"
                                     }}
-
                                 >
                                     Submit
                                 </Button>
                                 <Button
                                     type="submit"
-
                                     variant="contained"
                                     style={{
                                         borderRadius: 5,
@@ -245,6 +219,7 @@ const UpdateCustomizedPackage = (props) => {
                                         color: "white",
                                         fontSize: "18px"
                                     }}
+                                    onClick={(e) => history.push('/eventorganizer/latestoffers')}
                                 >
                                     Cancel
                                 </Button>
