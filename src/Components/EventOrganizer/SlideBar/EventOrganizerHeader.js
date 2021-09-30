@@ -88,6 +88,7 @@ export default function PrimarySearchAppBar() {
     const history = useHistory();
 
     const user = JSON.parse(localStorage.getItem("eventOrganizer"));
+    const count = JSON.parse(localStorage.getItem("eventOrganizerNotifiCount"))
     console.log(user)
 
     const naviagteViewApprove = () => {
@@ -144,14 +145,6 @@ export default function PrimarySearchAppBar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
                     <Badge badgeContent={11} color="secondary">
                         <NotificationsIcon />
@@ -198,7 +191,7 @@ export default function PrimarySearchAppBar() {
                     <div className={eventorg.grow} />
                     <div className={eventorg.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
+                            <Badge badgeContent={count ? count : 0} color="secondary">
                                 <NotificationsIcon onClick={naviagteViewApprove} />
                             </Badge>
                         </IconButton>

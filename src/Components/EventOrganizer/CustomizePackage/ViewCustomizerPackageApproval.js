@@ -49,6 +49,9 @@ const ViewCustomizerPackageApproval = () => {
             }).catch(err => console.log(err.message))
     }, [])
 
+    var count = data.length;
+    localStorage.setItem('eventOrganizerNotifiCount', JSON.stringify(count))
+
     return (
         <div className={eventorg.root}>
             <OfferFormDashBoard page="ViewCustomizerPackageApproval" />
