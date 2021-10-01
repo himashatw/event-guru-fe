@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
   },
 });
 function OwnerDashboard(props) {
+  const history = useHistory()
   return (
     <div>
       <div className="text-4xl text-center m-10 font-bold">Dashboard</div>
@@ -26,7 +28,7 @@ function OwnerDashboard(props) {
       <div className="flex flex-row p-20 justify-evenly mt-20">
         <Card
           className=" max-w-sm"
-          onClick={() => props.history.push("/owner/newpackage")}
+          onClick={() => history.push("/owner/newpackage")}
         >
           <CardActionArea>
             <CardMedia
@@ -50,7 +52,7 @@ function OwnerDashboard(props) {
         </Card>
         <Card
           className=" max-w-sm"
-          onClick={() => props.history.push("/owner/packages")}
+          onClick={() => history.push("/owner/packages")}
         >
           <CardActionArea>
             <CardMedia
@@ -74,7 +76,7 @@ function OwnerDashboard(props) {
         </Card>
         <Card 
         className=" max-w-sm"
-        onClick={() => props.history.push("/owner/customPackage")}>
+        onClick={() =>history.push("/owner/customPackage")}>
           <CardActionArea>
             <CardMedia
               className="h-36"
