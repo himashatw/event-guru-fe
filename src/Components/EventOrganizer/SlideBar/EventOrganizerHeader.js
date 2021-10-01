@@ -8,11 +8,10 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from "react-router-dom";
-import { useHistory, } from 'react-router';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
