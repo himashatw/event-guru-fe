@@ -103,7 +103,7 @@ function AddNewAd() {
 
   const onDeleteHandler = async () => {
     confirmAlert({
-      title: "Are you sure want to delete " + updateTitle,
+      title: "Are you sure want to delete " + updateTitle + " ?",
       // message: "Are you sure to do this.",
       buttons: [
         {
