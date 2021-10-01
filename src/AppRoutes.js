@@ -33,7 +33,8 @@ import ShowOffers from "./Components/EventOrganizer/ViewPackages/ShowOffers";
 import WeddingOffers from "./Components/EventOrganizer/ViewPackages/WeddingOffers";
 import EventOrganizerHeader from "./Components/EventOrganizer/SlideBar/EventOrganizerHeader";
 import ConfirmPayment from "./Components/User/Payment/Payment";
-
+import CustomPackages from "./Components/PropertyOwner/CustomPackages";
+import OwnerHeader from "./Components/PropertyOwner/OwnerHeader";
 
 function AppRoutes() {
   return (
@@ -73,10 +74,16 @@ function AppRoutes() {
             path="/owner/register"
             component={PropertyOwnerRegister}
           />
-          <Route exact path="/owner/newpackage" component={NewPackage} />
-          <Route exact path="/owner/packages" component={ViewPackages} />
-          <Route exact path="/owner/dashboard" component={OwnerDashboard} />
-          <Route exact path="/owner/editpackage/:id" component={EditPackage} />
+          <Route exact path="/owner/newpackage" > <OwnerHeader/><NewPackage/>
+          </Route>
+          <Route exact path="/owner/packages" > <OwnerHeader/> <ViewPackages/></Route>
+          <Route exact path="/owner/dashboard" >
+            <OwnerHeader/> 
+          <OwnerDashboard/>
+          </Route>
+
+          <Route exact path="/owner/editpackage/:id" component={EditPackage}/> 
+          <Route exact path="/owner/customPackage"  > <OwnerHeader/><CustomPackages/></Route>
 
           {/* **OWNER ROUTES END** */}
 
