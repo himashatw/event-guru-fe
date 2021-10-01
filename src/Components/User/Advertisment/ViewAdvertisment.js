@@ -5,6 +5,7 @@ import {Grid, Paper, Typography } from '@material-ui/core/';
 import '../styles/styles.css';
 import Header from '../../HomePage/Header';
 import '../styles/styles.css';
+import UserNavBar from '../UserNavBar';
 
 export default function ViewAdert() {
   const advertId = useParams();
@@ -55,7 +56,7 @@ export default function ViewAdert() {
 
   return (
     <div>
-      <Header/>
+      {user === null ? <Header/> : <UserNavBar/>}
       <br />
       <div>
       <Grid container>
@@ -74,13 +75,13 @@ export default function ViewAdert() {
             <br />
             <br />
             <div style={{marginLeft:'10px'}}>
-            <p>Title  : {title}</p>
-            <p>Description  :{description}</p>
-            <p>Schedule Time :{scheduleTime}</p>
-            <p>Schedule Date :{scheduleDate}</p>
-            <p>Ticket Price :{ticketPrice}</p>
-            <p>Venue :{venue}</p>
-            <p>AdType :{adType}</p>
+            <p className="dashp">Title  : {title}</p>
+            <p className="dashp">Description  :{description}</p>
+            <p className="dashp">Schedule Time :{scheduleTime}</p>
+            <p className="dashp">Schedule Date :{scheduleDate}</p>
+            <p className="dashp">Ticket Price :{ticketPrice}</p>
+            <p className="dashp">Venue :{venue}</p>
+            <p className="dashp">AdType :{adType}</p>
             </div>
             <br />
             <center>

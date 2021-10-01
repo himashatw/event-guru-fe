@@ -3,6 +3,7 @@ import axios from "../../Services/axios";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import AdCard from "./AdCard";
+import UserNavBar from "../User/UserNavBar";
 
 const scrollToRef = (ref) =>
   window.scrollTo({ left: 0, top: ref.current.offsetTop, behavior: "smooth" });
@@ -12,6 +13,7 @@ function HomePage() {
 
   const myRef = useRef(null);
   const executeScroll = () => scrollToRef(myRef);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const getData = async () => {
@@ -29,7 +31,7 @@ function HomePage() {
   }, []);
 
   return (
-    <>
+    <>{ user === null ?
       <header className="min-h-screen bg-white ">
         <nav className="flex items-center py-8 px-14 justify-between sticky top-0 z-50 bg-white">
           <div className="flex items-center">
@@ -130,7 +132,8 @@ function HomePage() {
             />
           </div>
         </div>
-      </header>
+      </header> 
+      :<> <UserNavBar/><br/><br/></>}
       <Container minWidth="md" ref={myRef} className="bg-white">
         {/* End hero unit */}
         <Grid container spacing={7}>
