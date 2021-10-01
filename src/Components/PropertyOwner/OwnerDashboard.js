@@ -72,7 +72,9 @@ function OwnerDashboard(props) {
             </CardContent>
           </CardActionArea>
         </Card>
-        <Card className=" max-w-sm">
+        <Card 
+        className=" max-w-sm"
+        onClick={() => props.history.push("/owner/customPackage")}>
           <CardActionArea>
             <CardMedia
               className="h-36"
